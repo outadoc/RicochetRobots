@@ -1,5 +1,5 @@
 //
-//  main.c
+//  game_state.c
 //  RicochetRobots
 //
 //  Created by Baptiste on 28/10/13.
@@ -7,11 +7,3 @@
 //
 
 #include <stdio.h>
-
-int main(int argc, const char * argv[])
-{
-    //début de la boucle du jeu
-    printf("Hello world!\n");
-    return 0;
-}
-
