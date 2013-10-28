@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6C485515181E9C0B00BADF87 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C485514181E9C0B00BADF87 /* main.c */; };
-		6C485517181E9C0B00BADF87 /* RicochetRobots.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6C485516181E9C0B00BADF87 /* RicochetRobots.1 */; };
+		6C48551E181E9C4900BADF87 /* game.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C48551D181E9C4900BADF87 /* game.c */; };
+		6C485521181E9CAE00BADF87 /* display.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C485520181E9CAE00BADF87 /* display.c */; };
+		6C485525181EB11E00BADF87 /* board.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C485524181EB11E00BADF87 /* board.c */; };
+		6C485529181EB9FB00BADF87 /* player.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C485528181EB9FB00BADF87 /* player.c */; };
+		6C48552D181EBA3800BADF87 /* game_state.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C48552C181EBA3800BADF87 /* game_state.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,7 +22,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				6C485517181E9C0B00BADF87 /* RicochetRobots.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -27,7 +30,17 @@
 /* Begin PBXFileReference section */
 		6C485511181E9C0B00BADF87 /* RicochetRobots */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RicochetRobots; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C485514181E9C0B00BADF87 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		6C485516181E9C0B00BADF87 /* RicochetRobots.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = RicochetRobots.1; sourceTree = "<group>"; };
+		6C48551D181E9C4900BADF87 /* game.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game.c; sourceTree = "<group>"; };
+		6C48551F181E9C5400BADF87 /* game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
+		6C485520181E9CAE00BADF87 /* display.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = display.c; sourceTree = "<group>"; };
+		6C485522181E9CB600BADF87 /* display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = display.h; sourceTree = "<group>"; };
+		6C485523181EB11700BADF87 /* board.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = board.h; sourceTree = "<group>"; };
+		6C485524181EB11E00BADF87 /* board.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = board.c; sourceTree = "<group>"; };
+		6C485528181EB9FB00BADF87 /* player.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = player.c; sourceTree = "<group>"; };
+		6C48552A181EBA0500BADF87 /* player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
+		6C48552B181EBA3000BADF87 /* game_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_state.h; sourceTree = "<group>"; };
+		6C48552C181EBA3800BADF87 /* game_state.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game_state.c; sourceTree = "<group>"; };
+		6C48552E181EBD1D00BADF87 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = RicochetRobots/README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +57,7 @@
 		6C485508181E9C0B00BADF87 = {
 			isa = PBXGroup;
 			children = (
+				6C48552E181EBD1D00BADF87 /* README.md */,
 				6C485513181E9C0B00BADF87 /* RicochetRobots */,
 				6C485512181E9C0B00BADF87 /* Products */,
 			);
@@ -61,9 +75,26 @@
 			isa = PBXGroup;
 			children = (
 				6C485514181E9C0B00BADF87 /* main.c */,
-				6C485516181E9C0B00BADF87 /* RicochetRobots.1 */,
+				6C485526181EB67100BADF87 /* Includes */,
+				6C48551D181E9C4900BADF87 /* game.c */,
+				6C485520181E9CAE00BADF87 /* display.c */,
+				6C485524181EB11E00BADF87 /* board.c */,
+				6C485528181EB9FB00BADF87 /* player.c */,
+				6C48552C181EBA3800BADF87 /* game_state.c */,
 			);
 			path = RicochetRobots;
+			sourceTree = "<group>";
+		};
+		6C485526181EB67100BADF87 /* Includes */ = {
+			isa = PBXGroup;
+			children = (
+				6C48551F181E9C5400BADF87 /* game.h */,
+				6C485522181E9CB600BADF87 /* display.h */,
+				6C485523181EB11700BADF87 /* board.h */,
+				6C48552B181EBA3000BADF87 /* game_state.h */,
+				6C48552A181EBA0500BADF87 /* player.h */,
+			);
+			name = Includes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,7 +148,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C485525181EB11E00BADF87 /* board.c in Sources */,
 				6C485515181E9C0B00BADF87 /* main.c in Sources */,
+				6C485521181E9CAE00BADF87 /* display.c in Sources */,
+				6C48552D181EBA3800BADF87 /* game_state.c in Sources */,
+				6C485529181EB9FB00BADF87 /* player.c in Sources */,
+				6C48551E181E9C4900BADF87 /* game.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
