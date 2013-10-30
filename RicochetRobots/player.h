@@ -9,9 +9,11 @@
 #ifndef RicochetRobots_player_h
 #define RicochetRobots_player_h
 
-enum Robots {
-    RED, GREEN, BLUE, GREY
-};
+//constantes pour la couleur des robots
+#define ROBOT_RED 0
+#define ROBOT_GREEN 1
+#define ROBOT_BLUE 2
+#define ROBOT_GREY 3
 
 struct Player {
     int robotColor;
