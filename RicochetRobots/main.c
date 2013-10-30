@@ -7,11 +7,11 @@
 //
 
 #include <stdio.h>
+#include "game.h"
 
 int main(int argc, const char * argv[])
 {
-    //début de la boucle du jeu
-    printf("Hello world!\n");
-    return 0;
+    //exécution de la boucle principale
+    return start();
 }
 

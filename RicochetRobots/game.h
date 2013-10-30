@@ -9,7 +9,10 @@
 #ifndef RicochetRobots_game_h
 #define RicochetRobots_game_h
 
+#define VERSION "0.1"
+
 int start();
 int handleMainMenu();
+int wantsToReplay();
 
 #endif

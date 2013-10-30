@@ -40,7 +40,6 @@
 		6C48552A181EBA0500BADF87 /* player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
 		6C48552B181EBA3000BADF87 /* game_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_state.h; sourceTree = "<group>"; };
 		6C48552C181EBA3800BADF87 /* game_state.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game_state.c; sourceTree = "<group>"; };
-		6C48552E181EBD1D00BADF87 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = RicochetRobots/README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +56,6 @@
 		6C485508181E9C0B00BADF87 = {
 			isa = PBXGroup;
 			children = (
-				6C48552E181EBD1D00BADF87 /* README.md */,
 				6C485513181E9C0B00BADF87 /* RicochetRobots */,
 				6C485512181E9C0B00BADF87 /* Products */,
 			);
@@ -261,6 +259,7 @@
 				6C48551C181E9C0B00BADF87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

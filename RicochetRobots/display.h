@@ -11,5 +11,6 @@
 
 void displayMainMenu();
 void listBuiltInBoards();
+void displayLogo();
 
 #endif
