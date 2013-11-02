@@ -52,9 +52,13 @@ void askForPlayersInfo(Player players[])
         //vidage du buffer
         fseek(stdin, 0, SEEK_END);
         
-        //dangereux ça, on risque de se prendre des buffer overflows dans la tronche
-        //TODO: rendre secure
-        scanf("%s", players[i].username);
+        //on récupère 14 caractères (+1 pour le \0) dans username
+        fgets(players[i].username, 14, stdin);
+        
+        //enlève le \n de fin de chaîne
+        size_t ln = strlen(players[i].username) - 1;
+        if (players[i].username[ln] == '\n')
+            players[i].username[ln] = '\0';
     }
 }
 
@@ -68,9 +72,13 @@ void askForSinglePlayerUsername(Player robots[])
     //vidage du buffer
     fseek(stdin, 0, SEEK_END);
     
-    //dangereux ça, on risque de se prendre des buffer overflows dans la tronche
-    //TODO: rendre secure
-    scanf("%s", username);
+    //on récupère 14 caractères (+1 pour le \0) dans username
+    fgets(username, 14, stdin);
+    
+    //enlève le \n de fin de chaîne
+    size_t ln = strlen(username) - 1;
+    if (username[ln] == '\n')
+        username[ln] = '\0';
     
     for (i = 0; i < 4; i++) {
         strcpy(robots[i].username, username);
