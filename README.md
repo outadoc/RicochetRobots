@@ -1,24 +1,14 @@
-#Ricochet Robots
+	    ____  ______________  ________  ______________
+	   / __ \/  _/ ____/ __ \/ ____/ / / / ____/_  __/
+	  / /_/ // // /   / / / / /   / /_/ / __/   / /
+	 / _, _// // /___/ /_/ / /___/ __  / /___  / /
+	/_/ ||||__||||__||||__||||__|||_|||||||_/ /_/
+	   / __ \/ __ \/ __ )/ __ \/_  __/ ___/
+	  / /_/ / / / / __  / / / / / /  \__ 
+	 / _, _/ /_/ / /_/ / /_/ / / /  ___/ /
+	/_/ |_|\____/_____/\____/ /_/  /____/
 
-##Codage des éléments du plateau :
 
-* 0 : case vide
-* 1 : objectif
+(parce qu'on a la classe, ou on l'a pas.)
 
-* 10 : mur simple gauche
-* 11 : mur simple haut
-* 12 : mur simple droite
-* 13 : mur simple bas
-
-* 20 : mur double gauche/haut
-* 21 : mur double droite/haut
-* 22 : mur double gauche/bas
-* 23 : mur double droite/bas
-* 24 : mur complet
-
-##Codage des robots :
-
-* 0 : robot rouge
-* 1 : robot vert
-* 2 : robot bleu
-* 3 : robot gris
+Projet de 1ère année de DUT Info par Pierre Lefèvre et Baptiste Candellier.
