@@ -27,6 +27,7 @@
 
 #define CELL_WALL_ALL_SIDES 24
 
+
 //structure du plateau de jeu
 struct GameBoard {
     char data[BOARD_SIZE][BOARD_SIZE];
@@ -37,6 +38,7 @@ typedef struct GameBoard GameBoard;
 
 void loadBoardFromFile(GameBoard board, const char path[]);
 void getRandomBoard(GameBoard board);
+
 GameBoard* getBuiltInBoards();
 
 #endif

@@ -17,10 +17,12 @@
 
 struct Player {
     int robotColor;
-    char username[];
+    char username[15];
     int score;
 };
 
 typedef struct Player Player;
+
+
 
 #endif

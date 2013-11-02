@@ -10,6 +10,7 @@
 #define RicochetRobots_game_h
 
 #define VERSION "0.1"
+#include "game_state.h"
 
 int start();
 int handleMainMenu();
