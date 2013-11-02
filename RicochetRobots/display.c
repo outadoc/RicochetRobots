@@ -121,19 +121,11 @@ void displayGameBoard(GameState *currentGame)
     {
         for (j = 0; j < BOARD_SIZE; j++)
         {
-            printf("[%d]", currentGame->gameBoard->data[i][j]);
-        }
-        
-        printf("\n");
-    }
-    
-    printf("\n------------------\n");
-    
-    for (i = 0; i < BOARD_SIZE; i++)
-    {
-        for (j = 0; j < BOARD_SIZE; j++)
-        {
-            printf("[%d]", currentGame->gameBoard->initialRobotsPlacement[i][j]);
+            if(currentGame->gameBoard->initialRobotsPlacement[i][j] != -1) {
+                printf("[%d+%d]", currentGame->gameBoard->data[i][j], currentGame->gameBoard->initialRobotsPlacement[i][j]);
+            } else {
+                printf("[%d]", currentGame->gameBoard->data[i][j]);
+            }
         }
         
         printf("\n");
