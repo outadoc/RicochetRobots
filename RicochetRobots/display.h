@@ -17,7 +17,7 @@ void displayMainMenu();
 void listBuiltInBoards();
 void displayLogo();
 
-void displayGameBoard(GameState currentGame);
+void displayGameBoard(GameState *currentGame);
 
 void askForPlayersInfo(Player players[]);
 int askForGameBoard(GameBoard *board);

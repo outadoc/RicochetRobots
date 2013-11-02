@@ -14,7 +14,7 @@
 
 int start()
 {
-    //boucle principale : on en sort avec un return;
+    //boucle principale : on en sort avec un return
     while(1) {
         int choice = 0, retry = 0;
         
@@ -48,7 +48,7 @@ int start()
                             .gameBoard = &board
                         };
                         
-                        displayGameBoard(newGame);
+                        displayGameBoard(&newGame);
                     }
                     break;
                 }

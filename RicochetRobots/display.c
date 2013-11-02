@@ -87,19 +87,17 @@ int askForGameBoard(GameBoard *board)
     printf("1. Plateau prédéfini\n");
     printf("2. Plateau depuis un fichier\n");
     printf("3. Plateau aléatoire\n");
-    printf("0. -- Retour au menu principal\n\n");
+    printf("0. -- Retour au menu principal\n");
     
     //tant qu'on n'a pas choisi une option correcte du menu
     do {
         retry = 0;
-        printf("plateau> ");
+        printf("\nplateau> ");
         scanf("%d", &choice);
         
         switch (choice) {
             case 1: {
-                GameBoard boards[2];
-                getBuiltInBoards(boards);
-                board = &boards[0];
+                *board = getBuiltInBoardAtIndex(0);
                 break;
             }
             case 0:
@@ -115,13 +113,27 @@ int askForGameBoard(GameBoard *board)
     return 0;
 }
 
-void displayGameBoard(GameState currentGame)
+void displayGameBoard(GameState *currentGame)
 {
     int i, j;
     
-    for (i = 0; i < BOARD_SIZE; i++) {
-        for (j = 0; j < BOARD_SIZE; j++) {
-            printf("[%d]", currentGame.gameBoard->data[i][j]);
+    for (i = 0; i < BOARD_SIZE; i++)
+    {
+        for (j = 0; j < BOARD_SIZE; j++)
+        {
+            printf("[%d]", currentGame->gameBoard->data[i][j]);
+        }
+        
+        printf("\n");
+    }
+    
+    printf("\n------------------\n");
+    
+    for (i = 0; i < BOARD_SIZE; i++)
+    {
+        for (j = 0; j < BOARD_SIZE; j++)
+        {
+            printf("[%d]", currentGame->gameBoard->initialRobotsPlacement[i][j]);
         }
         
         printf("\n");

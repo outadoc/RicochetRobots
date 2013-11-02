@@ -9,7 +9,10 @@
 #ifndef RicochetRobots_board_h
 #define RicochetRobots_board_h
 
+//taille d'un plateau de jeu
 #define BOARD_SIZE 16
+//nombre de grilles prédéfinies
+#define BUILTIN_BOARDS_COUNT 2
 
 //constantes pour la valeur des cases
 #define CELL_EMPTY 0
@@ -38,6 +41,7 @@ typedef struct GameBoard GameBoard;
 
 void loadBoardFromFile(GameBoard board, const char path[]);
 void getRandomBoard(GameBoard board);
-void getBuiltInBoards(GameBoard boards[2]);
+
+GameBoard getBuiltInBoardAtIndex(int index);
 
 #endif
