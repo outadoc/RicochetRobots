@@ -34,7 +34,22 @@ int start()
                     return 0;
                     break;
                 case 1: {
-                    printf("OUÉÉÉÉ, ALLEZ VIENS ON JOUE À RICAUCHAY RAUBAUTS\n");
+                    GameBoard board;
+                    Player robots[4];
+                    
+                    if(askForGameBoard(&board) == 0) {
+                        //si askForGameBoard renvoie 0, on est prêts à continuer
+                        askForSinglePlayerUsername(robots);
+                        
+                        GameState newGame = {
+                            .turnCount = 0,
+                            .currentPlayer = &robots[0],
+                            .players = robots,
+                            .gameBoard = &board
+                        };
+                        
+                        displayGameBoard(newGame);
+                    }
                     break;
                 }
                 case 2: {
@@ -44,7 +59,7 @@ int start()
                 }
                 default:
                     //si le choix est incorrect, on réessaye
-                    printf("Choix incorrect.");
+                    printf("Mmh. J'ai bien peur que ce choix ne soit un peu trop impulsif.");
                     retry = 1;
                     break;
             }

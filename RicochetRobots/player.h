@@ -23,6 +23,6 @@ struct Player {
 
 typedef struct Player Player;
 
-
+void initRobots(Player robots[]);
 
 #endif

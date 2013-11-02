@@ -20,11 +20,11 @@ struct GameState {
     //joueur courant
     Player* currentPlayer;
     
-    Player players[4];
+    Player* players;
     GameBoard* gameBoard;
     
-    //position des robots
-    GameBoard robotPositions[BOARD_SIZE][BOARD_SIZE];
+    //position actuelle des robots
+    char currRobotsPos[BOARD_SIZE][BOARD_SIZE];
 };
 
 typedef struct GameState GameState;

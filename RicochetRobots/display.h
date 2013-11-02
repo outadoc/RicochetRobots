@@ -20,6 +20,7 @@ void displayLogo();
 void displayGameBoard(GameState currentGame);
 
 void askForPlayersInfo(Player players[]);
-GameBoard askForGameBoard();
+int askForGameBoard(GameBoard *board);
+void askForSinglePlayerUsername(Player robots[]);
 
 #endif

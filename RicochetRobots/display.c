@@ -9,8 +9,11 @@
 //
 
 #include <stdio.h>
+#include <string.h>
+
 #include "display.h"
 #include "game.h"
+#include "player.h"
 
 void displayMainMenu()
 {
@@ -41,10 +44,7 @@ void askForPlayersInfo(Player players[])
 {
     int i;
     
-    players[0].robotColor = ROBOT_RED;   //FORCE ROUGE !
-    players[1].robotColor = ROBOT_GREEN; //FORCE VERTE !
-    players[2].robotColor = ROBOT_BLUE;  //FORCE BLEUE !
-    players[3].robotColor = ROBOT_GREY;  //FORCE... arf
+    initRobots(players);
     
     for (i = 0; i < 4; i++) {
         printf("Pseudo du joueur %d : ", i+1);
@@ -58,31 +58,72 @@ void askForPlayersInfo(Player players[])
     }
 }
 
-GameBoard askForGameBoard()
+void askForSinglePlayerUsername(Player robots[])
 {
-    int choice = 0;
-    GameBoard board;
+    char username[10];
+    int i;
     
-    printf("CHOIX DU PLATEAU\n");
+    printf("Votre pseudo : ");
+    
+    //vidage du buffer
+    fseek(stdin, 0, SEEK_END);
+    
+    //dangereux ça, on risque de se prendre des buffer overflows dans la tronche
+    //TODO: rendre secure
+    scanf("%s", username);
+    
+    for (i = 0; i < 4; i++) {
+        strcpy(username, robots[i].username);
+    }
+}
+
+int askForGameBoard(GameBoard *board)
+{
+    int choice = 0, retry = 0;
+    
+    printf("\nCHOIX DU PLATEAU\n");
     printf("----------------\n\n");
     
-    printf("1. Plateau prédéfini");
-    printf("2. Plateau depuis un fichier");
-    printf("3. Plateau aléatoire");
-    printf("0. -- Retour au menu principal");
+    printf("1. Plateau prédéfini\n");
+    printf("2. Plateau depuis un fichier\n");
+    printf("3. Plateau aléatoire\n");
+    printf("0. -- Retour au menu principal\n\n");
     
-    scanf("%d", &choice);
-    
-    switch (choice) {
-        case 1: {
-            GameBoard boards[2];
-            getBuiltInBoards(boards);
-            
-            break;
+    //tant qu'on n'a pas choisi une option correcte du menu
+    do {
+        retry = 0;
+        printf("plateau> ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1: {
+                GameBoard boards[2];
+                getBuiltInBoards(boards);
+                board = &boards[0];
+                break;
+            }
+            case 0:
+                return 1;
+                break;
+            default:
+                printf("Sérieusement ?");
+                retry = 1;
+                break;
         }
-        default:
-            break;
-    }
+    } while(retry);
     
-    return board;
+    return 0;
+}
+
+void displayGameBoard(GameState currentGame)
+{
+    int i, j;
+    
+    for (i = 0; i < BOARD_SIZE; i++) {
+        for (j = 0; j < BOARD_SIZE; j++) {
+            printf("[%d]", currentGame.gameBoard->data[i][j]);
+        }
+        
+        printf("\n");
+    }
 }
