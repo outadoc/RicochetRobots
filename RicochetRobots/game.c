@@ -33,9 +33,15 @@ int start()
                     //si on veut quitter le jeu
                     return 0;
                     break;
-                case 1:
+                case 1: {
                     printf("OUÉÉÉÉ, ALLEZ VIENS ON JOUE À RICAUCHAY RAUBAUTS\n");
                     break;
+                }
+                case 2: {
+                    Player players[4];
+                    askForPlayersInfo(players);
+                    break;
+                }
                 default:
                     //si le choix est incorrect, on réessaye
                     printf("Choix incorrect.");

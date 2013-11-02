@@ -11,10 +11,13 @@
 
 #include "board.h"
 #include "player.h"
+#include "game_state.h"
 
 void displayMainMenu();
 void listBuiltInBoards();
 void displayLogo();
+
+void displayGameBoard(GameState currentGame);
 
 void askForPlayersInfo(Player players[]);
 GameBoard askForGameBoard();

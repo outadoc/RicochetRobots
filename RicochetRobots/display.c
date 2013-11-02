@@ -51,6 +51,9 @@ void askForPlayersInfo(Player players[])
         
         //vidage du buffer
         fseek(stdin, 0, SEEK_END);
+        
+        //dangereux ça, on risque de se prendre des buffer overflows dans la tronche
+        //TODO: rendre secure
         scanf("%s", players[i].username);
     }
 }
@@ -71,9 +74,12 @@ GameBoard askForGameBoard()
     scanf("%d", &choice);
     
     switch (choice) {
-        case 1:
+        case 1: {
+            GameBoard boards[2];
+            getBuiltInBoards(boards);
             
             break;
+        }
         default:
             break;
     }
