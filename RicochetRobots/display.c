@@ -60,7 +60,7 @@ void askForPlayersInfo(Player players[])
 
 void askForSinglePlayerUsername(Player robots[])
 {
-    char username[10];
+    char username[15];
     int i;
     
     printf("Votre pseudo : ");
@@ -73,7 +73,7 @@ void askForSinglePlayerUsername(Player robots[])
     scanf("%s", username);
     
     for (i = 0; i < 4; i++) {
-        strcpy(username, robots[i].username);
+        strcpy(robots[i].username, username);
     }
 }
 
@@ -122,12 +122,35 @@ void displayGameBoard(GameState *currentGame)
         for (j = 0; j < BOARD_SIZE; j++)
         {
             if(currentGame->gameBoard->initialRobotsPlacement[i][j] != -1) {
-                printf("[%d+%d]", currentGame->gameBoard->data[i][j], currentGame->gameBoard->initialRobotsPlacement[i][j]);
+                printf("%s[%d]%s", getAnsiColorFromRobotColor(currentGame->gameBoard->initialRobotsPlacement[i][j]), currentGame->gameBoard->data[i][j], ANSI_COLOR_RESET);
             } else {
                 printf("[%d]", currentGame->gameBoard->data[i][j]);
             }
         }
         
         printf("\n");
+    }
+    
+    //printf("\nJoueur actuel : %s\n", currentGame->currentPlayer->username);
+}
+
+char* getAnsiColorFromRobotColor(int color)
+{
+    switch (color) {
+        case ROBOT_RED:
+            return ANSI_COLOR_RED;
+            break;
+        case ROBOT_GREEN:
+            return ANSI_COLOR_GREEN;
+            break;
+        case ROBOT_BLUE:
+            return ANSI_COLOR_BLUE;
+            break;
+        case ROBOT_GREY:
+            return ANSI_COLOR_YELLOW;
+            break;
+        default:
+            return ANSI_COLOR_RESET;
+            break;
     }
 }
