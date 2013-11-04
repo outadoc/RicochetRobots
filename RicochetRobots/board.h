@@ -18,9 +18,13 @@
 #define CELL_EMPTY 0
 #define CELL_OBJECTIVE 1
 
+//mur gauche
 #define CELL_WALL_LEFT 10
+//mur haut
 #define CELL_WALL_TOP 11
+//mur droite
 #define CELL_WALL_RIGHT 12
+//mur bas
 #define CELL_WALL_BOTTOM 13
 
 
