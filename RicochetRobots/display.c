@@ -128,6 +128,8 @@ void displayGameBoard(GameState *currentGame)
     for (i = 0; i < BOARD_SIZE; i++)
     {
         if(i == 0) {
+            printf("-");
+            
             for (j = 0; j < BOARD_SIZE; j++)
             {
                 //première ligne ? on affiche une ligne de "-"
@@ -136,16 +138,20 @@ void displayGameBoard(GameState *currentGame)
         }
         
         //début de ligne
-        printf("-\n|");
+        printf("\n|");
         
         for (j = 0; j < BOARD_SIZE; j++)
         {
             //on affiche les murs verticaux
-            //le robot est entouré de deux espaces
-            
             //si il y a un robot dans la case actuelle
-            if(currentGame->gameBoard->initialRobotsPlacement[i][j] != -1) printf("%s[@]%s", getAnsiColorFromRobotColor(currentGame->gameBoard->initialRobotsPlacement[i][j]), ANSI_COLOR_RESET);
-            else printf("   ");
+            if(currentGame->gameBoard->initialRobotsPlacement[i][j] != -1)
+            {
+                printf("%s[@]%s", getAnsiColorFromRobotColor(currentGame->gameBoard->initialRobotsPlacement[i][j]), ANSI_COLOR_RESET);
+            }
+            else
+            {
+               printf("   ");
+            }
             
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
             if(currentGame->gameBoard->obstacles[i][j] == CELL_WALL_RIGHT
@@ -154,10 +160,13 @@ void displayGameBoard(GameState *currentGame)
             {
                 printf("|");
             }
-            else printf(" ");
+            else
+            {
+              printf(" ");
+            }
         }
         
-        printf("\n");
+        printf("\n-");
         
         for (j = 0; j < BOARD_SIZE; j++)
         {
@@ -167,13 +176,19 @@ void displayGameBoard(GameState *currentGame)
                || i == BOARD_SIZE - 1)
             {
                 printf("----");
-            } else {
+            }
+            else if(j == BOARD_SIZE -1)
+            {
+                printf("   -");
+            }
+            else
+            {
                 printf("    ");
             }
         }
     }
     
-    printf("-\n");
+    printf("\n");
     
     //printf("\nJoueur actuel : %s\n", currentGame->currentPlayer->username);
 }
