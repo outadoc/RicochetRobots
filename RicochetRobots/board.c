@@ -18,7 +18,7 @@ GameBoard getBuiltInBoardAtIndex(int index)
     GameBoard builtinBoards[] = {
         {
             //premier plateau
-            .data = {
+            .obstacles = {
                 //placement des murs du premier plateau
                 {00, 00, 00, 12, 00, 00, 00, 00, 00, 00, 00, 12, 00, 00, 00, 00},
                 {00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 12, 11, 00, 00},
@@ -59,7 +59,7 @@ GameBoard getBuiltInBoardAtIndex(int index)
         },
         {
             //deuxième plateau
-            .data = {
+            .obstacles = {
                 //placement des murs du deuxième plateau
                 {00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00},
                 {00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00},

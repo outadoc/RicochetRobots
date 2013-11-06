@@ -30,7 +30,7 @@
 
 //structure du plateau de jeu
 struct GameBoard {
-    char data[BOARD_SIZE][BOARD_SIZE];
+    char obstacles[BOARD_SIZE][BOARD_SIZE];
     char initialRobotsPlacement[BOARD_SIZE][BOARD_SIZE];
 };
 

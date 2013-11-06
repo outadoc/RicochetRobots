@@ -130,9 +130,9 @@ void displayGameBoard(GameState *currentGame)
         for (j = 0; j < BOARD_SIZE; j++)
         {
             if(currentGame->gameBoard->initialRobotsPlacement[i][j] != -1) {
-                printf("%s[%d]%s", getAnsiColorFromRobotColor(currentGame->gameBoard->initialRobotsPlacement[i][j]), currentGame->gameBoard->data[i][j], ANSI_COLOR_RESET);
+                printf("%s[%d]%s", getAnsiColorFromRobotColor(currentGame->gameBoard->initialRobotsPlacement[i][j]), currentGame->gameBoard->obstacles[i][j], ANSI_COLOR_RESET);
             } else {
-                printf("[%d]", currentGame->gameBoard->data[i][j]);
+                printf("[%d]", currentGame->gameBoard->obstacles[i][j]);
             }
         }
         
