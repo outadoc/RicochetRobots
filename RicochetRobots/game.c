@@ -48,7 +48,7 @@ int start()
                             .gameBoard = &board
                         };
                         
-                        displayGameBoard(newGame.gameBoard);
+                        refreshDisplay(&newGame);
                     }
                     break;
                 }

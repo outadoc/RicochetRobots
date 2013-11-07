@@ -191,9 +191,19 @@ void displayGameBoard(GameBoard *board)
     printf("\n");
 }
 
-void refreshDisplay(GameState currentGame)
+void refreshDisplay(GameState *currentGame)
 {
+    printf("\n----------------------\n");
+    printf("Tour %d\n", currentGame->turnCount);
+    printf("Joueur actuel : %s\n", currentGame->currentPlayer->username);
+    printf("Score : %d\n",
+             currentGame->players[0].score
+           + currentGame->players[1].score
+           + currentGame->players[2].score
+           + currentGame->players[3].score);
+    printf("----------------------\n");
     
+    displayGameBoard(currentGame->gameBoard);
 }
 
 char* getAnsiColorFromRobotColor(int color)
