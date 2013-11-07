@@ -121,7 +121,7 @@ int askForGameBoard(GameBoard *board)
     return 0;
 }
 
-void displayGameBoard(GameState *currentGame)
+void displayGameBoard(GameBoard *board)
 {
     int i, j;
     
@@ -144,9 +144,9 @@ void displayGameBoard(GameState *currentGame)
         {
             //on affiche les murs verticaux
             //si il y a un robot dans la case actuelle
-            if(currentGame->gameBoard->initialRobotsPlacement[i][j] != -1)
+            if(board->initialRobotsPlacement[i][j] != -1)
             {
-                printf("%s[@]%s", getAnsiColorFromRobotColor(currentGame->gameBoard->initialRobotsPlacement[i][j]), ANSI_COLOR_RESET);
+                printf("%s[@]%s", getAnsiColorFromRobotColor(board->initialRobotsPlacement[i][j]), ANSI_COLOR_RESET);
             }
             else
             {
@@ -154,8 +154,8 @@ void displayGameBoard(GameState *currentGame)
             }
             
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
-            if(currentGame->gameBoard->obstacles[i][j] == CELL_WALL_RIGHT
-               || (j < BOARD_SIZE && currentGame->gameBoard->obstacles[i][j+1] == CELL_WALL_LEFT)
+            if(board->obstacles[i][j] == CELL_WALL_RIGHT
+               || (j < BOARD_SIZE && board->obstacles[i][j+1] == CELL_WALL_LEFT)
                || j == BOARD_SIZE - 1)
             {
                 printf("|");
@@ -171,8 +171,8 @@ void displayGameBoard(GameState *currentGame)
         for (j = 0; j < BOARD_SIZE; j++)
         {
             //on affiche les murs horizontaux
-            if(currentGame->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
-               || (i < BOARD_SIZE && currentGame->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP)
+            if(board->obstacles[i][j] == CELL_WALL_BOTTOM
+               || (i < BOARD_SIZE && board->obstacles[i+1][j] == CELL_WALL_TOP)
                || i == BOARD_SIZE - 1)
             {
                 printf("----");
@@ -189,8 +189,11 @@ void displayGameBoard(GameState *currentGame)
     }
     
     printf("\n");
+}
+
+void refreshDisplay(GameState currentGame)
+{
     
-    //printf("\nJoueur actuel : %s\n", currentGame->currentPlayer->username);
 }
 
 char* getAnsiColorFromRobotColor(int color)
