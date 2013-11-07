@@ -105,7 +105,14 @@ int askForGameBoard(GameBoard *board)
         
         switch (choice) {
             case 1: {
-                *board = getBuiltInBoardAtIndex(0);
+                int boardNb = 0;
+                
+                do {
+                    printf("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
+                    scanf("%d", &boardNb);
+                } while(boardNb < 1 || boardNb > BUILTIN_BOARDS_COUNT);
+                
+                *board = getBuiltInBoardAtIndex(boardNb - 1);
                 break;
             }
             case 0:
