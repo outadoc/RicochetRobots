@@ -17,17 +17,17 @@ int start()
     //boucle principale : on en sort avec un return
     while(1) {
         int choice = 0, retry = 0;
-        
+
         //on affiche les options du menu principal
         displayMainMenu();
-        
+
         //tant qu'on n'a pas choisi une option correcte du menu
         do {
             retry = 0;
-            
+
             //on demande son choix à l'utilisateur
             choice = handleMainMenu();
-            
+
             switch (choice) {
                 case 0:
                     //si on veut quitter le jeu
@@ -36,18 +36,18 @@ int start()
                 case 1: {
                     GameBoard board;
                     Player robots[4];
-                    
+
                     if(askForGameBoard(&board) == 0) {
                         //si askForGameBoard renvoie 0, on est prêts à continuer
                         askForSinglePlayerUsername(robots);
-                        
+
                         GameState newGame = {
                             .turnCount = 0,
                             .currentPlayer = &robots[0],
                             .players = robots,
                             .gameBoard = &board
                         };
-                        
+
                         refreshDisplay(&newGame);
                     }
                     break;
@@ -64,7 +64,7 @@ int start()
                     break;
             }
         } while(retry);
-        
+
         //on demande au joueur s'il veut rejouer : dans le cas contraire, on quitte le jeu
         if(!wantsToReplay()) return 0;
     }
@@ -73,22 +73,23 @@ int start()
 int handleMainMenu()
 {
     int choice = 0;
-    
+
     printf("\nmenu> ");
     scanf("%d", &choice);
+    while(getchar()!='\n');
     return choice;
 }
 
 int wantsToReplay()
 {
     char answer = '\0';
-    
+
     //vidage du buffer
     fseek(stdin, 0, SEEK_END);
-    
+
     printf("\nVoulez-vous rejouer ? (O/n) ");
     answer = fgetc(stdin);
-    
+
     //si on veut rejouer, retourner 1, sinon 0
     if(answer == 'o' || answer == 'O') {
         return 1;

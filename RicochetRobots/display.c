@@ -18,10 +18,10 @@
 void displayMainMenu()
 {
     displayLogo();
-    
+
     printf("MENU PRINCIPAL\n");
     printf("--------------\n\n");
-    
+
     printf("1. Partie solo\n");
     printf("2. Partie multi\n");
     printf("0. -- Quitter\n");
@@ -43,18 +43,16 @@ void displayLogo()
 void askForPlayersInfo(Player players[])
 {
     int i;
-    
+
     initRobots(players);
-    
+
     for (i = 0; i < 4; i++) {
+
         printf("Pseudo du joueur %d : ", i+1);
-        
-        //vidage du buffer
-        fseek(stdin, 0, SEEK_END);
-        
+
         //on récupère 14 caractères (+1 pour le \0) dans username
         fgets(players[i].username, 14, stdin);
-        
+
         //enlève le \n de fin de chaîne
         size_t ln = strlen(players[i].username) - 1;
         if (players[i].username[ln] == '\n')
@@ -66,20 +64,20 @@ void askForSinglePlayerUsername(Player robots[])
 {
     char username[15];
     int i;
-    
+
     printf("Votre pseudo : ");
-    
+
     //vidage du buffer
-    fseek(stdin, 0, SEEK_END);
-    
+    while(getchar()!='\n');
+
     //on récupère 14 caractères (+1 pour le \0) dans username
     fgets(username, 14, stdin);
-    
+
     //enlève le \n de fin de chaîne
     size_t ln = strlen(username) - 1;
     if (username[ln] == '\n')
         username[ln] = '\0';
-    
+
     for (i = 0; i < 4; i++) {
         strcpy(robots[i].username, username);
     }
@@ -88,30 +86,30 @@ void askForSinglePlayerUsername(Player robots[])
 int askForGameBoard(GameBoard *board)
 {
     int choice = 0, retry = 0;
-    
+
     printf("\nCHOIX DU PLATEAU\n");
     printf("----------------\n\n");
-    
+
     printf("1. Plateau prédéfini\n");
     printf("2. Plateau depuis un fichier\n");
     printf("3. Plateau aléatoire\n");
     printf("0. -- Retour au menu principal\n");
-    
+
     //tant qu'on n'a pas choisi une option correcte du menu
     do {
         retry = 0;
         printf("\nplateau> ");
         scanf("%d", &choice);
-        
+
         switch (choice) {
             case 1: {
                 int boardNb = 0;
-                
+
                 do {
                     printf("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
                     scanf("%d", &boardNb);
                 } while(boardNb < 1 || boardNb > BUILTIN_BOARDS_COUNT);
-                
+
                 *board = getBuiltInBoardAtIndex(boardNb - 1);
                 break;
             }
@@ -124,29 +122,29 @@ int askForGameBoard(GameBoard *board)
                 break;
         }
     } while(retry);
-    
+
     return 0;
 }
 
 void displayGameBoard(GameBoard *board)
 {
     int i, j;
-    
+
     for (i = 0; i < BOARD_SIZE; i++)
     {
         if(i == 0) {
             printf("-");
-            
+
             for (j = 0; j < BOARD_SIZE; j++)
             {
                 //première ligne ? on affiche une ligne de "-"
                 printf("----");
             }
         }
-        
+
         //début de ligne
         printf("\n|");
-        
+
         for (j = 0; j < BOARD_SIZE; j++)
         {
             //on affiche les murs verticaux
@@ -159,7 +157,7 @@ void displayGameBoard(GameBoard *board)
             {
                printf("   ");
             }
-            
+
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
             if(board->obstacles[i][j] == CELL_WALL_RIGHT
                || (j < BOARD_SIZE && board->obstacles[i][j+1] == CELL_WALL_LEFT)
@@ -172,9 +170,9 @@ void displayGameBoard(GameBoard *board)
               printf(" ");
             }
         }
-        
+
         printf("\n-");
-        
+
         for (j = 0; j < BOARD_SIZE; j++)
         {
             //on affiche les murs horizontaux
@@ -194,7 +192,7 @@ void displayGameBoard(GameBoard *board)
             }
         }
     }
-    
+
     printf("\n");
 }
 
@@ -209,7 +207,7 @@ void refreshDisplay(GameState *currentGame)
            + currentGame->players[2].score
            + currentGame->players[3].score);
     printf("+++++++++++++++++++++++++++++\n\n");
-    
+
     displayGameBoard(currentGame->gameBoard);
 }
 
