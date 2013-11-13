@@ -15,13 +15,11 @@
 #define ROBOT_BLUE 2
 #define ROBOT_GREY 3
 
-struct Player {
+typedef struct {
     int robotColor;
     char username[15];
     int score;
-};
-
-typedef struct Player Player;
+} Player;
 
 void initRobots(Player robots[]);
 

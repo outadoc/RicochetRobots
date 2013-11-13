@@ -13,21 +13,19 @@
 #include "board.h"
 
 //état du jeu en cours
-struct GameState {
+typedef struct {
     //nombre de tours
     int turnCount;
-    
+
     //joueur courant
     Player* currentPlayer;
-    
+
     Player* players;
     GameBoard* gameBoard;
-    
+
     //position actuelle des robots
     char currRobotsPos[BOARD_SIZE][BOARD_SIZE];
-};
-
-typedef struct GameState GameState;
+} GameState;
 
 void startNewGame(GameBoard board);
 GameState gameConfig();

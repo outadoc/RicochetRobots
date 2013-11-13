@@ -29,12 +29,10 @@
 
 
 //structure du plateau de jeu
-struct GameBoard {
+typedef struct {
     char obstacles[BOARD_SIZE][BOARD_SIZE];
     char initialRobotsPlacement[BOARD_SIZE][BOARD_SIZE];
-};
-
-typedef struct GameBoard GameBoard;
+} GameBoard;
 
 void loadBoardFromFile(GameBoard board, const char path[]);
 void getRandomBoard(GameBoard board);
