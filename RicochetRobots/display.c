@@ -44,8 +44,6 @@ void askForPlayersInfo(Player players[])
 {
     int i;
 
-    initRobots(players);
-
     for (i = 0; i < 4; i++) {
 
         printf("Pseudo du joueur %d : ", i+1);

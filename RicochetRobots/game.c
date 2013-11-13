@@ -37,6 +37,8 @@ int start()
                     GameBoard board;
                     Player robots[4];
 
+                    initRobots(robots);
+
                     if(askForGameBoard(&board) == 0) {
                         //si askForGameBoard renvoie 0, on est prêts à continuer
                         askForSinglePlayerUsername(robots);

@@ -15,4 +15,6 @@ void initRobots(Player robots[])
     robots[1].robotColor = ROBOT_GREEN; //FORCE VERTE !
     robots[2].robotColor = ROBOT_BLUE;  //FORCE BLEUE !
     robots[3].robotColor = ROBOT_GREY;  //FORCE... arf
+
+    robots[0].score = robots[1].score = robots[2].score = robots[3].score = 0;
 }
