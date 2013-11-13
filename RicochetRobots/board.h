@@ -15,17 +15,17 @@
 #define BUILTIN_BOARDS_COUNT 2
 
 //constantes pour la valeur des cases
-#define CELL_EMPTY 0
-#define CELL_OBJECTIVE 1
+#define CELL_EMPTY 'E'
+#define CELL_OBJECTIVE 'O'
 
 //mur gauche
-#define CELL_WALL_LEFT 10
+#define CELL_WALL_LEFT 'L'
 //mur haut
-#define CELL_WALL_TOP 11
+#define CELL_WALL_TOP 'U'
 //mur droite
-#define CELL_WALL_RIGHT 12
+#define CELL_WALL_RIGHT 'R'
 //mur bas
-#define CELL_WALL_BOTTOM 13
+#define CELL_WALL_BOTTOM 'B'
 
 
 //structure du plateau de jeu
