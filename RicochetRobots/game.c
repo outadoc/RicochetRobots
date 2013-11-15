@@ -34,12 +34,17 @@ int start() {
                     break;
                 case 1: {
                     GameBoard board;
-                    Player robots[4];
-
-                    initRobots(robots);
 
                     if(askForGameBoard(&board) == 0) {
                         //si askForGameBoard renvoie 0, on est prêts à continuer
+                        
+                        Player robots[4] = {
+                            {.score = 0, .robotColor = ROBOT_RED, .position = board.robotsPosition[0]},
+                            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPosition[1]},
+                            {.score = 0, .robotColor = ROBOT_BLUE, .position = board.robotsPosition[2]},
+                            {.score = 0, .robotColor = ROBOT_GREY, .position = board.robotsPosition[3]},
+                        };
+                        
                         askForSinglePlayerUsername(robots);
 
                         GameState newGame = {

@@ -13,4 +13,3 @@ int main(int argc, const char * argv[]) {
     //exécution de la boucle principale
     return start();
 }
-

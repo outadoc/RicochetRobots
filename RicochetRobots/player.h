@@ -9,6 +9,8 @@
 #ifndef RicochetRobots_player_h
 #define RicochetRobots_player_h
 
+#include "board.h"
+
 //constantes pour la couleur des robots
 #define ROBOT_RED 0
 #define ROBOT_GREEN 1
@@ -18,8 +20,9 @@
 typedef struct {
     int robotColor;
     char username[15];
+    int score;
+    Coords position;
 } Player;
 
-void initRobots(Player robots[]);
 
 #endif

@@ -27,17 +27,16 @@
 //mur bas
 #define CELL_WALL_BOTTOM 'B'
 
-
-//structure du plateau de jeu
-typedef struct {
-    char obstacles[BOARD_SIZE][BOARD_SIZE];
-    char initialRobotsPlacement[BOARD_SIZE][BOARD_SIZE];
-} GameBoard;
-
 typedef struct {
     int x;
     int y;
 } Coords;
+
+//structure du plateau de jeu
+typedef struct {
+    char obstacles[BOARD_SIZE][BOARD_SIZE];
+    Coords robotsPosition[4];
+} GameBoard;
 
 void loadBoardFromFile(GameBoard board, const char path[]);
 void getRandomBoard(GameBoard board);

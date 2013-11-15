@@ -140,11 +140,18 @@ void displayGameBoard(GameBoard *board)
         for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs verticaux
             //si il y a un robot dans la case actuelle
-            if(board->initialRobotsPlacement[i][j] != -1) {
-                printf("%s[@]%s", getAnsiColorFromRobotColor(board->initialRobotsPlacement[i][j]), ANSI_COLOR_RESET);
-            } else {
-               printf("   ");
+            int k, hasRobot = 0;
+            
+            for (k = 0; k < 4; k++) {
+                //on vérifié, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
+                if(board->robotsPosition[k].x == i && board->robotsPosition[k].y == j) {
+                    hasRobot = 1;
+                    printf("%s[@]%s", getAnsiColorFromRobotColor(k), ANSI_COLOR_RESET);
+                }
             }
+            
+            //si il n'y a pas de robot dans la case, on affiche un espace
+            if(!hasRobot) printf("   ");
 
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
             if(board->obstacles[i][j] == CELL_WALL_RIGHT
@@ -180,10 +187,10 @@ void refreshDisplay(GameState *currentGame) {
     printf("Tour %d\n", currentGame->turnCount);
     printf("Joueur actuel : %s\n", currentGame->currentPlayer->username);
     printf("Score : %d\n",
-             currentGame->scores[0]
-           + currentGame->scores[1]
-           + currentGame->scores[2]
-           + currentGame->scores[3]);
+             currentGame->players[0].score
+           + currentGame->players[1].score
+           + currentGame->players[2].score
+           + currentGame->players[3].score);
     printf("+++++++++++++++++++++++++++++\n\n");
 
     displayGameBoard(currentGame->gameBoard);
