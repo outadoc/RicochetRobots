@@ -9,6 +9,8 @@
 //
 
 #include <stdio.h>
+#include <unistd.h>
+
 #include "game.h"
 #include "display.h"
 
@@ -54,6 +56,10 @@ int start() {
                             .gameBoard = &board
                         };
 
+                        refreshDisplay(&newGame);
+                        
+                        sleep(5);
+                        movePlayer(&robots[1], newGame.gameBoard, DIRECTION_DOWN);
                         refreshDisplay(&newGame);
                     }
                     break;

@@ -119,16 +119,14 @@ int askForGameBoard(GameBoard *board) {
     return 0;
 }
 
-void displayGameBoard(GameBoard *board)
-{
+void displayGameBoard(GameState *state) {
     int i, j;
 
     for (i = 0; i < BOARD_SIZE; i++) {
         if(i == 0) {
             printf("-");
 
-            for (j = 0; j < BOARD_SIZE; j++)
-            {
+            for (j = 0; j < BOARD_SIZE; j++) {
                 //première ligne ? on affiche une ligne de "-"
                 printf("----");
             }
@@ -144,7 +142,7 @@ void displayGameBoard(GameBoard *board)
             
             for (k = 0; k < 4; k++) {
                 //on vérifié, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
-                if(board->robotsPosition[k].x == i && board->robotsPosition[k].y == j) {
+                if(state->players[k].position.x == i && state->players[k].position.y == j) {
                     hasRobot = 1;
                     printf("%s[@]%s", getAnsiColorFromRobotColor(k), ANSI_COLOR_RESET);
                 }
@@ -154,8 +152,8 @@ void displayGameBoard(GameBoard *board)
             if(!hasRobot) printf("   ");
 
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
-            if(board->obstacles[i][j] == CELL_WALL_RIGHT
-               || (j < BOARD_SIZE && board->obstacles[i][j+1] == CELL_WALL_LEFT)
+            if(state->gameBoard->obstacles[i][j] == CELL_WALL_RIGHT
+               || (j < BOARD_SIZE && state->gameBoard->obstacles[i][j+1] == CELL_WALL_LEFT)
                || j == BOARD_SIZE - 1) {
                 printf("|");
             } else {
@@ -167,8 +165,8 @@ void displayGameBoard(GameBoard *board)
 
         for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs horizontaux
-            if(board->obstacles[i][j] == CELL_WALL_BOTTOM
-               || (i < BOARD_SIZE && board->obstacles[i+1][j] == CELL_WALL_TOP)
+            if(state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
+               || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP)
                || i == BOARD_SIZE - 1) {
                 printf("----");
             } else if(j == BOARD_SIZE -1) {
@@ -193,7 +191,7 @@ void refreshDisplay(GameState *currentGame) {
            + currentGame->players[3].score);
     printf("+++++++++++++++++++++++++++++\n\n");
 
-    displayGameBoard(currentGame->gameBoard);
+    displayGameBoard(currentGame);
 }
 
 char* getAnsiColorFromRobotColor(int color) {
