@@ -180,10 +180,10 @@ void refreshDisplay(GameState *currentGame) {
     printf("Tour %d\n", currentGame->turnCount);
     printf("Joueur actuel : %s\n", currentGame->currentPlayer->username);
     printf("Score : %d\n",
-             currentGame->players[0].score
-           + currentGame->players[1].score
-           + currentGame->players[2].score
-           + currentGame->players[3].score);
+             currentGame->scores[0]
+           + currentGame->scores[1]
+           + currentGame->scores[2]
+           + currentGame->scores[3]);
     printf("+++++++++++++++++++++++++++++\n\n");
 
     displayGameBoard(currentGame->gameBoard);

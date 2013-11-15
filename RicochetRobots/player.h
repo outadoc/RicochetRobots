@@ -18,7 +18,6 @@
 typedef struct {
     int robotColor;
     char username[15];
-    int score;
 } Player;
 
 void initRobots(Player robots[]);

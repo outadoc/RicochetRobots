@@ -34,6 +34,11 @@ typedef struct {
     char initialRobotsPlacement[BOARD_SIZE][BOARD_SIZE];
 } GameBoard;
 
+typedef struct {
+    int x;
+    int y;
+} Coords;
+
 void loadBoardFromFile(GameBoard board, const char path[]);
 void getRandomBoard(GameBoard board);
 
