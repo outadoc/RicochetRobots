@@ -15,8 +15,7 @@
 #include "game.h"
 #include "player.h"
 
-void displayMainMenu()
-{
+void displayMainMenu() {
     displayLogo();
 
     printf("MENU PRINCIPAL\n");
@@ -27,8 +26,7 @@ void displayMainMenu()
     printf("0. -- Quitter\n");
 }
 
-void displayLogo()
-{
+void displayLogo() {
     printf("    ____  ______________  ________  ______________\n");
     printf("   / __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/\n");
     printf("  / /_/ // // /   / / / / /   / /_/ / __/   / /\n");
@@ -40,8 +38,7 @@ void displayLogo()
     printf("/_/ |_|\\____/_____/\\____/ /_/  /____/    v%s\n\n", VERSION);
 }
 
-void askForPlayersInfo(Player players[])
-{
+void askForPlayersInfo(Player players[]) {
     int i;
 
     for (i = 0; i < 4; i++) {
@@ -58,8 +55,7 @@ void askForPlayersInfo(Player players[])
     }
 }
 
-void askForSinglePlayerUsername(Player robots[])
-{
+void askForSinglePlayerUsername(Player robots[]) {
     char username[15];
     int i;
 
@@ -81,8 +77,7 @@ void askForSinglePlayerUsername(Player robots[])
     }
 }
 
-int askForGameBoard(GameBoard *board)
-{
+int askForGameBoard(GameBoard *board) {
     int choice = 0, retry = 0;
 
     printf("\nCHOIX DU PLATEAU\n");
@@ -128,8 +123,7 @@ void displayGameBoard(GameBoard *board)
 {
     int i, j;
 
-    for (i = 0; i < BOARD_SIZE; i++)
-    {
+    for (i = 0; i < BOARD_SIZE; i++) {
         if(i == 0) {
             printf("-");
 
@@ -143,49 +137,36 @@ void displayGameBoard(GameBoard *board)
         //début de ligne
         printf("\n|");
 
-        for (j = 0; j < BOARD_SIZE; j++)
-        {
+        for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs verticaux
             //si il y a un robot dans la case actuelle
-            if(board->initialRobotsPlacement[i][j] != -1)
-            {
+            if(board->initialRobotsPlacement[i][j] != -1) {
                 printf("%s[@]%s", getAnsiColorFromRobotColor(board->initialRobotsPlacement[i][j]), ANSI_COLOR_RESET);
-            }
-            else
-            {
+            } else {
                printf("   ");
             }
 
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
             if(board->obstacles[i][j] == CELL_WALL_RIGHT
                || (j < BOARD_SIZE && board->obstacles[i][j+1] == CELL_WALL_LEFT)
-               || j == BOARD_SIZE - 1)
-            {
+               || j == BOARD_SIZE - 1) {
                 printf("|");
-            }
-            else
-            {
+            } else {
               printf(" ");
             }
         }
 
         printf("\n-");
 
-        for (j = 0; j < BOARD_SIZE; j++)
-        {
+        for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs horizontaux
             if(board->obstacles[i][j] == CELL_WALL_BOTTOM
                || (i < BOARD_SIZE && board->obstacles[i+1][j] == CELL_WALL_TOP)
-               || i == BOARD_SIZE - 1)
-            {
+               || i == BOARD_SIZE - 1) {
                 printf("----");
-            }
-            else if(j == BOARD_SIZE -1)
-            {
+            } else if(j == BOARD_SIZE -1) {
                 printf("   -");
-            }
-            else
-            {
+            } else {
                 printf("    ");
             }
         }
@@ -194,8 +175,7 @@ void displayGameBoard(GameBoard *board)
     printf("\n");
 }
 
-void refreshDisplay(GameState *currentGame)
-{
+void refreshDisplay(GameState *currentGame) {
     printf("\n+++++++++++++++++++++++++++++\n");
     printf("Tour %d\n", currentGame->turnCount);
     printf("Joueur actuel : %s\n", currentGame->currentPlayer->username);
@@ -209,8 +189,7 @@ void refreshDisplay(GameState *currentGame)
     displayGameBoard(currentGame->gameBoard);
 }
 
-char* getAnsiColorFromRobotColor(int color)
-{
+char* getAnsiColorFromRobotColor(int color) {
     switch (color) {
         case ROBOT_RED:
             return ANSI_COLOR_RED;

@@ -9,8 +9,7 @@
 #include <stdio.h>
 #include "game.h"
 
-int main(int argc, const char * argv[])
-{
+int main(int argc, const char * argv[]) {
     //exécution de la boucle principale
     return start();
 }

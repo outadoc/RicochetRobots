@@ -12,8 +12,7 @@
 #include "game.h"
 #include "display.h"
 
-int start()
-{
+int start() {
     //boucle principale : on en sort avec un return
     while(1) {
         int choice = 0, retry = 0;
@@ -72,8 +71,7 @@ int start()
     }
 }
 
-int handleMainMenu()
-{
+int handleMainMenu() {
     int choice = 0;
 
     printf("\nmenu> ");
@@ -82,8 +80,7 @@ int handleMainMenu()
     return choice;
 }
 
-int wantsToReplay()
-{
+int wantsToReplay() {
     char answer = '\0';
 
     //vidage du buffer

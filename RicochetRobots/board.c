@@ -13,10 +13,9 @@
 #include "board.h"
 #include "player.h"
 
-GameBoard getBuiltInBoardAtIndex(int index)
-{
+GameBoard getBuiltInBoardAtIndex(int index) {
     GameBoard builtinBoards[] = {
-        {
+    {
             //premier plateau
             .obstacles = {
                 //placement des murs du premier plateau
