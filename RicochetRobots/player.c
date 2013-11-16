@@ -15,7 +15,7 @@ int checkForObstacle(Player *player, GameBoard *board, int direction) {
     
     switch (direction) {
         case DIRECTION_DOWN:
-            return (x + 1 > BOARD_SIZE
+            return (x + 1 > BOARD_SIZE - 1
                     || board->obstacles[x][y] == CELL_WALL_BOTTOM
                     || board->obstacles[x+1][y] == CELL_WALL_TOP);
             break;
@@ -25,7 +25,7 @@ int checkForObstacle(Player *player, GameBoard *board, int direction) {
                     || board->obstacles[x][y-1] == CELL_WALL_RIGHT);
             break;
         case DIRECTION_RIGHT:
-            return (y + 1 > BOARD_SIZE
+            return (y + 1 > BOARD_SIZE - 1
                     || board->obstacles[x][y] == CELL_WALL_RIGHT
                     || board->obstacles[x][y+1] == CELL_WALL_LEFT);
             break;
