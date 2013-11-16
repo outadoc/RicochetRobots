@@ -57,8 +57,7 @@ int start() {
                         };
 
                         refreshDisplay(&newGame);
-                        
-                        movePlayerWhilePossible(&robots[0], newGame.gameBoard, DIRECTION_DOWN);
+                        movePlayerWhilePossible(&robots[0], newGame.gameBoard, waitForDirection());
                         refreshDisplay(&newGame);
                         
                     }
@@ -106,4 +105,29 @@ int wantsToReplay() {
     } else {
         return 0;
     }
+}
+
+int waitForDirection() {
+    char c;
+    
+    do {
+        c = getchar();
+    } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP);
+    
+    switch (c) {
+        case KEY_DOWN:
+            return DIRECTION_DOWN;
+            break;
+        case KEY_LEFT:
+            return DIRECTION_LEFT;
+            break;
+        case KEY_RIGHT:
+            return DIRECTION_RIGHT;
+            break;
+        case KEY_UP:
+            return KEY_UP;
+            break;
+    }
+    
+    return 0;
 }

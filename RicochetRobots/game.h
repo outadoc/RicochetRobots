@@ -11,6 +11,11 @@
 
 #define VERSION "0.1"
 
+#define KEY_UP 'z'
+#define KEY_LEFT 'q'
+#define KEY_DOWN 's'
+#define KEY_RIGHT 'd'
+
 #include "player.h"
 #include "board.h"
 
@@ -36,6 +41,7 @@ typedef struct {
 } GameState;
 
 void startNewGame(GameBoard board);
+int waitForDirection();
 GameState gameConfig();
 
 #endif
