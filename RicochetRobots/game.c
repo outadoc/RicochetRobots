@@ -55,10 +55,21 @@ int start() {
                             .players = robots,
                             .gameBoard = &board
                         };
-
+                        
                         refreshDisplay(&newGame);
-                        movePlayerWhilePossible(&robots[0], newGame.gameBoard, waitForDirection());
-                        refreshDisplay(&newGame);
+                        
+                        while(newGame.turnCount < 15) {
+                            movePlayerWhilePossible(newGame.currentPlayer, newGame.gameBoard, waitForDirection());
+                                                        
+                            if(newGame.currentPlayer + 1 > robots + 3) {
+                                newGame.currentPlayer = &robots[0];
+                            } else {
+                                newGame.currentPlayer++;
+                            }
+                            
+                            newGame.turnCount++;
+                            refreshDisplay(&newGame);
+                        }
                         
                     }
                     break;

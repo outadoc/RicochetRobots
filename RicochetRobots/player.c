@@ -65,3 +65,24 @@ int movePlayer(Player *player, GameBoard *board, int direction) {
 void movePlayerWhilePossible(Player *player, GameBoard *board, int direction) {
     while(movePlayer(player, board, direction));
 }
+
+char* getRobotStringColor(int color) {
+    switch (color) {
+        case ROBOT_RED:
+            return "rouge";
+            break;
+        case ROBOT_GREEN:
+            return "vert";
+            break;
+        case ROBOT_BLUE:
+            return "bleu";
+            break;
+        case ROBOT_GREY:
+            return "gris";
+            break;
+        default:
+            return "inconnu";
+            break;
+    }
+}
+

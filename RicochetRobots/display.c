@@ -183,7 +183,7 @@ void displayGameBoard(GameState *state) {
 void refreshDisplay(GameState *currentGame) {
     printf("\n+++++++++++++++++++++++++++++\n");
     printf("Tour %d\n", currentGame->turnCount);
-    printf("Joueur actuel : %s\n", currentGame->currentPlayer->username);
+    printf("Joueur actuel : %s (%s)\n", getRobotStringColor(currentGame->currentPlayer->robotColor), currentGame->currentPlayer->username);
     printf("Score : %d\n",
              currentGame->players[0].score
            + currentGame->players[1].score
