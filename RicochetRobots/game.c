@@ -58,13 +58,8 @@ int start() {
 
                         refreshDisplay(&newGame);
                         
-                        int i;
-                        
-                        for(i = 0; i < 10; i++) {
-                            sleep(1);
-                            movePlayer(&robots[0], newGame.gameBoard, DIRECTION_DOWN);
-                            refreshDisplay(&newGame);
-                        }
+                        movePlayerWhilePossible(&robots[0], newGame.gameBoard, DIRECTION_DOWN);
+                        refreshDisplay(&newGame);
                         
                     }
                     break;

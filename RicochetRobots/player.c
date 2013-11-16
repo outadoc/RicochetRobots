@@ -56,8 +56,12 @@ int movePlayer(Player *player, GameBoard *board, int direction) {
                 break;
         }
         
-        return 0;
-    } else {
         return 1;
+    } else {
+        return 0;
     }
+}
+
+void movePlayerWhilePossible(Player *player, GameBoard *board, int direction) {
+    while(movePlayer(player, board, direction));
 }

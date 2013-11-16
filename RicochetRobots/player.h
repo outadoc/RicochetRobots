@@ -31,5 +31,6 @@ typedef struct {
 
 int checkForObstacle(Player *robot, GameBoard *board, int direction);
 int movePlayer(Player *player, GameBoard *board, int direction);
+void movePlayerWhilePossible(Player *player, GameBoard *board, int direction);
 
 #endif
