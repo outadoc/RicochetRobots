@@ -86,3 +86,6 @@ char* getRobotStringColor(int color) {
     }
 }
 
+int isPlayerOnObjective(Player *player, GameBoard *gameBoard) {
+    return (gameBoard->obstacles[player->position.y][player->position.x] == CELL_OBJECTIVE);
+}

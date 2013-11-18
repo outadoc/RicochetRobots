@@ -58,7 +58,7 @@ int start() {
                         
                         refreshDisplay(&newGame);
                         
-                        while(newGame.turnCount < 15) {
+                        while(!isPlayerOnObjective(newGame.currentPlayer, newGame.gameBoard)) {
                             int direction = waitForDirection();
                             
                             movePlayerWhilePossible(newGame.currentPlayer, newGame.gameBoard, direction);
