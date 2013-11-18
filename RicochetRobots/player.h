@@ -29,9 +29,26 @@ typedef struct {
     Coords position;
 } Player;
 
-int checkForObstacle(Player *robot, GameBoard *board, int direction);
-int movePlayer(Player *player, GameBoard *board, int direction);
-void movePlayerWhilePossible(Player *player, GameBoard *board, int direction);
+//état du jeu en cours
+typedef struct {
+    //nombre de tours
+    int turnCount;
+    //scores
+    int scores[4];
+    
+    //joueur courant
+    Player* currentPlayer;
+    Player* players;
+    
+    GameBoard* gameBoard;
+    
+    //position actuelle des robots
+    char currRobotsPos[BOARD_SIZE][BOARD_SIZE];
+} GameState;
+
+int checkForObstacle(GameState *state, int direction);
+int moveCurrentPlayer(GameState *state, int direction);
+void moveCurrentPlayerWhilePossible(GameState *state, int direction);
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard);
 
 char* getRobotStringColor(int color);

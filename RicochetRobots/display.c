@@ -141,14 +141,21 @@ void displayGameBoard(GameState *state) {
             int k, hasContent = 0;
             
             for (k = 0; k < 4; k++) {
-                //on vérifié, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
+                //on vérifie, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
                 if(state->players[k].position.x == i && state->players[k].position.y == j) {
                     hasContent = 1;
-                    printf("%s[@]%s", getAnsiColorFromRobotColor(k), ANSI_COLOR_RESET);
+                    
+                    if(state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
+                        printf("%s%s[@]%s", getAnsiColorFromRobotColor(k), ANSI_BG_COLOR_MAGENTA, ANSI_COLOR_RESET);
+                    } else {
+                        printf("%s[@]%s", getAnsiColorFromRobotColor(k), ANSI_COLOR_RESET);
+                    }
+                   
                 }
             }
             
-            if(state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
+            //si la case n'a pas encore de contenu (et donc pas de robot) et que c'est une case objectif
+            if(!hasContent && state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
                 hasContent = 1;
                 printf("%s(O)%s", ANSI_BG_COLOR_MAGENTA, ANSI_COLOR_RESET);
             }

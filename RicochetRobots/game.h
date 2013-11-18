@@ -23,23 +23,6 @@ int start();
 int handleMainMenu();
 int wantsToReplay();
 
-//état du jeu en cours
-typedef struct {
-    //nombre de tours
-    int turnCount;
-    //scores
-    int scores[4];
-    
-    //joueur courant
-    Player* currentPlayer;
-    
-    Player* players;
-    GameBoard* gameBoard;
-    
-    //position actuelle des robots
-    char currRobotsPos[BOARD_SIZE][BOARD_SIZE];
-} GameState;
-
 void startNewGame(GameBoard board);
 int waitForDirection();
 GameState gameConfig();

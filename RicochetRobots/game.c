@@ -61,7 +61,7 @@ int start() {
                         while(!isPlayerOnObjective(newGame.currentPlayer, newGame.gameBoard)) {
                             int direction = waitForDirection();
                             
-                            movePlayerWhilePossible(newGame.currentPlayer, newGame.gameBoard, direction);
+                            moveCurrentPlayerWhilePossible(&newGame, direction);
                             
                             if(newGame.currentPlayer + 1 > robots + 3) {
                                 newGame.currentPlayer = &robots[0];
