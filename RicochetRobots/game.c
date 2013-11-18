@@ -107,7 +107,7 @@ int wantsToReplay() {
     char answer = '\0';
 
     //vidage du buffer
-    fseek(stdin, 0, SEEK_END);
+    while (getchar() != '\n');
 
     printf("\nVoulez-vous rejouer ? (O/n) ");
     answer = fgetc(stdin);
