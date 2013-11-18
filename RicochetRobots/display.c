@@ -38,6 +38,11 @@ void displayLogo() {
     printf("/_/ |_|\\____/_____/\\____/ /_/  /____/    v%s\n\n", VERSION);
 }
 
+void displayGameEnding(int score, Player *winner) {
+    printf("\nPartie terminée ! %s a gagné.\n", winner->username);
+    printf("Score total : %d coups.", score);
+}
+
 void askForPlayersInfo(Player players[]) {
     int i;
 

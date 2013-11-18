@@ -72,7 +72,7 @@ int start() {
                             refreshDisplay(&newGame);
                         } while(!isAnyPlayerOnObjective(&newGame));
                         
-                        printf("Partie terminée !\nScore total : %d coups.", newGame.turnCount);
+                        displayGameEnding(newGame.turnCount, newGame.currentPlayer);
                     }
                     break;
                 }

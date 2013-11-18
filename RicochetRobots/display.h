@@ -30,6 +30,7 @@
 void displayMainMenu();
 void listBuiltInBoards();
 void displayLogo();
+void displayGameEnding(int score, Player *winner);
 
 void displayGameBoard(GameState *state);
 void refreshDisplay(GameState *currentGame);
