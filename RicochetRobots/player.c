@@ -84,6 +84,9 @@ int moveCurrentPlayer(GameState *state, int direction) {
 
 void moveCurrentPlayerWhilePossible(GameState *state, int direction) {
     while(moveCurrentPlayer(state, direction));
+    
+    state->currentPlayer->score++;
+    state->turnCount++;
 }
 
 char* getRobotStringColor(int color) {
@@ -107,5 +110,15 @@ char* getRobotStringColor(int color) {
 }
 
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard) {
-    return (gameBoard->obstacles[player->position.y][player->position.x] == CELL_OBJECTIVE);
+    return (gameBoard->obstacles[player->position.x][player->position.y] == CELL_OBJECTIVE);
+}
+
+int isAnyPlayerOnObjective(GameState *state) {
+    int i;
+    
+    for (i = 0; i < 4; i++) {
+        if(isPlayerOnObjective(&state->players[i], state->gameBoard)) return 1;
+    }
+    
+    return 0;
 }

@@ -58,7 +58,7 @@ int start() {
                         
                         refreshDisplay(&newGame);
                         
-                        while(!isPlayerOnObjective(newGame.currentPlayer, newGame.gameBoard)) {
+                        do {
                             int direction = waitForDirection();
                             
                             moveCurrentPlayerWhilePossible(&newGame, direction);
@@ -69,10 +69,10 @@ int start() {
                                 newGame.currentPlayer++;
                             }
                             
-                            newGame.turnCount++;
                             refreshDisplay(&newGame);
-                        }
+                        } while(!isAnyPlayerOnObjective(&newGame));
                         
+                        printf("Partie terminée !\nScore total : %d coups.", newGame.turnCount);
                     }
                     break;
                 }

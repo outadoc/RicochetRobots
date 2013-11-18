@@ -33,8 +33,6 @@ typedef struct {
 typedef struct {
     //nombre de tours
     int turnCount;
-    //scores
-    int scores[4];
     
     //joueur courant
     Player* currentPlayer;
@@ -49,7 +47,9 @@ typedef struct {
 int checkForObstacle(GameState *state, int direction);
 int moveCurrentPlayer(GameState *state, int direction);
 void moveCurrentPlayerWhilePossible(GameState *state, int direction);
+
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard);
+int isAnyPlayerOnObjective(GameState *state);
 
 char* getRobotStringColor(int color);
 
