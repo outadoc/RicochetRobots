@@ -11,4 +11,4 @@
 
 (parce qu'on a la classe, ou on l'a pas.)
 
-Projet de 1ère année de DUT Info par Pierre Lefèvre et Baptiste Candellier.
+Projet de 1ère année de DUT Info par Baptiste Candellier.
