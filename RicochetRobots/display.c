@@ -124,11 +124,11 @@ void displayGameBoard(GameState *state) {
 
     for (i = 0; i < BOARD_SIZE; i++) {
         if(i == 0) {
-            printf("-");
+            printf("+");
 
             for (j = 0; j < BOARD_SIZE; j++) {
                 //première ligne ? on affiche une ligne de "-"
-                printf("----");
+                printf("---+");
             }
         }
 
@@ -161,18 +161,18 @@ void displayGameBoard(GameState *state) {
             }
         }
 
-        printf("\n-");
+        printf("\n+");
 
         for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs horizontaux
             if(state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
                || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP)
                || i == BOARD_SIZE - 1) {
-                printf("----");
+                printf("---+");
             } else if(j == BOARD_SIZE -1) {
-                printf("   -");
+                printf("   +");
             } else {
-                printf("    ");
+                printf("   +");
             }
         }
     }
