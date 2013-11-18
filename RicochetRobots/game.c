@@ -59,7 +59,9 @@ int start() {
                         refreshDisplay(&newGame);
                         
                         while(newGame.turnCount < 15) {
-                            movePlayerWhilePossible(newGame.currentPlayer, newGame.gameBoard, waitForDirection());
+                            int direction = waitForDirection();
+                            
+                            movePlayerWhilePossible(newGame.currentPlayer, newGame.gameBoard, direction);
                             
                             if(newGame.currentPlayer + 1 > robots + 3) {
                                 newGame.currentPlayer = &robots[0];
@@ -136,7 +138,7 @@ int waitForDirection() {
             return DIRECTION_RIGHT;
             break;
         case KEY_UP:
-            return KEY_UP;
+            return DIRECTION_UP;
             break;
     }
     
