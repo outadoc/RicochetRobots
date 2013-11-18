@@ -20,7 +20,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
             .obstacles = {
                 //placement des murs du premier plateau
                 {'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E'},
-                {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'U', 'E', 'E'},
+                {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'U', 'O', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'B', 'L', 'E', 'E', 'B', 'L', 'E', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'B'},
                 {'B', 'E', 'U', 'L', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
