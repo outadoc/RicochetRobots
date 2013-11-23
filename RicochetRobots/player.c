@@ -12,6 +12,8 @@
 #include "player.h"
 
 int checkForObstacle(GameState *state, Direction direction) {
+    if(state == NULL || direction > 3) return 0;
+    
     int i;
     
     Coords target = {
@@ -62,6 +64,8 @@ int checkForObstacle(GameState *state, Direction direction) {
 }
 
 int moveCurrentPlayer(GameState *state, Direction direction) {
+    if(state == NULL || direction > 3) return 0;
+    
     if(!checkForObstacle(state, direction)) {
         switch (direction) {
             case DIRECTION_DOWN:
@@ -85,14 +89,16 @@ int moveCurrentPlayer(GameState *state, Direction direction) {
 }
 
 void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
+    if(state == NULL || direction > 3) return;
+    
     while(moveCurrentPlayer(state, direction));
     
     state->currentPlayer->score++;
     state->turnCount++;
 }
 
-int getRandomDirection(int lag) {
-    sleep(lag);
+int getRandomDirection(int delay) {
+    sleep(delay);
     return rand() % (3-0) + 0;
 }
 
@@ -117,10 +123,14 @@ char* getRobotStringColor(int color) {
 }
 
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard) {
+    if(player == NULL || gameBoard == NULL) return 0;
+    
     return (gameBoard->obstacles[player->position.x][player->position.y] == CELL_OBJECTIVE);
 }
 
 Player* getPlayerOnObjective(GameState *state) {
+    if(state == NULL) return NULL;
+    
     int i;
     
     for (i = 0; i < 4; i++) {

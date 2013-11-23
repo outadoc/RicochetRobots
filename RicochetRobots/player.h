@@ -15,7 +15,7 @@
 int checkForObstacle(GameState *state, Direction direction);
 int moveCurrentPlayer(GameState *state, Direction direction);
 void moveCurrentPlayerWhilePossible(GameState *state, Direction direction);
-Direction getRandomDirection(int lag);
+Direction getRandomDirection(int delay);
 
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard);
 Player* getPlayerOnObjective(GameState *state);

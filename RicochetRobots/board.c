@@ -71,25 +71,60 @@ GameBoard getBuiltInBoardAtIndex(int index) {
             }
         }
     };
+    
+    if(index >= 0 && index < BUILTIN_BOARDS_COUNT) {
+        return builtinBoards[index];
+    } else {
+        return getEmptyGameBoard();
+    }
+}
 
-    return builtinBoards[index];
+GameBoard getEmptyGameBoard() {
+    return (GameBoard) {
+        //deuxième plateau
+        .obstacles = {
+            //placement des murs du deuxième plateau
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+        },
+        .robotsPosition = {
+            {.x = 0, .y = 0},
+            {.x = 0, .y = 0},
+            {.x = 0, .y = 0},
+            {.x = 0, .y = 0}
+        }
+    };
 }
 
 int askForGameBoard(GameBoard *board) {
     int choice = 0, retry = 0;
     
+    choice = displayGameBoardSelectionMenu(false);
+    
     //tant qu'on n'a pas choisi une option correcte du menu
     do {
         retry = 0;
-        
-        choice = displayGameBoardSelectionMenu(0);
         
         switch (choice) {
             case 1: {
                 int boardNb = 0;
                 
                 do {
-                    boardNb = displayGameBoardList(0);
+                    boardNb = displayGameBoardList(false);
                 } while(boardNb < 1 || boardNb > BUILTIN_BOARDS_COUNT);
                 
                 *board = getBuiltInBoardAtIndex(boardNb - 1);
@@ -99,7 +134,7 @@ int askForGameBoard(GameBoard *board) {
                 return 1;
                 break;
             default:
-                choice = displayGameBoardSelectionMenu(1);
+                choice = displayGameBoardSelectionMenu(true);
                 retry = 1;
                 break;
         }

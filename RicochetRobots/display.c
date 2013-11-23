@@ -85,6 +85,8 @@ void displayMenuError() {
 }
 
 void displayGameEnding(int score, Player *winner) {
+    if(winner == NULL) return;
+
     printf("\nPartie terminée !\n");
     printf("%s a déplacé le robot %s%s%s sur l'objectif en %d coups.", winner->username, getAnsiColorFromRobotColor(winner->robotColor), getRobotStringColor(winner->robotColor), ANSI_COLOR_RESET, score);
 }
@@ -107,15 +109,16 @@ int wantsToReplay() {
 }
 
 void askForPlayersInfo(Player players[]) {
+    if(players == NULL) return;
+    
     int i;
-
+    
     for (i = 0; i < 4; i++) {
-
         printf("Pseudo du joueur %d : ", i+1);
-
+        
         //on récupère 14 caractères (+1 pour le \0) dans username
         fgets(players[i].username, 14, stdin);
-
+        
         //enlève le \n de fin de chaîne
         size_t ln = strlen(players[i].username) - 1;
         if (players[i].username[ln] == '\n')
@@ -124,22 +127,23 @@ void askForPlayersInfo(Player players[]) {
 }
 
 void askForSinglePlayerUsername(Player robots[]) {
-    char username[15];
+    if(robots == NULL) return;
+    
     int i;
-
+    char username[15];
+    
     printf("Votre pseudo : ");
-
     //vidage du buffer
     while(getchar()!='\n');
-
+    
     //on récupère 14 caractères (+1 pour le \0) dans username
     fgets(username, 14, stdin);
-
+    
     //enlève le \n de fin de chaîne
     size_t ln = strlen(username) - 1;
     if (username[ln] == '\n')
         username[ln] = '\0';
-
+    
     for (i = 0; i < 4; i++) {
         if(!robots[i].isBot) strcpy(robots[i].username, username);
         else sprintf(robots[i].username, "CPU%d", i);
@@ -147,21 +151,23 @@ void askForSinglePlayerUsername(Player robots[]) {
 }
 
 void displayGameBoard(GameState *state) {
+    if(state == NULL) return;
+    
     int i, j;
-
+    
     for (i = 0; i < BOARD_SIZE; i++) {
         if(i == 0) {
             printf("+");
-
+            
             for (j = 0; j < BOARD_SIZE; j++) {
                 //première ligne ? on affiche une ligne de "-"
                 printf("---+");
             }
         }
-
+        
         //début de ligne
         printf("\n|");
-
+        
         for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs verticaux
             //si il y a quelque-chose dans la case actuelle
@@ -177,7 +183,7 @@ void displayGameBoard(GameState *state) {
                     } else {
                         printf("%s[@]%s", getAnsiColorFromRobotColor(k), ANSI_COLOR_RESET);
                     }
-                   
+                    
                 }
             }
             
@@ -189,19 +195,19 @@ void displayGameBoard(GameState *state) {
             
             //si il n'y a pas de robot dans la case, on affiche un espace
             if(!hasContent) printf("   ");
-
+            
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
             if(state->gameBoard->obstacles[i][j] == CELL_WALL_RIGHT
                || (j < BOARD_SIZE && state->gameBoard->obstacles[i][j+1] == CELL_WALL_LEFT)
                || j == BOARD_SIZE - 1) {
                 printf("|");
             } else {
-              printf(" ");
+                printf(" ");
             }
         }
-
+        
         printf("\n+");
-
+        
         for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs horizontaux
             if(state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
@@ -215,21 +221,23 @@ void displayGameBoard(GameState *state) {
             }
         }
     }
-
+    
     printf("\n");
 }
 
 void refreshDisplay(GameState *currentGame) {
+    if(currentGame == NULL) return;
+    
     printf("\n+++++++++++++++++++++++++++++\n");
     printf("Tour %d\n", currentGame->turnCount);
     printf("Joueur actuel : %s%s%s (%s)\n", getAnsiColorFromRobotColor(currentGame->currentPlayer->robotColor), getRobotStringColor(currentGame->currentPlayer->robotColor), ANSI_COLOR_RESET, currentGame->currentPlayer->username);
     printf("Score : %d\n",
-             currentGame->players[0].score
+           currentGame->players[0].score
            + currentGame->players[1].score
            + currentGame->players[2].score
            + currentGame->players[3].score);
     printf("+++++++++++++++++++++++++++++\n\n");
-
+    
     displayGameBoard(currentGame);
 }
 

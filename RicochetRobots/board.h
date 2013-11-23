@@ -15,6 +15,7 @@
 void loadBoardFromFile(GameBoard board, const char path[]);
 void getRandomBoard(GameBoard board);
 GameBoard getBuiltInBoardAtIndex(int index);
+GameBoard getEmptyGameBoard();
 
 int askForGameBoard(GameBoard *board);
 
