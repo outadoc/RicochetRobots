@@ -17,7 +17,7 @@ int start();
 int handleMainMenu();
 int wantsToReplay();
 
-void startSinglePlayer();
+void startSinglePlayer(int playVsComputer);
 
 int waitForDirection();
 GameState gameConfig();

@@ -33,7 +33,8 @@ int displayMainMenu(int error) {
         printf("--------------\n\n");
         
         printf("1. Partie solo\n");
-        printf("2. Partie multi\n");
+        printf("2. Partie solo VS ordinateur\n");
+        printf("3. Partie multijoueur\n");
         printf("0. -- Quitter\n");
     } else {
         displayMenuError();
@@ -105,24 +106,6 @@ int wantsToReplay() {
     }
 }
 
-int askSoloMode() {
-    char answer = '\0';
-    
-    //vidage du buffer
-    while (getchar() != '\n');
-    
-    printf("Jouer contre l'ordinateur ? (O/n) ");
-    answer = fgetc(stdin);
-    
-    //si on veut rejouer, retourner 1, sinon 0
-    if(answer == 'o' || answer == 'O') {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-
 void askForPlayersInfo(Player players[]) {
     int i;
 
@@ -158,7 +141,7 @@ void askForSinglePlayerUsername(Player robots[]) {
         username[ln] = '\0';
 
     for (i = 0; i < 4; i++) {
-        if(!robots[i].username) strcpy(robots[i].username, username);
+        if(!robots[i].isBot) strcpy(robots[i].username, username);
         else sprintf(robots[i].username, "CPU%d", i);
     }
 }

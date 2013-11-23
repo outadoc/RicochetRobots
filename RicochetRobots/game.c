@@ -19,7 +19,7 @@ int start() {
         int choice = 0, retry = 0;
 
         //on affiche les options du menu principal
-        choice = displayMainMenu(0);
+        choice = displayMainMenu(false);
 
         //tant qu'on n'a pas choisi une option correcte du menu
         do {
@@ -30,18 +30,20 @@ int start() {
                     //si on veut quitter le jeu
                     return 0;
                     break;
-                case 1: {
-                    startSinglePlayer();
+                case 1:
+                    startSinglePlayer(false);
                     break;
-                }
-                case 2: {
+                case 2:
+                    startSinglePlayer(true);
+                    break;
+                case 3: {
                     Player players[4];
                     askForPlayersInfo(players);
                     break;
                 }
                 default:
                     //si le choix est incorrect, on réessaye
-                    choice = displayMainMenu(1);
+                    choice = displayMainMenu(true);
                     retry = 1;
                     break;
             }
@@ -77,15 +79,14 @@ int waitForDirection() {
     return 0;
 }
 
-void startSinglePlayer() {
+void startSinglePlayer(int playVsComputer) {
     GameBoard board;
     
     //si askForGameBoard renvoie 0, on est prêts à continuer
     if(askForGameBoard(&board) == 0) {
-        int playVsComputer = askSoloMode();
         
         Player robots[4] = {
-            {.score = 0, .robotColor = ROBOT_RED,   .position = board.robotsPosition[0], .isBot = 0},
+            {.score = 0, .robotColor = ROBOT_RED,   .position = board.robotsPosition[0], .isBot = false},
             {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPosition[1], .isBot = playVsComputer},
             {.score = 0, .robotColor = ROBOT_BLUE,  .position = board.robotsPosition[2], .isBot = playVsComputer},
             {.score = 0, .robotColor = ROBOT_GREY,  .position = board.robotsPosition[3], .isBot = playVsComputer},

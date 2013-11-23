@@ -17,9 +17,7 @@ int displayMainMenu(int error);
 int displayGameBoardSelectionMenu(int error);
 int displayGameBoardList();
 
-int askSoloMode();
 int wantsToReplay();
-
 void displayMenuError();
 
 void listBuiltInBoards();

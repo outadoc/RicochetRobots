@@ -12,6 +12,10 @@
 //version du jeu
 #define VERSION "0.1"
 
+//booléens
+#define true 1
+#define false 0
+
 //touches de déplacement des robots
 #define KEY_UP 'z'
 #define KEY_LEFT 'q'
