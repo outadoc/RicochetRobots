@@ -140,7 +140,8 @@ void askForSinglePlayerUsername(Player robots[]) {
         username[ln] = '\0';
 
     for (i = 0; i < 4; i++) {
-        strcpy(robots[i].username, username);
+        if(!robots[i].username) strcpy(robots[i].username, username);
+        else sprintf(robots[i].username, "CPU%d", i);
     }
 }
 
