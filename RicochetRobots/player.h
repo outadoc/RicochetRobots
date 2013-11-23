@@ -11,9 +11,9 @@
 
 #include "struct.h"
 
-int checkForObstacle(GameState *state, int direction);
-int moveCurrentPlayer(GameState *state, int direction);
-void moveCurrentPlayerWhilePossible(GameState *state, int direction);
+int checkForObstacle(GameState *state, Direction direction);
+int moveCurrentPlayer(GameState *state, Direction direction);
+void moveCurrentPlayerWhilePossible(GameState *state, Direction direction);
 void randomPlayerMove(GameState *state);
 
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard);

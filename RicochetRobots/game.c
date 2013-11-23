@@ -80,8 +80,8 @@ int waitForDirection() {
 void startSinglePlayer() {
     GameBoard board;
     
+    //si askForGameBoard renvoie 0, on est prêts à continuer
     if(askForGameBoard(&board) == 0) {
-        //si askForGameBoard renvoie 0, on est prêts à continuer
         
         Player robots[4] = {
             {.score = 0, .robotColor = ROBOT_RED, .position = board.robotsPosition[0]},
@@ -90,8 +90,10 @@ void startSinglePlayer() {
             {.score = 0, .robotColor = ROBOT_GREY, .position = board.robotsPosition[3]},
         };
         
+        //on demande le pseudo du joueur
         askForSinglePlayerUsername(robots);
         
+        //instanciation du jeu
         GameState newGame = {
             .turnCount = 0,
             .currentPlayer = &robots[0],
@@ -99,22 +101,29 @@ void startSinglePlayer() {
             .gameBoard = &board
         };
         
+        //on met à jour l'affichage une première fois
         refreshDisplay(&newGame);
         
+        //tant qu'aucun robot n'est sur l'objectif
         while(getPlayerOnObjective(&newGame) == NULL) {
-            int direction = waitForDirection();
+            //on demande à l'utilisateur dans quelle direction il veut aller
+            Direction direction = waitForDirection();
             
+            //on déplace le robot dans cette direction
             moveCurrentPlayerWhilePossible(&newGame, direction);
             
+            //on passe au joueur suivant
             if(newGame.currentPlayer + 1 > robots + 3) {
                 newGame.currentPlayer = &robots[0];
             } else {
                 newGame.currentPlayer++;
             }
             
+            //on met à jour l'affichage après chaque tour
             refreshDisplay(&newGame);
         }
         
+        //un joueur est arrivé sur l'objectif, fin du jeu
         displayGameEnding(newGame.turnCount, getPlayerOnObjective(&newGame));
     }
 }

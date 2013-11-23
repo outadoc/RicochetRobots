@@ -11,7 +11,7 @@
 
 #include "player.h"
 
-int checkForObstacle(GameState *state, int direction) {
+int checkForObstacle(GameState *state, Direction direction) {
     int i;
     
     Coords target = {
@@ -61,7 +61,7 @@ int checkForObstacle(GameState *state, int direction) {
     return 0;
 }
 
-int moveCurrentPlayer(GameState *state, int direction) {
+int moveCurrentPlayer(GameState *state, Direction direction) {
     if(!checkForObstacle(state, direction)) {
         switch (direction) {
             case DIRECTION_DOWN:
@@ -84,16 +84,15 @@ int moveCurrentPlayer(GameState *state, int direction) {
     }
 }
 
-void moveCurrentPlayerWhilePossible(GameState *state, int direction) {
+void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
     while(moveCurrentPlayer(state, direction));
     
     state->currentPlayer->score++;
     state->turnCount++;
 }
 
-void randomPlayerMove(GameState *state) {
-    int direction = rand() % (3-0) + 0;
-    moveCurrentPlayerWhilePossible(state, direction);
+int getRandomDirection() {
+    return rand() % (3-0) + 0;
 }
 
 char* getRobotStringColor(int color) {

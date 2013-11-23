@@ -60,6 +60,11 @@
 #define CELL_WALL_RIGHT 'R'  //mur à droite
 #define CELL_WALL_BOTTOM 'B' //mur en base
 
+
+//la direction est un entier
+typedef int Direction;
+
+
 //structure pour les coordonnées des robots
 typedef struct {
     int x;
