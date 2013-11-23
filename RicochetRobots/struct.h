@@ -9,14 +9,12 @@
 #ifndef RicochetRobots_struct_h
 #define RicochetRobots_struct_h
 
+#include <stdbool.h>
+
 // TYPEDEFS PRATIQUES
 /****************************************/
 
 typedef int Direction;  //la direction est un entier
-
-typedef int bool;       //on définit un type booléen, comme en C++,
-#define true 1          //..pour plus de clarté du code.
-#define false 0
 
 // PROPRIÉTÉS GLOBALES //
 /****************************************/
