@@ -85,7 +85,7 @@ void displayMenuError() {
 
 void displayGameEnding(int score, Player *winner) {
     printf("\nPartie terminée !\n");
-    printf("%s a déplacé le robot sur l'objectif %s%s%s en %d coups.", winner->username, getAnsiColorFromRobotColor(winner->robotColor), getRobotStringColor(winner->robotColor), ANSI_COLOR_RESET, score);
+    printf("%s a déplacé le robot %s%s%s sur l'objectif en %d coups.", winner->username, getAnsiColorFromRobotColor(winner->robotColor), getRobotStringColor(winner->robotColor), ANSI_COLOR_RESET, score);
 }
 
 int wantsToReplay() {
