@@ -9,12 +9,13 @@
 #ifndef RicochetRobots_player_h
 #define RicochetRobots_player_h
 
+#include <unistd.h>
 #include "struct.h"
 
 int checkForObstacle(GameState *state, Direction direction);
 int moveCurrentPlayer(GameState *state, Direction direction);
 void moveCurrentPlayerWhilePossible(GameState *state, Direction direction);
-void randomPlayerMove(GameState *state);
+Direction getRandomDirection(int lag);
 
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard);
 Player* getPlayerOnObjective(GameState *state);

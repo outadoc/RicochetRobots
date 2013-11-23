@@ -84,10 +84,10 @@ void startSinglePlayer() {
     if(askForGameBoard(&board) == 0) {
         
         Player robots[4] = {
-            {.score = 0, .robotColor = ROBOT_RED, .position = board.robotsPosition[0]},
-            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPosition[1]},
-            {.score = 0, .robotColor = ROBOT_BLUE, .position = board.robotsPosition[2]},
-            {.score = 0, .robotColor = ROBOT_GREY, .position = board.robotsPosition[3]},
+            {.score = 0, .robotColor = ROBOT_RED,   .position = board.robotsPosition[0], .isBot = 0},
+            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPosition[1], .isBot = 0},
+            {.score = 0, .robotColor = ROBOT_BLUE,  .position = board.robotsPosition[2], .isBot = 0},
+            {.score = 0, .robotColor = ROBOT_GREY,  .position = board.robotsPosition[3], .isBot = 0},
         };
         
         //on demande le pseudo du joueur
@@ -106,8 +106,8 @@ void startSinglePlayer() {
         
         //tant qu'aucun robot n'est sur l'objectif
         while(getPlayerOnObjective(&newGame) == NULL) {
-            //on demande à l'utilisateur dans quelle direction il veut aller
-            Direction direction = waitForDirection();
+            //on demande à l'utilisateur dans quelle direction il veut aller OU si c'est un bot, on récupère une direction aléatoire
+            Direction direction = (newGame.currentPlayer->isBot) ? getRandomDirection(1) : waitForDirection();
             
             //on déplace le robot dans cette direction
             moveCurrentPlayerWhilePossible(&newGame, direction);

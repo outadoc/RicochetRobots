@@ -77,6 +77,7 @@ typedef struct {
     char username[15];
     int score;
     Coords position;
+    int isBot;
 } Player;
 
 //structure du plateau de jeu

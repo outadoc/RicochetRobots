@@ -91,7 +91,8 @@ void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
     state->turnCount++;
 }
 
-int getRandomDirection() {
+int getRandomDirection(int lag) {
+    sleep(lag);
     return rand() % (3-0) + 0;
 }
 
