@@ -105,6 +105,24 @@ int wantsToReplay() {
     }
 }
 
+int askSoloMode() {
+    char answer = '\0';
+    
+    //vidage du buffer
+    while (getchar() != '\n');
+    
+    printf("Jouer contre l'ordinateur ? (O/n) ");
+    answer = fgetc(stdin);
+    
+    //si on veut rejouer, retourner 1, sinon 0
+    if(answer == 'o' || answer == 'O') {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
 void askForPlayersInfo(Player players[]) {
     int i;
 

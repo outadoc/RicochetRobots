@@ -82,12 +82,13 @@ void startSinglePlayer() {
     
     //si askForGameBoard renvoie 0, on est prêts à continuer
     if(askForGameBoard(&board) == 0) {
+        int playVsComputer = askSoloMode();
         
         Player robots[4] = {
             {.score = 0, .robotColor = ROBOT_RED,   .position = board.robotsPosition[0], .isBot = 0},
-            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPosition[1], .isBot = 0},
-            {.score = 0, .robotColor = ROBOT_BLUE,  .position = board.robotsPosition[2], .isBot = 0},
-            {.score = 0, .robotColor = ROBOT_GREY,  .position = board.robotsPosition[3], .isBot = 0},
+            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPosition[1], .isBot = playVsComputer},
+            {.score = 0, .robotColor = ROBOT_BLUE,  .position = board.robotsPosition[2], .isBot = playVsComputer},
+            {.score = 0, .robotColor = ROBOT_GREY,  .position = board.robotsPosition[3], .isBot = playVsComputer},
         };
         
         //on demande le pseudo du joueur
