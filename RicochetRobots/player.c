@@ -52,7 +52,7 @@ int checkForObstacle(GameState *state, Direction direction) {
             break;
     }
     
-    for(i = 0; i < 4; i++) {
+    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
         if(state->players[i].robotColor != state->currentPlayer->robotColor
             && state->players[i].position.x == target.x
             && state->players[i].position.y == target.y) {
@@ -133,7 +133,7 @@ Player* getPlayerOnObjective(GameState *state) {
     
     int i;
     
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
         if(isPlayerOnObjective(&state->players[i], state->gameBoard)) return &state->players[i];
     }
     

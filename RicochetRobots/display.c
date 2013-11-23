@@ -113,11 +113,11 @@ void askForPlayersInfo(Player players[]) {
     
     int i;
     
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
         printf("Pseudo du joueur %d : ", i+1);
         
         //on récupère 14 caractères (+1 pour le \0) dans username
-        fgets(players[i].username, 14, stdin);
+        fgets(players[i].username, MAX_USERNAME_SIZE - 1, stdin);
         
         //enlève le \n de fin de chaîne
         size_t ln = strlen(players[i].username) - 1;
@@ -130,21 +130,21 @@ void askForSinglePlayerUsername(Player robots[]) {
     if(robots == NULL) return;
     
     int i;
-    char username[15];
+    char username[MAX_USERNAME_SIZE];
     
     printf("Votre pseudo : ");
     //vidage du buffer
     while(getchar()!='\n');
     
     //on récupère 14 caractères (+1 pour le \0) dans username
-    fgets(username, 14, stdin);
+    fgets(username, MAX_USERNAME_SIZE - 1, stdin);
     
     //enlève le \n de fin de chaîne
     size_t ln = strlen(username) - 1;
     if (username[ln] == '\n')
         username[ln] = '\0';
     
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
         if(!robots[i].isBot) strcpy(robots[i].username, username);
         else sprintf(robots[i].username, "CPU%d", i);
     }
@@ -173,7 +173,7 @@ void displayGameBoard(GameState *state) {
             //si il y a quelque-chose dans la case actuelle
             int k, hasContent = 0;
             
-            for (k = 0; k < 4; k++) {
+            for (k = 0; k < MAX_PLAYERS_COUNT; k++) {
                 //on vérifie, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
                 if(state->players[k].position.x == i && state->players[k].position.y == j) {
                     hasContent = 1;

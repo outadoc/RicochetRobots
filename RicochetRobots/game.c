@@ -37,7 +37,7 @@ int start() {
                     startSinglePlayer(true);
                     break;
                 case 3: {
-                    Player players[4];
+                    Player players[MAX_PLAYERS_COUNT];
                     askForPlayersInfo(players);
                     break;
                 }
@@ -85,7 +85,7 @@ void startSinglePlayer(int playVsComputer) {
     //si askForGameBoard renvoie 0, on est prêts à continuer
     if(askForGameBoard(&board) == 0) {
         
-        Player robots[4] = {
+        Player robots[MAX_PLAYERS_COUNT] = {
             {.score = 0, .robotColor = ROBOT_RED,   .position = board.robotsPosition[0], .isBot = false},
             {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPosition[1], .isBot = playVsComputer},
             {.score = 0, .robotColor = ROBOT_BLUE,  .position = board.robotsPosition[2], .isBot = playVsComputer},
@@ -115,7 +115,7 @@ void startSinglePlayer(int playVsComputer) {
             moveCurrentPlayerWhilePossible(&newGame, direction);
             
             //on passe au joueur suivant
-            if(newGame.currentPlayer + 1 > robots + 3) {
+            if(newGame.currentPlayer + 1 > robots + MAX_PLAYERS_COUNT - 1) {
                 newGame.currentPlayer = &robots[0];
             } else {
                 newGame.currentPlayer++;
