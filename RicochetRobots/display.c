@@ -75,7 +75,6 @@ int displayGameBoardList() {
     
     printf("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
     scanf("%d", &boardNb);
-    while(getchar()!='\n');
     
     return boardNb;
 }
