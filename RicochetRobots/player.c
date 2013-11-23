@@ -99,16 +99,16 @@ void randomPlayerMove(GameState *state) {
 char* getRobotStringColor(int color) {
     switch (color) {
         case ROBOT_RED:
-            return "rouge";
+            return "ROUGE";
             break;
         case ROBOT_GREEN:
-            return "vert";
+            return "VERT";
             break;
         case ROBOT_BLUE:
-            return "bleu";
+            return "BLEU";
             break;
         case ROBOT_GREY:
-            return "gris";
+            return "GRIS";
             break;
         default:
             return "inconnu";
@@ -120,12 +120,12 @@ int isPlayerOnObjective(Player *player, GameBoard *gameBoard) {
     return (gameBoard->obstacles[player->position.x][player->position.y] == CELL_OBJECTIVE);
 }
 
-int isAnyPlayerOnObjective(GameState *state) {
+Player* getPlayerOnObjective(GameState *state) {
     int i;
     
     for (i = 0; i < 4; i++) {
-        if(isPlayerOnObjective(&state->players[i], state->gameBoard)) return 1;
+        if(isPlayerOnObjective(&state->players[i], state->gameBoard)) return &state->players[i];
     }
     
-    return 0;
+    return NULL;
 }

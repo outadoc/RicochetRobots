@@ -101,7 +101,7 @@ void startSinglePlayer() {
         
         refreshDisplay(&newGame);
         
-        do {
+        while(getPlayerOnObjective(&newGame) == NULL) {
             int direction = waitForDirection();
             
             moveCurrentPlayerWhilePossible(&newGame, direction);
@@ -113,8 +113,8 @@ void startSinglePlayer() {
             }
             
             refreshDisplay(&newGame);
-        } while(!isAnyPlayerOnObjective(&newGame));
+        }
         
-        displayGameEnding(newGame.turnCount, newGame.currentPlayer);
+        displayGameEnding(newGame.turnCount, getPlayerOnObjective(&newGame));
     }
 }

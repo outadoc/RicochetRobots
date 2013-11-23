@@ -17,7 +17,7 @@ void moveCurrentPlayerWhilePossible(GameState *state, int direction);
 void randomPlayerMove(GameState *state);
 
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard);
-int isAnyPlayerOnObjective(GameState *state);
+Player* getPlayerOnObjective(GameState *state);
 
 char* getRobotStringColor(int color);
 
