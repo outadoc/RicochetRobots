@@ -7,6 +7,8 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "player.h"
 
 int checkForObstacle(GameState *state, int direction) {
@@ -87,6 +89,11 @@ void moveCurrentPlayerWhilePossible(GameState *state, int direction) {
     
     state->currentPlayer->score++;
     state->turnCount++;
+}
+
+void randomPlayerMove(GameState *state) {
+    int direction = rand() % (3-0) + 0;
+    moveCurrentPlayerWhilePossible(state, direction);
 }
 
 char* getRobotStringColor(int color) {

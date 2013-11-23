@@ -47,6 +47,7 @@ typedef struct {
 int checkForObstacle(GameState *state, int direction);
 int moveCurrentPlayer(GameState *state, int direction);
 void moveCurrentPlayerWhilePossible(GameState *state, int direction);
+void randomPlayerMove(GameState *state);
 
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard);
 int isAnyPlayerOnObjective(GameState *state);
