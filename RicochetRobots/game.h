@@ -15,7 +15,6 @@
 
 int start();
 int handleMainMenu();
-int wantsToReplay();
 
 void startSinglePlayer(int playVsComputer);
 
