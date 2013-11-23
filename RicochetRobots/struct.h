@@ -9,8 +9,13 @@
 #ifndef RicochetRobots_struct_h
 #define RicochetRobots_struct_h
 
-// DÉFINITIONS PRATIQUES //
-#define true 1
+// TYPEDEFS PRATIQUES
+/****************************************/
+
+typedef int Direction;  //la direction est un entier
+
+typedef int bool;       //on définit un type booléen, comme en C++,
+#define true 1          //..pour plus de clarté du code.
 #define false 0
 
 // PROPRIÉTÉS GLOBALES //
@@ -79,12 +84,6 @@
 #define CELL_WALL_TOP 'U'    //mur en haut
 #define CELL_WALL_RIGHT 'R'  //mur à droite
 #define CELL_WALL_BOTTOM 'B' //mur en base
-
-// TYPEDEFS PRATIQUES
-/****************************************/
-
-typedef int Direction;      //la direction est un entier
-typedef int bool;
 
 // DÉFINITION DES STRUCTURES //
 /****************************************/
