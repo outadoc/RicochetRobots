@@ -9,37 +9,13 @@
 #ifndef RicochetRobots_board_h
 #define RicochetRobots_board_h
 
-//taille d'un plateau de jeu
-#define BOARD_SIZE 16
-//nombre de grilles prédéfinies
-#define BUILTIN_BOARDS_COUNT 2
-
-//constantes pour la valeur des cases
-#define CELL_EMPTY 'E'
-#define CELL_OBJECTIVE 'O'
-
-//mur gauche
-#define CELL_WALL_LEFT 'L'
-//mur haut
-#define CELL_WALL_TOP 'U'
-//mur droite
-#define CELL_WALL_RIGHT 'R'
-//mur bas
-#define CELL_WALL_BOTTOM 'B'
-
-typedef struct {
-    int x;
-    int y;
-} Coords;
-
-//structure du plateau de jeu
-typedef struct {
-    char obstacles[BOARD_SIZE][BOARD_SIZE];
-    Coords robotsPosition[4];
-} GameBoard;
+#include "struct.h"
+#include "display.h"
 
 void loadBoardFromFile(GameBoard board, const char path[]);
 void getRandomBoard(GameBoard board);
 GameBoard getBuiltInBoardAtIndex(int index);
+
+int askForGameBoard(GameBoard *board);
 
 #endif

@@ -12,19 +12,6 @@
 #include <string.h>
 
 #include "display.h"
-#include "game.h"
-#include "player.h"
-
-void displayMainMenu() {
-    displayLogo();
-
-    printf("MENU PRINCIPAL\n");
-    printf("--------------\n\n");
-
-    printf("1. Partie solo\n");
-    printf("2. Partie multi\n");
-    printf("0. -- Quitter\n");
-}
 
 void displayLogo() {
     printf("    ____  ______________  ________  ______________\n");
@@ -38,9 +25,85 @@ void displayLogo() {
     printf("/_/ |_|\\____/_____/\\____/ /_/  /____/    v%s\n\n", VERSION);
 }
 
+int displayMainMenu(int error) {
+    if(!error) {
+        displayLogo();
+        
+        printf("MENU PRINCIPAL\n");
+        printf("--------------\n\n");
+        
+        printf("1. Partie solo\n");
+        printf("2. Partie multi\n");
+        printf("0. -- Quitter\n");
+    } else {
+        displayMenuError();
+    }
+    
+    int choice = 0;
+        
+    printf("\nmenu> ");
+    scanf("%d", &choice);
+    while(getchar()!='\n');
+    
+    return choice;
+}
+
+int displayGameBoardSelectionMenu(int error) {
+    if(!error) {
+        printf("\nCHOIX DU PLATEAU\n");
+        printf("----------------\n\n");
+        
+        printf("1. Plateau prédéfini\n");
+        printf("2. Plateau depuis un fichier\n");
+        printf("3. Plateau aléatoire\n");
+        printf("0. -- Retour au menu principal\n");
+    } else {
+        displayMenuError();
+    }
+    
+    int choice = 0;
+    
+    printf("\nplateau> ");
+    scanf("%d", &choice);
+    while(getchar()!='\n');
+    
+    return choice;
+}
+
+int displayGameBoardList() {
+    int boardNb = 0;
+    
+    printf("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
+    scanf("%d", &boardNb);
+    while(getchar()!='\n');
+    
+    return boardNb;
+}
+
+void displayMenuError() {
+    printf("Woops. Mauvaise option.");
+}
+
 void displayGameEnding(int score, Player *winner) {
     printf("\nPartie terminée ! %s a gagné.\n", winner->username);
     printf("Score total : %d coups.", score);
+}
+
+int wantsToReplay() {
+    char answer = '\0';
+    
+    //vidage du buffer
+    while (getchar() != '\n');
+    
+    printf("\nVoulez-vous rejouer ? (O/n) ");
+    answer = fgetc(stdin);
+    
+    //si on veut rejouer, retourner 1, sinon 0
+    if(answer == 'o' || answer == 'O') {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 void askForPlayersInfo(Player players[]) {
@@ -80,48 +143,6 @@ void askForSinglePlayerUsername(Player robots[]) {
     for (i = 0; i < 4; i++) {
         strcpy(robots[i].username, username);
     }
-}
-
-int askForGameBoard(GameBoard *board) {
-    int choice = 0, retry = 0;
-
-    printf("\nCHOIX DU PLATEAU\n");
-    printf("----------------\n\n");
-
-    printf("1. Plateau prédéfini\n");
-    printf("2. Plateau depuis un fichier\n");
-    printf("3. Plateau aléatoire\n");
-    printf("0. -- Retour au menu principal\n");
-
-    //tant qu'on n'a pas choisi une option correcte du menu
-    do {
-        retry = 0;
-        printf("\nplateau> ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-            case 1: {
-                int boardNb = 0;
-
-                do {
-                    printf("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
-                    scanf("%d", &boardNb);
-                } while(boardNb < 1 || boardNb > BUILTIN_BOARDS_COUNT);
-
-                *board = getBuiltInBoardAtIndex(boardNb - 1);
-                break;
-            }
-            case 0:
-                return 1;
-                break;
-            default:
-                printf("Sérieusement ?");
-                retry = 1;
-                break;
-        }
-    } while(retry);
-
-    return 0;
 }
 
 void displayGameBoard(GameState *state) {

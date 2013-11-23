@@ -11,7 +11,6 @@
 #include <stdio.h>
 
 #include "board.h"
-#include "player.h"
 
 GameBoard getBuiltInBoardAtIndex(int index) {
     GameBoard builtinBoards[] = {
@@ -74,4 +73,37 @@ GameBoard getBuiltInBoardAtIndex(int index) {
     };
 
     return builtinBoards[index];
+}
+
+int askForGameBoard(GameBoard *board) {
+    int choice = 0, retry = 0;
+    
+    //tant qu'on n'a pas choisi une option correcte du menu
+    do {
+        retry = 0;
+        
+        choice = displayGameBoardSelectionMenu(0);
+        
+        switch (choice) {
+            case 1: {
+                int boardNb = 0;
+                
+                do {
+                    boardNb = displayGameBoardList(0);
+                } while(boardNb < 1 || boardNb > BUILTIN_BOARDS_COUNT);
+                
+                *board = getBuiltInBoardAtIndex(boardNb - 1);
+                break;
+            }
+            case 0:
+                return 1;
+                break;
+            default:
+                choice = displayGameBoardSelectionMenu(1);
+                retry = 1;
+                break;
+        }
+    } while(retry);
+    
+    return 0;
 }

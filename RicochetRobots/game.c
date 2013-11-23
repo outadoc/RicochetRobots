@@ -12,7 +12,6 @@
 #include <unistd.h>
 
 #include "game.h"
-#include "display.h"
 
 int start() {
     //boucle principale : on en sort avec un return
@@ -20,14 +19,11 @@ int start() {
         int choice = 0, retry = 0;
 
         //on affiche les options du menu principal
-        displayMainMenu();
+        choice = displayMainMenu(0);
 
         //tant qu'on n'a pas choisi une option correcte du menu
         do {
             retry = 0;
-
-            //on demande son choix à l'utilisateur
-            choice = handleMainMenu();
 
             switch (choice) {
                 case 0:
@@ -45,7 +41,7 @@ int start() {
                 }
                 default:
                     //si le choix est incorrect, on réessaye
-                    printf("Mmh. J'ai bien peur que ce choix ne soit un peu trop impulsif.");
+                    choice = displayMainMenu(1);
                     retry = 1;
                     break;
             }
@@ -53,32 +49,6 @@ int start() {
 
         //on demande au joueur s'il veut rejouer : dans le cas contraire, on quitte le jeu
         if(!wantsToReplay()) return 0;
-    }
-}
-
-int handleMainMenu() {
-    int choice = 0;
-
-    printf("\nmenu> ");
-    scanf("%d", &choice);
-    while(getchar()!='\n');
-    return choice;
-}
-
-int wantsToReplay() {
-    char answer = '\0';
-
-    //vidage du buffer
-    while (getchar() != '\n');
-
-    printf("\nVoulez-vous rejouer ? (O/n) ");
-    answer = fgetc(stdin);
-
-    //si on veut rejouer, retourner 1, sinon 0
-    if(answer == 'o' || answer == 'O') {
-        return 1;
-    } else {
-        return 0;
     }
 }
 

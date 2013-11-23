@@ -9,15 +9,9 @@
 #ifndef RicochetRobots_game_h
 #define RicochetRobots_game_h
 
-#define VERSION "0.1"
-
-#define KEY_UP 'z'
-#define KEY_LEFT 'q'
-#define KEY_DOWN 's'
-#define KEY_RIGHT 'd'
-
-#include "player.h"
+#include "display.h"
 #include "board.h"
+#include "struct.h"
 
 int start();
 int handleMainMenu();
