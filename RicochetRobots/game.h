@@ -23,7 +23,8 @@ int start();
 int handleMainMenu();
 int wantsToReplay();
 
-void startNewGame(GameBoard board);
+void startSinglePlayer();
+
 int waitForDirection();
 GameState gameConfig();
 

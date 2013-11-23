@@ -35,45 +35,7 @@ int start() {
                     return 0;
                     break;
                 case 1: {
-                    GameBoard board;
-
-                    if(askForGameBoard(&board) == 0) {
-                        //si askForGameBoard renvoie 0, on est prêts à continuer
-                        
-                        Player robots[4] = {
-                            {.score = 0, .robotColor = ROBOT_RED, .position = board.robotsPosition[0]},
-                            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPosition[1]},
-                            {.score = 0, .robotColor = ROBOT_BLUE, .position = board.robotsPosition[2]},
-                            {.score = 0, .robotColor = ROBOT_GREY, .position = board.robotsPosition[3]},
-                        };
-                        
-                        askForSinglePlayerUsername(robots);
-
-                        GameState newGame = {
-                            .turnCount = 0,
-                            .currentPlayer = &robots[0],
-                            .players = robots,
-                            .gameBoard = &board
-                        };
-                        
-                        refreshDisplay(&newGame);
-                        
-                        do {
-                            int direction = waitForDirection();
-                            
-                            moveCurrentPlayerWhilePossible(&newGame, direction);
-                            
-                            if(newGame.currentPlayer + 1 > robots + 3) {
-                                newGame.currentPlayer = &robots[0];
-                            } else {
-                                newGame.currentPlayer++;
-                            }
-                            
-                            refreshDisplay(&newGame);
-                        } while(!isAnyPlayerOnObjective(&newGame));
-                        
-                        displayGameEnding(newGame.turnCount, newGame.currentPlayer);
-                    }
+                    startSinglePlayer();
                     break;
                 }
                 case 2: {
@@ -143,4 +105,46 @@ int waitForDirection() {
     }
     
     return 0;
+}
+
+void startSinglePlayer() {
+    GameBoard board;
+    
+    if(askForGameBoard(&board) == 0) {
+        //si askForGameBoard renvoie 0, on est prêts à continuer
+        
+        Player robots[4] = {
+            {.score = 0, .robotColor = ROBOT_RED, .position = board.robotsPosition[0]},
+            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPosition[1]},
+            {.score = 0, .robotColor = ROBOT_BLUE, .position = board.robotsPosition[2]},
+            {.score = 0, .robotColor = ROBOT_GREY, .position = board.robotsPosition[3]},
+        };
+        
+        askForSinglePlayerUsername(robots);
+        
+        GameState newGame = {
+            .turnCount = 0,
+            .currentPlayer = &robots[0],
+            .players = robots,
+            .gameBoard = &board
+        };
+        
+        refreshDisplay(&newGame);
+        
+        do {
+            int direction = waitForDirection();
+            
+            moveCurrentPlayerWhilePossible(&newGame, direction);
+            
+            if(newGame.currentPlayer + 1 > robots + 3) {
+                newGame.currentPlayer = &robots[0];
+            } else {
+                newGame.currentPlayer++;
+            }
+            
+            refreshDisplay(&newGame);
+        } while(!isAnyPlayerOnObjective(&newGame));
+        
+        displayGameEnding(newGame.turnCount, newGame.currentPlayer);
+    }
 }
