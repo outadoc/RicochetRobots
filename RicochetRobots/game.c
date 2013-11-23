@@ -16,14 +16,15 @@
 int start() {
     //boucle principale : on en sort avec un return
     while(1) {
-        int choice = 0, retry = 0;
+        int choice = 0;
+        bool retry = false;
 
         //on affiche les options du menu principal
         choice = displayMainMenu(false);
 
         //tant qu'on n'a pas choisi une option correcte du menu
         do {
-            retry = 0;
+            retry = false;
 
             switch (choice) {
                 case 0:
@@ -44,7 +45,7 @@ int start() {
                 default:
                     //si le choix est incorrect, on réessaye
                     choice = displayMainMenu(true);
-                    retry = 1;
+                    retry = true;
                     break;
             }
         } while(retry);

@@ -13,11 +13,11 @@
 #include "player.h"
 #include "struct.h"
 
-int displayMainMenu(int error);
-int displayGameBoardSelectionMenu(int error);
+int displayMainMenu(bool error);
+int displayGameBoardSelectionMenu(bool error);
 int displayGameBoardList();
 
-int wantsToReplay();
+bool wantsToReplay();
 void displayMenuError();
 
 void listBuiltInBoards();

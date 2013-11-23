@@ -25,7 +25,7 @@ void displayLogo() {
     printf("/_/ |_|\\____/_____/\\____/ /_/  /____/    v%s\n\n", VERSION);
 }
 
-int displayMainMenu(int error) {
+int displayMainMenu(bool error) {
     if(!error) {
         displayLogo();
         
@@ -49,7 +49,7 @@ int displayMainMenu(int error) {
     return choice;
 }
 
-int displayGameBoardSelectionMenu(int error) {
+int displayGameBoardSelectionMenu(bool error) {
     if(!error) {
         printf("\nCHOIX DU PLATEAU\n");
         printf("----------------\n\n");
@@ -91,7 +91,7 @@ void displayGameEnding(int score, Player *winner) {
     printf("%s a déplacé le robot %s%s%s sur l'objectif en %d coups.", winner->username, getAnsiColorFromRobotColor(winner->robotColor), getRobotStringColor(winner->robotColor), ANSI_COLOR_RESET, score);
 }
 
-int wantsToReplay() {
+bool wantsToReplay() {
     char answer = '\0';
     
     //vidage du buffer
@@ -102,9 +102,9 @@ int wantsToReplay() {
     
     //si on veut rejouer, retourner 1, sinon 0
     if(answer == 'o' || answer == 'O') {
-        return 1;
+        return true;
     } else {
-        return 0;
+        return false;
     }
 }
 
@@ -171,12 +171,13 @@ void displayGameBoard(GameState *state) {
         for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs verticaux
             //si il y a quelque-chose dans la case actuelle
-            int k, hasContent = 0;
+            int k;
+            bool hasContent = false;
             
             for (k = 0; k < MAX_PLAYERS_COUNT; k++) {
                 //on vérifie, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
                 if(state->players[k].position.x == i && state->players[k].position.y == j) {
-                    hasContent = 1;
+                    hasContent = true;
                     
                     if(state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
                         printf("%s%s[@]%s", getAnsiColorFromRobotColor(k), ANSI_BG_COLOR_MAGENTA, ANSI_COLOR_RESET);
@@ -189,7 +190,7 @@ void displayGameBoard(GameState *state) {
             
             //si la case n'a pas encore de contenu (et donc pas de robot) et que c'est une case objectif
             if(!hasContent && state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
-                hasContent = 1;
+                hasContent = true;
                 printf("%s(O)%s", ANSI_BG_COLOR_MAGENTA, ANSI_COLOR_RESET);
             }
             

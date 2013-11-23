@@ -84,6 +84,7 @@
 /****************************************/
 
 typedef int Direction;      //la direction est un entier
+typedef int bool;
 
 // DÉFINITION DES STRUCTURES //
 /****************************************/
@@ -100,7 +101,7 @@ typedef struct {
     char username[MAX_USERNAME_SIZE];
     int score;
     Coords position;
-    int isBot;
+    bool isBot;
 } Player;
 
 //structure du plateau de jeu

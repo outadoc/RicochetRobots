@@ -111,13 +111,14 @@ GameBoard getEmptyGameBoard() {
 }
 
 int askForGameBoard(GameBoard *board) {
-    int choice = 0, retry = 0;
+    int choice = 0;
+    bool retry = false;
     
     choice = displayGameBoardSelectionMenu(false);
     
     //tant qu'on n'a pas choisi une option correcte du menu
     do {
-        retry = 0;
+        retry = false;
         
         switch (choice) {
             case 1: {
@@ -135,7 +136,7 @@ int askForGameBoard(GameBoard *board) {
                 break;
             default:
                 choice = displayGameBoardSelectionMenu(true);
-                retry = 1;
+                retry = true;
                 break;
         }
     } while(retry);
