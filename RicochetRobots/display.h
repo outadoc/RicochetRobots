@@ -29,6 +29,7 @@ void refreshDisplay(GameState *currentGame);
 
 void askForPlayersInfo(Player players[]);
 void askForSinglePlayerUsername(Player robots[]);
+void askForLevelPath(char path[]);
 
 char* getAnsiColorFromRobotColor(int color);
 

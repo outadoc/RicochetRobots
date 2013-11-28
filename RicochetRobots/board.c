@@ -131,6 +131,12 @@ int askForGameBoard(GameBoard *board) {
                 *board = getBuiltInBoardAtIndex(boardNb - 1);
                 break;
             }
+            case 2: {
+                char path[MAX_LVL_PATH_SIZE];
+                askForLevelPath(path);
+                loadBoardFromFile(board, path);
+                break;
+            }
             case 0:
                 return 1;
                 break;

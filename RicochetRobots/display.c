@@ -44,7 +44,7 @@ int displayMainMenu(bool error) {
         
     printf("\nmenu> ");
     scanf("%d", &choice);
-    while(getchar()!='\n');
+    fseek(stdin, 0, SEEK_END);
     
     return choice;
 }
@@ -66,7 +66,7 @@ int displayGameBoardSelectionMenu(bool error) {
     
     printf("\nplateau> ");
     scanf("%d", &choice);
-    while(getchar()!='\n');
+    fseek(stdin, 0, SEEK_END);
     
     return choice;
 }
@@ -144,7 +144,7 @@ void askForSinglePlayerUsername(Player robots[]) {
     
     printf("Votre pseudo : ");
     //vidage du buffer
-    while(getchar()!='\n');
+    fseek(stdin, 0, SEEK_END);
     
     //on récupère 14 caractères (+1 pour le \0) dans username
     fgets(username, MAX_USERNAME_SIZE - 1, stdin);
@@ -158,6 +158,20 @@ void askForSinglePlayerUsername(Player robots[]) {
         if(!robots[i].isBot) strcpy(robots[i].username, username);
         else sprintf(robots[i].username, "CPU%d", i);
     }
+}
+
+void askForLevelPath(char path[]) {
+    printf("Entrez le chemin du fichier niveau : ");
+    
+    fseek(stdin, 0, SEEK_END);
+    
+    //on récupère 14 caractères (+1 pour le \0) dans username
+    fgets(path, MAX_LVL_PATH_SIZE - 1, stdin);
+    
+    //enlève le \n de fin de chaîne
+    size_t ln = strlen(path) - 1;
+    if (path[ln] == '\n')
+        path[ln] = '\0';
 }
 
 void displayGameBoard(GameState *state) {

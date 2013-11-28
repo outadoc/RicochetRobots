@@ -29,6 +29,7 @@ typedef int Direction;  //la direction est un entier
 #define BUILTIN_BOARDS_COUNT 2  //nombre de grilles prédéfinies
 #define MAX_PLAYERS_COUNT 4     //nombre maximal de joueurs
 #define MAX_USERNAME_SIZE 15    //taille maximale d'un pseudo
+#define MAX_LVL_PATH_SIZE 300   //taille maximale du chemin d'un fichier niveau
 
 // BINDING TOUCHES CLAVIER //
 /****************************************/
