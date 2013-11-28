@@ -134,6 +134,6 @@ void startSinglePlayer(int playVsComputer) {
         }
         
         //un joueur est arrivé sur l'objectif, fin du jeu
-        displayGameEnding(newGame.turnCount, getPlayerOnObjective(&newGame));
+        displayGameEnding(newGame.turnCount, getPlayerOnObjective(&newGame), &newGame);
     }
 }

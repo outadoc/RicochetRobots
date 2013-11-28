@@ -84,11 +84,21 @@ void displayMenuError() {
     printf("Woops. Mauvaise option.");
 }
 
-void displayGameEnding(int score, Player *winner) {
-    if(winner == NULL) return;
-
-    printf("\nPartie terminée !\n");
-    printf("%s a déplacé le robot %s%s%s sur l'objectif en %d coups.", winner->username, getAnsiColorFromRobotColor(winner->robotColor), getRobotStringColor(winner->robotColor), ANSI_COLOR_RESET, score);
+void displayGameEnding(int score, Player *winner, GameState *state) {
+    if(state == NULL) return;
+    
+    int i;
+    
+    printf("\n------------------------------------\n");
+    printf("Partie terminée !\n");
+    printf("Gagnant : %s a déplacé le robot %s%s%s sur l'objectif\n", winner->username, getAnsiColorFromRobotColor(winner->robotColor), getRobotStringColor(winner->robotColor), ANSI_COLOR_RESET);
+    printf("\nScore total : %d coups\n\n", score);
+    
+    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
+        printf("Score de %s%s%s : %d coups\n", getAnsiColorFromRobotColor(state->players[i].robotColor), getRobotStringColor(state->players[i].robotColor), ANSI_COLOR_RESET, state->players[i].score);
+    }
+    
+    printf("------------------------------------\n\n");
 }
 
 bool wantsToReplay() {

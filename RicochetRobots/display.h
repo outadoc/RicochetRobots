@@ -22,7 +22,7 @@ void displayMenuError();
 
 void listBuiltInBoards();
 void displayLogo();
-void displayGameEnding(int score, Player *winner);
+void displayGameEnding(int score, Player *winner, GameState *state);
 
 void displayGameBoard(GameState *state);
 void refreshDisplay(GameState *currentGame);
