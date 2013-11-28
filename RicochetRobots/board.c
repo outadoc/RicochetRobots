@@ -143,3 +143,114 @@ int askForGameBoard(GameBoard *board) {
     
     return 0;
 }
+
+void loadBoardFromFile(GameBoard *board, const char path[]) {
+    //on initialise le plateau avec des valeurs par défaut
+    *board = getEmptyGameBoard();
+    
+    FILE *level = fopen(path, "r");
+    
+    if(level == NULL) {
+        //si le fichier n'a pas pu être chargé
+        printf("erreur #%d\n", errno);
+        board = NULL;
+        return;
+    }
+    
+    char c;
+    int i = 0;
+    
+    //on vérifie si on n'est pas à la fin du fichier et on recule le curseur comme si de rien n'était
+    while((c = getc(level)) != EOF) {
+        fseek(level, -1, SEEK_CUR);
+        
+        //on s'attend à trouver 4 lignes pour les coordonnées des 4 robots
+        while(i < MAX_PLAYERS_COUNT) {
+            //on vérifie si la ligne n'est pas vide ou un commentaire et on recule le curseur comme si de rien n'était
+            if((c = getc(level)) != '#' && c != '\n') {
+                fseek(level, -1, SEEK_CUR);
+                
+                char robot;
+                int x, y;
+                
+                //on récupère l'id du robot et ses coordonnées
+                fscanf(level, "%c %d %d\n", &robot, &x, &y);
+                
+                switch (robot) {
+                    case 'B':
+                        board->robotsPosition[0].x = x;
+                        board->robotsPosition[0].y = y;
+                        break;
+                    case 'R':
+                        board->robotsPosition[1].x = x;
+                        board->robotsPosition[1].y = y;
+                        break;
+                    case 'V':
+                        board->robotsPosition[2].x = x;
+                        board->robotsPosition[2].y = y;
+                        break;
+                    case 'G':
+                        board->robotsPosition[3].x = x;
+                        board->robotsPosition[3].y = y;
+                        break;
+                    default:
+                        return;
+                        break;
+                }
+
+                i++;
+            } else {
+                //si c'est un commentaire, on ignore la ligne complète
+                while((c = getc(level)) != '\n');
+            }
+        }
+        
+        i = 0;
+        
+        //pour chaque ligne
+        while(i < BOARD_SIZE) {
+            //si la ligne n'est pas vide ou un commentaire
+            if((c = getc(level)) != '#' && c != '\n') {
+                int j;
+                
+                //on recule le curseur
+                fseek(level, -1, SEEK_CUR);
+                
+                //pour chaque caractère de la ligne
+                for(j = 0; j < BOARD_SIZE; j++) {
+                    //on récupère le caractère sous le curseur
+                    char cell = getc(level);
+                    
+                    //si le caractère est invalide, on annule
+                    if(cell != CELL_EMPTY
+                       && cell != CELL_OBJECTIVE
+                       && cell != CELL_WALL_BOTTOM
+                       && cell != CELL_WALL_LEFT
+                       && cell != CELL_WALL_RIGHT
+                       && cell != CELL_WALL_TOP) {
+                        return;
+                    } else {
+                        //si tout va bien, on insère le caractère dans le tableau
+                        board->obstacles[i][j] = cell;
+                    }
+                }
+                
+                //on récupère le caractère de fin de ligne
+                getc(level);
+                
+                //on passe à la ligne suivante
+                i++;
+            } else {
+                //si c'est un commentaire, on ignore la ligne complète
+                while((c = getc(level)) != '\n');
+            }
+        }
+        
+        //on cherche un caractère ok
+        getc(level);
+    }
+    
+    //on ferme le fichier
+    fclose(level);
+}
+

@@ -11,9 +11,10 @@
 
 #include "struct.h"
 #include "display.h"
+#include <errno.h>
 
-void loadBoardFromFile(GameBoard board, const char path[]);
-void getRandomBoard(GameBoard board);
+void loadBoardFromFile(GameBoard *board, const char path[]);
+void getRandomBoard(GameBoard *board);
 GameBoard getBuiltInBoardAtIndex(int index);
 GameBoard getEmptyGameBoard();
 
