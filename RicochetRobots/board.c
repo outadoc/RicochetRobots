@@ -145,6 +145,8 @@ int askForGameBoard(GameBoard *board) {
 }
 
 void loadBoardFromFile(GameBoard *board, const char path[]) {
+    if(board == NULL) return;
+    
     //on initialise le plateau avec des valeurs par défaut
     *board = getEmptyGameBoard();
     
@@ -153,7 +155,9 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
     if(level == NULL) {
         //si le fichier n'a pas pu être chargé
         printf("erreur #%d\n", errno);
-        board = NULL;
+        
+        //on ferme le fichier
+        fclose(level);
         return;
     }
     
@@ -194,6 +198,8 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
                         board->robotsPosition[3].y = y;
                         break;
                     default:
+                        //on ferme le fichier
+                        fclose(level);
                         return;
                         break;
                 }
@@ -228,6 +234,8 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
                        && cell != CELL_WALL_LEFT
                        && cell != CELL_WALL_RIGHT
                        && cell != CELL_WALL_TOP) {
+                        //on ferme le fichier
+                        fclose(level);
                         return;
                     } else {
                         //si tout va bien, on insère le caractère dans le tableau
@@ -246,8 +254,9 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
             }
         }
         
-        //on cherche un caractère ok
-        getc(level);
+        //on ferme le fichier
+        fclose(level);
+        return;
     }
     
     //on ferme le fichier
