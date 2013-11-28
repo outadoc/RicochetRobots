@@ -157,7 +157,7 @@ void displayGameBoard(GameState *state) {
     
     for (i = 0; i < BOARD_SIZE; i++) {
         if(i == 0) {
-            printf("+");
+            printf("\n+");
             
             for (j = 0; j < BOARD_SIZE; j++) {
                 //première ligne ? on affiche une ligne de "-"
@@ -229,7 +229,9 @@ void displayGameBoard(GameState *state) {
 void refreshDisplay(GameState *currentGame) {
     if(currentGame == NULL) return;
     
-    printf("\n+++++++++++++++++++++++++++++\n");
+    displayGameBoard(currentGame);
+    
+    printf("\n-----------------------------\n");
     printf("Tour %d\n", currentGame->turnCount);
     printf("Joueur actuel : %s%s%s (%s)\n", getAnsiColorFromRobotColor(currentGame->currentPlayer->robotColor), getRobotStringColor(currentGame->currentPlayer->robotColor), ANSI_COLOR_RESET, currentGame->currentPlayer->username);
     printf("Score : %d\n",
@@ -237,9 +239,7 @@ void refreshDisplay(GameState *currentGame) {
            + currentGame->players[1].score
            + currentGame->players[2].score
            + currentGame->players[3].score);
-    printf("+++++++++++++++++++++++++++++\n\n");
-    
-    displayGameBoard(currentGame);
+    printf("-----------------------------\n");
 }
 
 char* getAnsiColorFromRobotColor(int color) {

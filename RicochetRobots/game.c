@@ -109,8 +109,15 @@ void startSinglePlayer(int playVsComputer) {
         
         //tant qu'aucun robot n'est sur l'objectif
         while(getPlayerOnObjective(&newGame) == NULL) {
+            Direction direction;
+            
             //on demande à l'utilisateur dans quelle direction il veut aller OU si c'est un bot, on récupère une direction aléatoire
-            Direction direction = (newGame.currentPlayer->isBot) ? getRandomDirection(1) : waitForDirection();
+            if(newGame.currentPlayer->isBot) {
+                direction = getRandomDirection(1);
+            } else {
+                printf("\nÀ toi de jouer, %s ! ", newGame.currentPlayer->username);
+                direction = waitForDirection();
+            }
             
             //on déplace le robot dans cette direction
             moveCurrentPlayerWhilePossible(&newGame, direction);
