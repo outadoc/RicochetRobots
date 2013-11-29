@@ -91,11 +91,21 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
     
     printf("\n------------------------------------\n");
     printf("Partie terminée !\n");
-    printf("Gagnant : %s a déplacé le robot %s%s%s sur l'objectif\n", winner->username, getAnsiColorFromRobotColor(winner->robotColor), getRobotStringColor(winner->robotColor), ANSI_COLOR_RESET);
+    
+    printf("Gagnant : %s a déplacé le robot %s%s%s sur l'objectif\n",
+           winner->username,
+           getAnsiColorFromRobotColor(winner->robotColor),
+           getRobotStringColor(winner->robotColor),
+           ANSI_COLOR_RESET);
+    
     printf("\nScore total : %d coups\n\n", score);
     
     for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
-        printf("Score de %s%s%s : %d coups\n", getAnsiColorFromRobotColor(state->players[i].robotColor), getRobotStringColor(state->players[i].robotColor), ANSI_COLOR_RESET, state->players[i].score);
+        printf("Score de %s%s%s : %d coups\n",
+               getAnsiColorFromRobotColor(state->players[i].robotColor),
+               getRobotStringColor(state->players[i].robotColor),
+               ANSI_COLOR_RESET,
+               state->players[i].score);
     }
     
     printf("------------------------------------\n\n");
@@ -126,7 +136,7 @@ void askForPlayersInfo(Player players[]) {
     for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
         printf("Pseudo du joueur %d : ", i+1);
         
-        //on récupère 14 caractères (+1 pour le \0) dans username
+        //on récupère 14 caractères (+1 pour le \0) dans Player.username
         fgets(players[i].username, MAX_USERNAME_SIZE - 1, stdin);
         
         //enlève le \n de fin de chaîne
@@ -161,7 +171,7 @@ void askForLevelPath(char path[]) {
     
     fseek(stdin, 0, SEEK_END);
     
-    //on récupère 14 caractères (+1 pour le \0) dans username
+    //on récupère 14 caractères (+1 pour le \0) dans path
     fgets(path, MAX_LVL_PATH_SIZE - 1, stdin);
     
     //enlève le \n de fin de chaîne
@@ -198,9 +208,14 @@ void displayGameBoard(GameState *state) {
                     hasContent = true;
                     
                     if(state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
-                        printf("%s%s[@]%s", getAnsiColorFromRobotColor(k), ANSI_BG_COLOR_MAGENTA, ANSI_COLOR_RESET);
+                        printf("%s%s[@]%s",
+                               getAnsiColorFromRobotColor(k),
+                               ANSI_BG_COLOR_MAGENTA,
+                               ANSI_COLOR_RESET);
                     } else {
-                        printf("%s[@]%s", getAnsiColorFromRobotColor(k), ANSI_COLOR_RESET);
+                        printf("%s[@]%s",
+                               getAnsiColorFromRobotColor(k),
+                               ANSI_COLOR_RESET);
                     }
                     
                 }
@@ -251,12 +266,19 @@ void refreshDisplay(GameState *currentGame) {
     
     printf("\n-----------------------------\n");
     printf("Tour %d\n", currentGame->turnCount);
-    printf("Joueur actuel : %s%s%s (%s)\n", getAnsiColorFromRobotColor(currentGame->currentPlayer->robotColor), getRobotStringColor(currentGame->currentPlayer->robotColor), ANSI_COLOR_RESET, currentGame->currentPlayer->username);
+    
+    printf("Joueur actuel : %s%s%s (%s)\n",
+           getAnsiColorFromRobotColor(currentGame->currentPlayer->robotColor),
+           getRobotStringColor(currentGame->currentPlayer->robotColor),
+           ANSI_COLOR_RESET,
+           currentGame->currentPlayer->username);
+    
     printf("Score : %d\n",
            currentGame->players[0].score
            + currentGame->players[1].score
            + currentGame->players[2].score
            + currentGame->players[3].score);
+    
     printf("-----------------------------\n");
 }
 
