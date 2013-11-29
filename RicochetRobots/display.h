@@ -9,6 +9,8 @@
 #ifndef RicochetRobots_display_h
 #define RicochetRobots_display_h
 
+#include <stdlib.h>
+
 #include "game.h"
 #include "player.h"
 #include "struct.h"
@@ -23,6 +25,7 @@ void displayMenuError();
 
 void listBuiltInBoards();
 void displayLogo();
+void clearScreen();
 void displayGameEnding(int score, Player *winner, GameState *state);
 
 void displayGameBoard(GameState *state);

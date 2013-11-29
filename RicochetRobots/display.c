@@ -14,6 +14,8 @@
 #include "display.h"
 
 void displayLogo() {
+    clearScreen();
+    
     printf("    ____  ______________  ________  ______________\n");
     printf("   / __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/\n");
     printf("  / /_/ // // /   / / / / /   / /_/ / __/   / /\n");
@@ -50,6 +52,8 @@ int displayMainMenu(bool error) {
 }
 
 int displayGameBoardSelectionMenu(bool error) {
+    clearScreen();
+    
     if(!error) {
         printf("\nCHOIX DU PLATEAU\n");
         printf("----------------\n\n");
@@ -88,6 +92,8 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
     if(state == NULL) return;
     
     int i;
+    
+    clearScreen();
     
     printf("\n------------------------------------\n");
     printf("Partie terminée !\n");
@@ -261,6 +267,7 @@ void displayGameBoard(GameState *state) {
 void refreshDisplay(GameState *currentGame) {
     if(currentGame == NULL) return;
     
+    clearScreen();
     displayGameBoard(currentGame);
     
     printf("\n-----------------------------\n");
@@ -319,4 +326,8 @@ char* getANSIBGColorFromRobotColor(int color) {
             return ANSI_COLOR_RESET;
             break;
     }
+}
+
+void clearScreen() {
+    system("clear");
 }
