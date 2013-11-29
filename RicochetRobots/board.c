@@ -160,7 +160,7 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
     
     if(level == NULL) {
         //si le fichier n'a pas pu être chargé
-        printf("erreur #%d\n", errno);
+        perror("Erreur : ");
         
         //on ferme le fichier
         fclose(level);
