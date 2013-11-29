@@ -123,11 +123,8 @@ void startSinglePlayer(int playVsComputer) {
             moveCurrentPlayerWhilePossible(&newGame, direction);
             
             //on passe au joueur suivant
-            if(newGame.currentPlayer + 1 > robots + MAX_PLAYERS_COUNT - 1) {
-                newGame.currentPlayer = &robots[0];
-            } else {
-                newGame.currentPlayer++;
-            }
+            //le modulo est cyclique, c'est parfait : chaque joueur jouera tous les MAX_PLAYERS_COUNT tours.
+            newGame.currentPlayer = &robots[newGame.turnCount % MAX_PLAYERS_COUNT];
             
             //on met à jour l'affichage après chaque tour
             refreshDisplay(&newGame);
