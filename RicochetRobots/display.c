@@ -130,9 +130,7 @@ void askForPlayersInfo(Player players[]) {
         fgets(players[i].username, MAX_USERNAME_SIZE - 1, stdin);
         
         //enlève le \n de fin de chaîne
-        size_t ln = strlen(players[i].username) - 1;
-        if (players[i].username[ln] == '\n')
-            players[i].username[ln] = '\0';
+        removeCarriageReturn(players[i].username);
     }
 }
 
@@ -150,9 +148,7 @@ void askForSinglePlayerUsername(Player robots[]) {
     fgets(username, MAX_USERNAME_SIZE - 1, stdin);
     
     //enlève le \n de fin de chaîne
-    size_t ln = strlen(username) - 1;
-    if (username[ln] == '\n')
-        username[ln] = '\0';
+    removeCarriageReturn(username);
     
     for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
         if(!robots[i].isBot) strcpy(robots[i].username, username);
@@ -169,9 +165,7 @@ void askForLevelPath(char path[]) {
     fgets(path, MAX_LVL_PATH_SIZE - 1, stdin);
     
     //enlève le \n de fin de chaîne
-    size_t ln = strlen(path) - 1;
-    if (path[ln] == '\n')
-        path[ln] = '\0';
+    removeCarriageReturn(path);
 }
 
 void displayGameBoard(GameState *state) {

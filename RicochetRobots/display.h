@@ -12,6 +12,7 @@
 #include "game.h"
 #include "player.h"
 #include "struct.h"
+#include "utils.h"
 
 int displayMainMenu(bool error);
 int displayGameBoardSelectionMenu(bool error);
