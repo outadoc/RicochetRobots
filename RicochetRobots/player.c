@@ -99,7 +99,7 @@ void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
 
 int getRandomDirection(int delay) {
     sleep(delay);
-    return rand() % (3-0) + 0;
+    return rand() % (3 - 0) + 0;
 }
 
 char* getRobotStringColor(int color) {
