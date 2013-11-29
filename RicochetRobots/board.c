@@ -172,13 +172,13 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
     
     //on vérifie si on n'est pas à la fin du fichier et on recule le curseur comme si de rien n'était
     while((c = getc(level)) != EOF) {
-        fseek(level, -1, SEEK_CUR);
+        ungetc(c, level);
         
         //on s'attend à trouver 4 lignes pour les coordonnées des 4 robots
         while(i < MAX_PLAYERS_COUNT) {
             //on vérifie si la ligne n'est pas vide ou un commentaire et on recule le curseur comme si de rien n'était
             if((c = getc(level)) != '#' && c != '\n') {
-                fseek(level, -1, SEEK_CUR);
+                ungetc(c, level);
                 
                 char robot;
                 int x, y;
@@ -226,7 +226,7 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
                 int j;
                 
                 //on recule le curseur
-                fseek(level, -1, SEEK_CUR);
+                ungetc(c, level);
                 
                 //pour chaque caractère de la ligne
                 for(j = 0; j < BOARD_SIZE; j++) {
@@ -262,6 +262,8 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
         
         //on ferme le fichier
         fclose(level);
+        printf("Chargement OK\n");
+        
         return;
     }
     
