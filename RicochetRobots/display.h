@@ -32,6 +32,7 @@ void askForPlayersInfo(Player players[]);
 void askForSinglePlayerUsername(Player robots[]);
 void askForLevelPath(char path[]);
 
-char* getAnsiColorFromRobotColor(int color);
+char* getANSITextColorFromRobotColor(int color);
+char* getANSIBGColorFromRobotColor(int color);
 
 #endif

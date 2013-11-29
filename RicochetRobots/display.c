@@ -94,7 +94,7 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
     
     printf("Gagnant : %s a déplacé le robot %s%s%s sur l'objectif\n",
            winner->username,
-           getAnsiColorFromRobotColor(winner->robotColor),
+           getANSITextColorFromRobotColor(winner->robotColor),
            getRobotStringColor(winner->robotColor),
            ANSI_COLOR_RESET);
     
@@ -102,7 +102,7 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
     
     for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
         printf("Score de %s%s%s : %d coups\n",
-               getAnsiColorFromRobotColor(state->players[i].robotColor),
+               getANSITextColorFromRobotColor(state->players[i].robotColor),
                getRobotStringColor(state->players[i].robotColor),
                ANSI_COLOR_RESET,
                state->players[i].score);
@@ -208,13 +208,12 @@ void displayGameBoard(GameState *state) {
                     hasContent = true;
                     
                     if(state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
-                        printf("%s%s[@]%s",
-                               getAnsiColorFromRobotColor(k),
-                               ANSI_BG_COLOR_MAGENTA,
+                        printf("%s[X]%s",
+                               getANSIBGColorFromRobotColor(k),
                                ANSI_COLOR_RESET);
                     } else {
-                        printf("%s[@]%s",
-                               getAnsiColorFromRobotColor(k),
+                        printf("%s   %s",
+                               getANSIBGColorFromRobotColor(k),
                                ANSI_COLOR_RESET);
                     }
                     
@@ -224,7 +223,7 @@ void displayGameBoard(GameState *state) {
             //si la case n'a pas encore de contenu (et donc pas de robot) et que c'est une case objectif
             if(!hasContent && state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
                 hasContent = true;
-                printf("%s(O)%s", ANSI_BG_COLOR_MAGENTA, ANSI_COLOR_RESET);
+                printf("%s[X]%s", ANSI_COLOR_MAGENTA, ANSI_COLOR_RESET);
             }
             
             //si il n'y a pas de robot dans la case, on affiche un espace
@@ -268,7 +267,7 @@ void refreshDisplay(GameState *currentGame) {
     printf("Tour %d\n", currentGame->turnCount);
     
     printf("Joueur actuel : %s%s%s (%s)\n",
-           getAnsiColorFromRobotColor(currentGame->currentPlayer->robotColor),
+           getANSITextColorFromRobotColor(currentGame->currentPlayer->robotColor),
            getRobotStringColor(currentGame->currentPlayer->robotColor),
            ANSI_COLOR_RESET,
            currentGame->currentPlayer->username);
@@ -282,7 +281,7 @@ void refreshDisplay(GameState *currentGame) {
     printf("-----------------------------\n");
 }
 
-char* getAnsiColorFromRobotColor(int color) {
+char* getANSITextColorFromRobotColor(int color) {
     switch (color) {
         case ROBOT_RED:
             return ANSI_COLOR_RED;
@@ -295,6 +294,26 @@ char* getAnsiColorFromRobotColor(int color) {
             break;
         case ROBOT_GREY:
             return ANSI_COLOR_YELLOW;
+            break;
+        default:
+            return ANSI_COLOR_RESET;
+            break;
+    }
+}
+
+char* getANSIBGColorFromRobotColor(int color) {
+    switch (color) {
+        case ROBOT_RED:
+            return ANSI_BG_COLOR_RED;
+            break;
+        case ROBOT_GREEN:
+            return ANSI_BG_COLOR_GREEN;
+            break;
+        case ROBOT_BLUE:
+            return ANSI_BG_COLOR_BLUE;
+            break;
+        case ROBOT_GREY:
+            return ANSI_BG_COLOR_YELLOW;
             break;
         default:
             return ANSI_COLOR_RESET;
