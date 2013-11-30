@@ -63,9 +63,9 @@ int displayMainMenu(bool error) {
 // Si error vaut true, on affiche une erreur à la place du menu.
 //
 int displayGameBoardSelectionMenu(bool error) {
-    clearScreen();
-    
     if(!error) {
+        clearScreen();
+        
         printf("\nCHOIX DU PLATEAU\n");
         printf("----------------\n\n");
         
