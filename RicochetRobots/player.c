@@ -106,8 +106,10 @@ bool moveCurrentPlayer(GameState *state, Direction direction) {
 void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
     if(state == NULL || direction > 3) return;
     
+    //tant qu'on peut déplacer le joueur courant, on le fait
     while(moveCurrentPlayer(state, direction));
     
+    //on augmente les compteurs
     state->currentPlayer->score++;
     state->turnCount++;
 }
@@ -115,10 +117,20 @@ void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
 //
 // Retourne une direction aléatoire.
 //
-Direction getRandomDirection() {
+Direction getRandomDirection(GameState *state) {
     //repos de 1 seconde avant le déplacement
     usleep(1000 * 1000);
-    return rand_between(0, 3);
+    
+    int dir = 0;
+    
+    //tant qu'il y a un obstacle dans la direction choisie aléatoirement
+    do {
+        //on choisit un nombre compris entre 0 et 4
+        //(avec l'arrondi à l'unité, le nombre est finalement 0, 1, 2 ou 3)
+        dir = rand_between(0, 4);
+    } while(checkForObstacle(state, dir));
+    
+    return dir;
 }
 
 //
@@ -126,6 +138,8 @@ Direction getRandomDirection() {
 //
 Direction waitForDirection() {
     char c;
+    
+    fseek(stdin, 0, SEEK_END);
     
     do {
         c = getchar();

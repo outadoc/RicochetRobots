@@ -19,7 +19,7 @@ bool checkForObstacle(GameState *state, Direction direction);
 bool moveCurrentPlayer(GameState *state, Direction direction);
 void moveCurrentPlayerWhilePossible(GameState *state, Direction direction);
 
-Direction getRandomDirection();
+Direction getRandomDirection(GameState *state);
 Direction waitForDirection();
 
 bool isPlayerOnObjective(Player *player, GameBoard *gameBoard);

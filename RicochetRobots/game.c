@@ -101,7 +101,7 @@ int startSinglePlayer(bool playVsComputer) {
             
             //on demande à l'utilisateur dans quelle direction il veut aller OU si c'est un bot, on récupère une direction aléatoire
             if(newGame.currentPlayer->isBot) {
-                direction = getRandomDirection();
+                direction = getRandomDirection(&newGame);
             } else {
                 printf("\nÀ toi de jouer, %s ! ", newGame.currentPlayer->username);
                 direction = waitForDirection();
