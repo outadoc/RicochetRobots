@@ -10,6 +10,9 @@
 #include "game.h"
 
 int main(int argc, const char * argv[]) {
+    //initialisation du seed pour la PRNG
+    srand((int) time(NULL));
+    
     //exécution de la boucle principale
     return start();
 }

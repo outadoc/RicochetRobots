@@ -90,6 +90,10 @@ bool moveCurrentPlayer(GameState *state, Direction direction) {
                 break;
         }
         
+        //on endort le programme pendant 100 millisecondes
+        usleep(100 * 1000);
+        refreshDisplay(state);
+        
         return true;
     }
     
@@ -111,9 +115,10 @@ void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
 //
 // Retourne une direction aléatoire.
 //
-Direction getRandomDirection(int delay) {
-    sleep(delay);
-    return rand() % (3 - 0) + 0;
+Direction getRandomDirection() {
+    //repos de 1 seconde avant le déplacement
+    usleep(1000 * 1000);
+    return rand_between(0, 3);
 }
 
 //

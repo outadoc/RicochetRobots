@@ -9,6 +9,11 @@
 #ifndef RicochetRobots_utils_h
 #define RicochetRobots_utils_h
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 void removeCarriageReturn(char str[]);
+int rand_between(int min, int max);
 
 #endif
