@@ -15,8 +15,8 @@
 // Vérifie si on peut déplacer le joueur courant dans la direction fournie.
 // Retourne true s'il y a un obstacle, false sinon.
 //
-int checkForObstacle(GameState *state, Direction direction) {
-    if(state == NULL || direction > 3) return 1;
+bool checkForObstacle(GameState *state, Direction direction) {
+    if(state == NULL || direction > 3) return true;
     
     int i;
     
@@ -31,28 +31,28 @@ int checkForObstacle(GameState *state, Direction direction) {
             
             if(target.x > BOARD_SIZE - 1
                     || state->gameBoard->obstacles[target.x-1][target.y] == CELL_WALL_BOTTOM
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP) return 1;
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP) return true;
             break;
         case DIRECTION_LEFT:
             target.y--;
             
             if(target.y < 0
                     || state->gameBoard->obstacles[target.x][target.y+1] == CELL_WALL_LEFT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_RIGHT) return 1;
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_RIGHT) return true;
             break;
         case DIRECTION_RIGHT:
             target.y++;
             
             if(target.y > BOARD_SIZE - 1
                     || state->gameBoard->obstacles[target.x][target.y-1] == CELL_WALL_RIGHT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_LEFT) return 1;
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_LEFT) return true;
             break;
         case DIRECTION_UP:
             target.x--;
             
             if(target.x < 0
                     || state->gameBoard->obstacles[target.x+1][target.y] == CELL_WALL_TOP
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM) return 1;
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM) return true;
             break;
     }
     
@@ -60,19 +60,19 @@ int checkForObstacle(GameState *state, Direction direction) {
         if(state->players[i].robotColor != state->currentPlayer->robotColor
             && state->players[i].position.x == target.x
             && state->players[i].position.y == target.y) {
-           return 1;
+           return true;
         }
     }
     
-    return 0;
+    return false;
 }
 
 //
 // Déplace le joueur courant dans la direction fournie.
 // Retourne true si on a pu le déplacer, false sinon.
 //
-int moveCurrentPlayer(GameState *state, Direction direction) {
-    if(state == NULL || direction > 3) return 0;
+bool moveCurrentPlayer(GameState *state, Direction direction) {
+    if(state == NULL || direction > 3) return false;
     
     if(!checkForObstacle(state, direction)) {
         switch (direction) {
@@ -90,10 +90,10 @@ int moveCurrentPlayer(GameState *state, Direction direction) {
                 break;
         }
         
-        return 1;
-    } else {
-        return 0;
+        return true;
     }
+    
+    return false;
 }
 
 //
@@ -111,7 +111,7 @@ void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
 //
 // Retourne une direction aléatoire.
 //
-int getRandomDirection(int delay) {
+Direction getRandomDirection(int delay) {
     sleep(delay);
     return rand() % (3 - 0) + 0;
 }
@@ -143,8 +143,8 @@ char* getRobotStringColor(int color) {
 // Vérifie si un joueur est sur l'objectif.
 // Retourne true s'il l'est, false sinon.
 //
-int isPlayerOnObjective(Player *player, GameBoard *gameBoard) {
-    if(player == NULL || gameBoard == NULL) return 0;
+bool isPlayerOnObjective(Player *player, GameBoard *gameBoard) {
+    if(player == NULL || gameBoard == NULL) return false;
     
     return (gameBoard->obstacles[player->position.x][player->position.y] == CELL_OBJECTIVE);
 }
