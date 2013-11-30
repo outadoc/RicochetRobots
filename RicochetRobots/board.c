@@ -201,15 +201,15 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
                 fscanf(level, "%c %d %d\n", &robot, &x, &y);
                 
                 switch (robot) {
-                    case 'B':
+                    case 'R':
                         board->robotsPosition[0].x = x;
                         board->robotsPosition[0].y = y;
                         break;
-                    case 'R':
+                    case 'V':
                         board->robotsPosition[1].x = x;
                         board->robotsPosition[1].y = y;
                         break;
-                    case 'V':
+                    case 'B':
                         board->robotsPosition[2].x = x;
                         board->robotsPosition[2].y = y;
                         break;
