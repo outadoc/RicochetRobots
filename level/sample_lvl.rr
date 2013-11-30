@@ -1,0 +1,45 @@
+# Fichier d'exemple pour un niveau de Ricochet Robots
+# Baptiste Candellier 2013
+# - IUT Caen Campus 3
+
+# Emplacement des robots
+# Format : COULEUR Y X
+
+# BLEU
+B 0 3
+
+# ROUGE
+R 12 10
+
+# VERT
+V 11 11
+
+# GRIS
+G 8 4
+
+# Grille de jeu
+
+# Codage :
+# E : vide
+# R : mur à droite
+# L : mur à gauche
+# U : mur en haut
+# B : mur en bas
+# O : objectif
+
+EEEREEEEEEEREEEE
+EEEEEEEEEEEERUEE
+EEEEEBLEEBLEEEEE
+EEEEEEEEEEEEEEEB
+BEULEEEEEEEEEEEE
+EEEEEERBEEEEERBE
+RUEEEEEBBEEULEEE
+EEEEEEREELEEEEEE
+EEEEEEREELEEEEEE
+EEERBEEUUEEEULEB
+BEEEERUEEEEEEEEO
+EEEEEEEBEBEEEEEE
+EEEEEEERELEEEEEE
+EULEEEEEEEEEERBE
+EEEBLEEEEEEBLEEE
+EEEEEREEEEEEEELE
