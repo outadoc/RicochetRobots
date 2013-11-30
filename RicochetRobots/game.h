@@ -18,7 +18,4 @@ int handleMainMenu();
 
 void startSinglePlayer(int playVsComputer);
 
-int waitForDirection();
-GameState gameConfig();
-
 #endif

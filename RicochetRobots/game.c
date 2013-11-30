@@ -59,34 +59,6 @@ int start() {
 }
 
 //
-// Demande à l'utilisateur dans quelle direction il souhaite se déplacer.
-//
-int waitForDirection() {
-    char c;
-    
-    do {
-        c = getchar();
-    } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP);
-    
-    switch (c) {
-        case KEY_DOWN:
-            return DIRECTION_DOWN;
-            break;
-        case KEY_LEFT:
-            return DIRECTION_LEFT;
-            break;
-        case KEY_RIGHT:
-            return DIRECTION_RIGHT;
-            break;
-        case KEY_UP:
-            return DIRECTION_UP;
-            break;
-    }
-    
-    return 0;
-}
-
-//
 // Boucle de partie.
 // Demande à l'utilisateur les infos nécessaires au lancement de la partie, puis exécute la boucle jusqu'à la fin du jeu.
 //
