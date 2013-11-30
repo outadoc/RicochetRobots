@@ -14,7 +14,7 @@
 #include "struct.h"
 #include "interface.h"
 
-void loadBoardFromFile(GameBoard *board, const char path[]);
+int loadBoardFromFile(GameBoard *board, const char path[]);
 void getRandomBoard(GameBoard *board);
 GameBoard getBuiltInBoardAtIndex(int index);
 GameBoard getEmptyGameBoard();

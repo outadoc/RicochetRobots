@@ -144,7 +144,7 @@ int askForGameBoard(GameBoard *board) {
             case 2: {
                 char path[MAX_LVL_PATH_SIZE];
                 askForLevelPath(path);
-                loadBoardFromFile(board, path);
+                return loadBoardFromFile(board, path);
                 break;
             }
             case 0:
@@ -162,10 +162,10 @@ int askForGameBoard(GameBoard *board) {
 
 //
 // Charge un plateau de jeu depuis le chemin fourni.
-// En cas d'erreur, on l'affiche sur la sortie standard et on retourne un plateau vide.
+// En cas d'erreur, on l'affiche sur la sortie standard et on retourne un code 1. Sinon, on retourne 0.
 //
-void loadBoardFromFile(GameBoard *board, const char path[]) {
-    if(board == NULL) return;
+int loadBoardFromFile(GameBoard *board, const char path[]) {
+    if(board == NULL) return 1;
     
     //on initialise le plateau avec des valeurs par défaut
     *board = getEmptyGameBoard();
@@ -174,11 +174,11 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
     
     if(level == NULL) {
         //si le fichier n'a pas pu être chargé
-        perror("Erreur : ");
+        perror("Erreur");
         
         //on ferme le fichier
         fclose(level);
-        return;
+        return 1;
     }
     
     char c;
@@ -220,7 +220,7 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
                     default:
                         //on ferme le fichier
                         fclose(level);
-                        return;
+                        return 1;
                         break;
                 }
 
@@ -233,10 +233,15 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
         
         i = 0;
         
-        //pour chaque ligne
+        //pour chaque ligne du tableau
         while(i < BOARD_SIZE) {
-            //si la ligne n'est pas vide ou un commentaire
-            if((c = getc(level)) != '#' && c != '\n') {
+            if((c = getc(level)) == '\n') {
+                //si la ligne est vide, on ne fait rien
+                continue;
+            } else if(c == '#') {
+                //si c'est un commentaire, on ignore la ligne complète
+                while((c = getc(level)) != '\n');
+            } else {
                 int j;
                 
                 //on recule le curseur
@@ -256,7 +261,7 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
                        && cell != CELL_WALL_TOP) {
                         //on ferme le fichier
                         fclose(level);
-                        return;
+                        return 1;
                     } else {
                         //si tout va bien, on insère le caractère dans le tableau
                         board->obstacles[i][j] = cell;
@@ -268,9 +273,6 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
                 
                 //on passe à la ligne suivante
                 i++;
-            } else {
-                //si c'est un commentaire, on ignore la ligne complète
-                while((c = getc(level)) != '\n');
             }
         }
         
@@ -278,9 +280,10 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
         fclose(level);
         printf("Chargement OK\n");
         
-        return;
+        return 0;
     }
     
     //on ferme le fichier
     fclose(level);
+    return 0;
 }
