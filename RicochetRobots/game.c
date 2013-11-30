@@ -13,6 +13,9 @@
 
 #include "game.h"
 
+//
+// Boucle principale du jeu.
+//
 int start() {
     //boucle principale : on en sort avec un return
     while(1) {
@@ -55,6 +58,9 @@ int start() {
     }
 }
 
+//
+// Demande à l'utilisateur dans quelle direction il souhaite se déplacer.
+//
 int waitForDirection() {
     char c;
     
@@ -80,6 +86,10 @@ int waitForDirection() {
     return 0;
 }
 
+//
+// Boucle de partie.
+// Demande à l'utilisateur les infos nécessaires au lancement de la partie, puis exécute la boucle jusqu'à la fin du jeu.
+//
 void startSinglePlayer(int playVsComputer) {
     GameBoard board;
     

@@ -13,6 +13,9 @@
 
 #include "display.h"
 
+//
+// Affiche le logo du jeu sur la sortie standard.
+//
 void displayLogo() {
     clearScreen();
     
@@ -27,6 +30,10 @@ void displayLogo() {
     printf("/_/ |_|\\____/_____/\\____/ /_/  /____/    v%s\n\n", VERSION);
 }
 
+//
+// Affiche le menu principal du jeu sur la sortie standard.
+// Si error vaut true, on affiche une erreur à la place du menu.
+//
 int displayMainMenu(bool error) {
     if(!error) {
         displayLogo();
@@ -51,6 +58,10 @@ int displayMainMenu(bool error) {
     return choice;
 }
 
+//
+// Affiche le menu de sélection du plateau de jeu sur la sortie standard.
+// Si error vaut true, on affiche une erreur à la place du menu.
+//
 int displayGameBoardSelectionMenu(bool error) {
     clearScreen();
     
@@ -75,6 +86,9 @@ int displayGameBoardSelectionMenu(bool error) {
     return choice;
 }
 
+//
+// Demande à l'utilisateur quel plateau de jeu prédéfini il souhaite charger.
+//
 int displayGameBoardList() {
     int boardNb = 0;
     
@@ -84,10 +98,16 @@ int displayGameBoardList() {
     return boardNb;
 }
 
+//
+// Affiche une erreur de choix de menu sur la sortie standard.
+//
 void displayMenuError() {
     printf("Woops. Mauvaise option.");
 }
 
+//
+// Affiche le tableau de scores de fin de jeu sur la sortie standard.
+//
 void displayGameEnding(int score, Player *winner, GameState *state) {
     if(state == NULL) return;
     
@@ -117,6 +137,9 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
     printf("------------------------------------\n\n");
 }
 
+//
+// Demande à l'utilisateur s'il souhaite rejouer.
+//
 bool wantsToReplay() {
     char answer = '\0';
     
@@ -134,6 +157,9 @@ bool wantsToReplay() {
     }
 }
 
+//
+// Demande le pseudo de chaque joueur, un par un.
+//
 void askForPlayersInfo(Player players[]) {
     if(players == NULL) return;
     
@@ -150,6 +176,9 @@ void askForPlayersInfo(Player players[]) {
     }
 }
 
+//
+// Demande le pseudo du joueur et le copie dans chaque robot.
+//
 void askForSinglePlayerUsername(Player robots[]) {
     if(robots == NULL) return;
     
@@ -172,6 +201,9 @@ void askForSinglePlayerUsername(Player robots[]) {
     }
 }
 
+//
+// Demande au joueur le chemin du niveau à charger.
+//
 void askForLevelPath(char path[]) {
     printf("Entrez le chemin du fichier niveau : ");
     
@@ -184,6 +216,9 @@ void askForLevelPath(char path[]) {
     removeCarriageReturn(path);
 }
 
+//
+// Affiche le plateau de jeu.
+//
 void displayGameBoard(GameState *state) {
     if(state == NULL) return;
     
@@ -264,6 +299,10 @@ void displayGameBoard(GameState *state) {
     printf("\n");
 }
 
+//
+// Rafraîchit l'affichage pendant une partie.
+// Affiche le plateau de jeu, ainsi qu'un résumé des informations sur la partie en cours.
+//
 void refreshDisplay(GameState *currentGame) {
     if(currentGame == NULL) return;
     
@@ -288,6 +327,9 @@ void refreshDisplay(GameState *currentGame) {
     printf("-----------------------------\n");
 }
 
+//
+// Retourne la couleur de texte ANSI correspondant à la couleur du robot passée en paramètre.
+//
 char* getANSITextColorFromRobotColor(int color) {
     switch (color) {
         case ROBOT_RED:
@@ -308,6 +350,9 @@ char* getANSITextColorFromRobotColor(int color) {
     }
 }
 
+//
+// Retourne la couleur de fond ANSI correspondant à la couleur du robot passée en paramètre.
+//
 char* getANSIBGColorFromRobotColor(int color) {
     switch (color) {
         case ROBOT_RED:
@@ -328,6 +373,9 @@ char* getANSIBGColorFromRobotColor(int color) {
     }
 }
 
+//
+// Efface l'écran.
+//
 void clearScreen() {
     system("clear");
 }

@@ -11,8 +11,12 @@
 
 #include "player.h"
 
+//
+// Vérifie si on peut déplacer le joueur courant dans la direction fournie.
+// Retourne true s'il y a un obstacle, false sinon.
+//
 int checkForObstacle(GameState *state, Direction direction) {
-    if(state == NULL || direction > 3) return 0;
+    if(state == NULL || direction > 3) return 1;
     
     int i;
     
@@ -63,6 +67,10 @@ int checkForObstacle(GameState *state, Direction direction) {
     return 0;
 }
 
+//
+// Déplace le joueur courant dans la direction fournie.
+// Retourne true si on a pu le déplacer, false sinon.
+//
 int moveCurrentPlayer(GameState *state, Direction direction) {
     if(state == NULL || direction > 3) return 0;
     
@@ -88,6 +96,9 @@ int moveCurrentPlayer(GameState *state, Direction direction) {
     }
 }
 
+//
+// Déplace l'utilisateur courant dans la direction fournie, jusqu'à ce qu'il rencontre un obstacle.
+//
 void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
     if(state == NULL || direction > 3) return;
     
@@ -97,11 +108,17 @@ void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
     state->turnCount++;
 }
 
+//
+// Retourne une direction aléatoire.
+//
 int getRandomDirection(int delay) {
     sleep(delay);
     return rand() % (3 - 0) + 0;
 }
 
+//
+// Retourne la chaîne de caractère correspondant à la couleur du robot fournie.
+//
 char* getRobotStringColor(int color) {
     switch (color) {
         case ROBOT_RED:
@@ -122,12 +139,20 @@ char* getRobotStringColor(int color) {
     }
 }
 
+//
+// Vérifie si un joueur est sur l'objectif.
+// Retourne true s'il l'est, false sinon.
+//
 int isPlayerOnObjective(Player *player, GameBoard *gameBoard) {
     if(player == NULL || gameBoard == NULL) return 0;
     
     return (gameBoard->obstacles[player->position.x][player->position.y] == CELL_OBJECTIVE);
 }
 
+//
+// Retourne le joueur qui est sur l'objectif.
+// Retourne NULL si aucun ne l'est.
+//
 Player* getPlayerOnObjective(GameState *state) {
     if(state == NULL) return NULL;
     

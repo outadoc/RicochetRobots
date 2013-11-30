@@ -12,6 +12,9 @@
 
 #include "board.h"
 
+//
+// Retourne un plateau prédéfini à l'indice fourni.
+//
 GameBoard getBuiltInBoardAtIndex(int index) {
     GameBoard builtinBoards[] = {
     {
@@ -79,6 +82,9 @@ GameBoard getBuiltInBoardAtIndex(int index) {
     }
 }
 
+//
+// Retourne un plateau vide.
+//
 GameBoard getEmptyGameBoard() {
     return (GameBoard) {
         //deuxième plateau
@@ -110,6 +116,10 @@ GameBoard getEmptyGameBoard() {
     };
 }
 
+//
+// Demande à l'utilisateur de choisir un plateau de jeu.
+// Retourne 0 si tout se passe bien.
+//
 int askForGameBoard(GameBoard *board) {
     int choice = 0;
     bool retry = false;
@@ -150,6 +160,10 @@ int askForGameBoard(GameBoard *board) {
     return 0;
 }
 
+//
+// Charge un plateau de jeu depuis le chemin fourni.
+// En cas d'erreur, on l'affiche sur la sortie standard et on retourne un plateau vide.
+//
 void loadBoardFromFile(GameBoard *board, const char path[]) {
     if(board == NULL) return;
     
@@ -270,4 +284,3 @@ void loadBoardFromFile(GameBoard *board, const char path[]) {
     //on ferme le fichier
     fclose(level);
 }
-

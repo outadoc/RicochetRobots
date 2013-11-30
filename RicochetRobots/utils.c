@@ -9,6 +9,10 @@
 #include <stdio.h>
 #include <string.h>
 
+//
+// Supprime le retour chariot à la fin d'une chaîne de caractères.
+// Utile avec fgets.
+//
 void removeCarriageReturn(char str[]) {
     size_t ln = strlen(str) - 1;
     if (str[ln] == '\n') str[ln] = '\0';
