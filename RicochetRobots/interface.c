@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "display.h"
+#include "interface.h"
 
 //
 // Affiche le logo du jeu sur la sortie standard.

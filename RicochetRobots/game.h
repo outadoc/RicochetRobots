@@ -9,7 +9,7 @@
 #ifndef RicochetRobots_game_h
 #define RicochetRobots_game_h
 
-#include "display.h"
+#include "interface.h"
 #include "board.h"
 #include "struct.h"
 
