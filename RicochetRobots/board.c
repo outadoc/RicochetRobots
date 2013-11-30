@@ -283,6 +283,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
         return 0;
     }
     
+    //j'ai nommé ce point du code le "awkward ending".
     //on ferme le fichier
     fclose(level);
     return 0;
