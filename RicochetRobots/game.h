@@ -16,6 +16,6 @@
 int start();
 int handleMainMenu();
 
-void startSinglePlayer(int playVsComputer);
+int startSinglePlayer(bool playVsComputer);
 
 #endif

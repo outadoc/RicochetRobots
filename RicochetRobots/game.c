@@ -35,10 +35,16 @@ int start() {
                     return 0;
                     break;
                 case 1:
-                    startSinglePlayer(false);
+                    if(startSinglePlayer(false) == 1) {
+                        choice = displayMainMenu(false);
+                        retry = true;
+                    }
                     break;
                 case 2:
-                    startSinglePlayer(true);
+                    if(startSinglePlayer(true) == 1) {
+                        choice = displayMainMenu(false);
+                        retry = true;
+                    }
                     break;
                 case 3: {
                     Player players[MAX_PLAYERS_COUNT];
@@ -62,7 +68,7 @@ int start() {
 // Boucle de partie.
 // Demande à l'utilisateur les infos nécessaires au lancement de la partie, puis exécute la boucle jusqu'à la fin du jeu.
 //
-void startSinglePlayer(int playVsComputer) {
+int startSinglePlayer(bool playVsComputer) {
     GameBoard board;
     
     //si askForGameBoard renvoie 0, on est prêts à continuer
@@ -114,5 +120,9 @@ void startSinglePlayer(int playVsComputer) {
         
         //un joueur est arrivé sur l'objectif, fin du jeu
         displayGameEnding(newGame.turnCount, getPlayerOnObjective(&newGame), &newGame);
+    } else {
+        return 1;
     }
+    
+    return 0;
 }
