@@ -21,7 +21,7 @@ typedef int Direction;  //la direction est un entier
 /****************************************/
 
 //version du jeu
-#define VERSION "0.1"
+#define VERSION "0.1a"
 
 // TAILLE CONSTANTES //
 /****************************************/
