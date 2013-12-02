@@ -152,10 +152,7 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
 //
 bool wantsToReplay() {
     char answer = '\0';
-    
-    //vidage du buffer
-    while (getch() != '\n');
-    
+        
     printw("\nVoulez-vous rejouer ? (O/n) ");
     refresh();
     answer = getch();
