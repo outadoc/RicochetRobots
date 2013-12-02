@@ -306,7 +306,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
         
         //on ferme le fichier
         fclose(level);
-        printf("Chargement OK\n");
+        printw("Chargement OK\n");
         
         return 0;
     }

@@ -103,7 +103,8 @@ int startSinglePlayer(bool playVsComputer) {
             if(newGame.currentPlayer->isBot) {
                 direction = getRandomDirection(&newGame);
             } else {
-                printf("\nÀ toi de jouer, %s ! ", newGame.currentPlayer->username);
+                printw("\nÀ toi de jouer, %s ! ", newGame.currentPlayer->username);
+                refresh();
                 direction = waitForDirection();
             }
             

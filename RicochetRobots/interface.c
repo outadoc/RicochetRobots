@@ -17,17 +17,19 @@
 // Affiche le logo du jeu sur la sortie standard.
 //
 void displayLogo() {
-    clearScreen();
+    clear();
     
-    printf("    ____  ______________  ________  ______________\n");
-    printf("   / __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/\n");
-    printf("  / /_/ // // /   / / / / /   / /_/ / __/   / /\n");
-    printf(" / _, _// // /___/ /_/ / /___/ __  / /___  / /\n");
-    printf("/_/ ||||__||||__||||__||||__|||_|||||||_/ /_/\n");
-    printf("   / __ \\/ __ \\/ __ )/ __ \\/_  __/ ___/\n");
-    printf("  / /_/ / / / / __  / / / / / /  \\__ \n");
-    printf(" / _, _/ /_/ / /_/ / /_/ / / /  ___/ /\n");
-    printf("/_/ |_|\\____/_____/\\____/ /_/  /____/    v%s\n\n", VERSION);
+    printw("    ____  ______________  ________  ______________\n");
+    printw("   / __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/\n");
+    printw("  / /_/ // // /   / / / / /   / /_/ / __/   / /\n");
+    printw(" / _, _// // /___/ /_/ / /___/ __  / /___  / /\n");
+    printw("/_/ ||||__||||__||||__||||__|||_|||||||_/ /_/\n");
+    printw("   / __ \\/ __ \\/ __ )/ __ \\/_  __/ ___/\n");
+    printw("  / /_/ / / / / __  / / / / / /  \\__ \n");
+    printw(" / _, _/ /_/ / /_/ / /_/ / / /  ___/ /\n");
+    printw("/_/ |_|\\____/_____/\\____/ /_/  /____/    v%s\n\n", VERSION);
+    
+    refresh();
 }
 
 //
@@ -38,21 +40,22 @@ int displayMainMenu(bool error) {
     if(!error) {
         displayLogo();
         
-        printf("MENU PRINCIPAL\n");
-        printf("--------------\n\n");
+        printw("MENU PRINCIPAL\n");
+        printw("--------------\n\n");
         
-        printf("1. Partie solo\n");
-        printf("2. Partie solo VS ordinateur\n");
-        printf("3. Partie multijoueur\n");
-        printf("0. -- Quitter\n");
+        printw("1. Partie solo\n");
+        printw("2. Partie solo VS ordinateur\n");
+        printw("3. Partie multijoueur\n");
+        printw("0. -- Quitter\n");
     } else {
         displayMenuError();
     }
     
     int choice = 0;
         
-    printf("\nmenu> ");
-    scanf("%d", &choice);
+    printw("\nmenu> ");
+    refresh();
+    scanw("%d", &choice);
     fseek(stdin, 0, SEEK_END);
     
     return choice;
@@ -64,23 +67,24 @@ int displayMainMenu(bool error) {
 //
 int displayGameBoardSelectionMenu(bool error) {
     if(!error) {
-        clearScreen();
+        clear();
         
-        printf("\nCHOIX DU PLATEAU\n");
-        printf("----------------\n\n");
+        printw("\nCHOIX DU PLATEAU\n");
+        printw("----------------\n\n");
         
-        printf("1. Plateau prédéfini\n");
-        printf("2. Plateau depuis un fichier\n");
-        printf("3. Plateau aléatoire\n");
-        printf("0. -- Retour au menu principal\n");
+        printw("1. Plateau prédéfini\n");
+        printw("2. Plateau depuis un fichier\n");
+        printw("3. Plateau aléatoire\n");
+        printw("0. -- Retour au menu principal\n");
     } else {
         displayMenuError();
     }
     
     int choice = 0;
     
-    printf("\nplateau> ");
-    scanf("%d", &choice);
+    printw("\nplateau> ");
+    refresh();
+    scanw("%d", &choice);
     fseek(stdin, 0, SEEK_END);
     
     return choice;
@@ -92,8 +96,9 @@ int displayGameBoardSelectionMenu(bool error) {
 int displayGameBoardList() {
     int boardNb = 0;
     
-    printf("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
-    scanf("%d", &boardNb);
+    printw("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
+    refresh();
+    scanw("%d", &boardNb);
     
     return boardNb;
 }
@@ -102,7 +107,8 @@ int displayGameBoardList() {
 // Affiche une erreur de choix de menu sur la sortie standard.
 //
 void displayMenuError() {
-    printf("Woops. Mauvaise option.");
+    printw("Woops. Mauvaise option.");
+    refresh();
 }
 
 //
@@ -113,28 +119,32 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
     
     int i;
     
-    clearScreen();
+    clear();
     
-    printf("\n------------------------------------\n");
-    printf("Partie terminée !\n");
+    printw("\n------------------------------------\n");
+    printw("Partie terminée !\n");
     
-    printf("Gagnant : %s a déplacé le robot %s%s%s sur l'objectif\n",
-           winner->username,
-           getANSITextColorFromRobotColor(winner->robotColor),
-           getRobotStringColor(winner->robotColor),
-           ANSI_COLOR_RESET);
+    printw("Gagnant : %s a déplacé le robot ", winner->username);
     
-    printf("\nScore total : %d coups\n\n", score);
+    attron(COLOR_PAIR(winner->robotColor));
+    printw("%s", getRobotStringColor(winner->robotColor));
+    attroff(COLOR_PAIR(winner->robotColor));
+    
+    printw(" sur l'objectif\n");
+    
+    printw("\nScore total : %d coups\n\n", score);
     
     for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
-        printf("Score de %s%s%s : %d coups\n",
-               getANSITextColorFromRobotColor(state->players[i].robotColor),
-               getRobotStringColor(state->players[i].robotColor),
-               ANSI_COLOR_RESET,
-               state->players[i].score);
+        printw("Score de ");
+        attron(COLOR_PAIR(state->players[i].robotColor));
+        printw("%s", getRobotStringColor(state->players[i].robotColor));
+        attroff(COLOR_PAIR(state->players[i].robotColor));
+        printw(" : %d coups\n", state->players[i].score);
     }
     
-    printf("------------------------------------\n\n");
+    printw("------------------------------------\n\n");
+    
+    refresh();
 }
 
 //
@@ -144,10 +154,11 @@ bool wantsToReplay() {
     char answer = '\0';
     
     //vidage du buffer
-    while (getchar() != '\n');
+    while (getch() != '\n');
     
-    printf("\nVoulez-vous rejouer ? (O/n) ");
-    answer = fgetc(stdin);
+    printw("\nVoulez-vous rejouer ? (O/n) ");
+    refresh();
+    answer = getch();
     
     //si on veut rejouer, retourner 1, sinon 0
     if(answer == 'o' || answer == 'O') {
@@ -166,13 +177,15 @@ void askForPlayersInfo(Player players[]) {
     int i;
     
     for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
-        printf("Pseudo du joueur %d : ", i+1);
+        printw("Pseudo du joueur %d : ", i+1);
+        
+        refresh();
         
         //on récupère 14 caractères (+1 pour le \0) dans Player.username
-        fgets(players[i].username, MAX_USERNAME_SIZE - 1, stdin);
+        getstr(players[i].username);
         
         //enlève le \n de fin de chaîne
-        removeCarriageReturn(players[i].username);
+        //removeCarriageReturn(players[i].username);
     }
 }
 
@@ -185,15 +198,17 @@ void askForSinglePlayerUsername(Player robots[]) {
     int i;
     char username[MAX_USERNAME_SIZE];
     
-    printf("Votre pseudo : ");
+    printw("Votre pseudo : ");
     //vidage du buffer
     fseek(stdin, 0, SEEK_END);
     
+    refresh();
+    
     //on récupère 14 caractères (+1 pour le \0) dans username
-    fgets(username, MAX_USERNAME_SIZE - 1, stdin);
+    getstr(username);
     
     //enlève le \n de fin de chaîne
-    removeCarriageReturn(username);
+    //removeCarriageReturn(username);
     
     for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
         if(!robots[i].isBot) strcpy(robots[i].username, username);
@@ -205,15 +220,17 @@ void askForSinglePlayerUsername(Player robots[]) {
 // Demande au joueur le chemin du niveau à charger.
 //
 void askForLevelPath(char path[]) {
-    printf("Entrez le chemin du fichier niveau : ");
+    printw("Entrez le chemin du fichier niveau : ");
     
     fseek(stdin, 0, SEEK_END);
     
+    refresh();
+    
     //on récupère 14 caractères (+1 pour le \0) dans path
-    fgets(path, MAX_LVL_PATH_SIZE - 1, stdin);
+    getstr(path);
     
     //enlève le \n de fin de chaîne
-    removeCarriageReturn(path);
+    //removeCarriageReturn(path);
 }
 
 //
@@ -226,16 +243,16 @@ void displayGameBoard(GameState *state) {
     
     for (i = 0; i < BOARD_SIZE; i++) {
         if(i == 0) {
-            printf("\n+");
+            printw("\n+");
             
             for (j = 0; j < BOARD_SIZE; j++) {
                 //première ligne ? on affiche une ligne de "-"
-                printf("---+");
+                printw("---+");
             }
         }
         
         //début de ligne
-        printf("\n|");
+        printw("\n|");
         
         for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs verticaux
@@ -248,15 +265,15 @@ void displayGameBoard(GameState *state) {
                 if(state->players[k].position.x == i && state->players[k].position.y == j) {
                     hasContent = true;
                     
+                    attron(COLOR_PAIR(state->players[k].robotColor));
+                    
                     if(state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
-                        printf("%s[X]%s",
-                               getANSIBGColorFromRobotColor(k),
-                               ANSI_COLOR_RESET);
+                        printw("[X]");
                     } else {
-                        printf("%s   %s",
-                               getANSIBGColorFromRobotColor(k),
-                               ANSI_COLOR_RESET);
+                        printw("   ");
                     }
+                    
+                    attroff(COLOR_PAIR(state->players[k].robotColor));
                     
                 }
             }
@@ -264,39 +281,41 @@ void displayGameBoard(GameState *state) {
             //si la case n'a pas encore de contenu (et donc pas de robot) et que c'est une case objectif
             if(!hasContent && state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
                 hasContent = true;
-                printf("%s[X]%s", ANSI_COLOR_MAGENTA, ANSI_COLOR_RESET);
+                attron(COLOR_PAIR(10));
+                printw("[X]");
+                attroff(COLOR_PAIR(10));
             }
             
             //si il n'y a pas de robot dans la case, on affiche un espace
-            if(!hasContent) printf("   ");
+            if(!hasContent) printw("   ");
             
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
             if(state->gameBoard->obstacles[i][j] == CELL_WALL_RIGHT
                || (j < BOARD_SIZE && state->gameBoard->obstacles[i][j+1] == CELL_WALL_LEFT)
                || j == BOARD_SIZE - 1) {
-                printf("|");
+                printw("|");
             } else {
-                printf(" ");
+                printw(" ");
             }
         }
         
-        printf("\n+");
+        printw("\n+");
         
         for (j = 0; j < BOARD_SIZE; j++) {
             //on affiche les murs horizontaux
             if(state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
                || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP)
                || i == BOARD_SIZE - 1) {
-                printf("---+");
+                printw("---+");
             } else if(j == BOARD_SIZE -1) {
-                printf("   +");
+                printw("   +");
             } else {
-                printf("   +");
+                printw("   +");
             }
         }
     }
     
-    printf("\n");
+    printw("\n");
 }
 
 //
@@ -306,76 +325,28 @@ void displayGameBoard(GameState *state) {
 void refreshDisplay(GameState *currentGame) {
     if(currentGame == NULL) return;
     
-    clearScreen();
+    clear();
+    
     displayGameBoard(currentGame);
     
-    printf("\n-----------------------------\n");
-    printf("Tour %d\n", currentGame->turnCount);
+    printw("\n-----------------------------\n");
+    printw("Tour %d\n", currentGame->turnCount);
     
-    printf("Joueur actuel : %s%s%s (%s)\n",
-           getANSITextColorFromRobotColor(currentGame->currentPlayer->robotColor),
-           getRobotStringColor(currentGame->currentPlayer->robotColor),
-           ANSI_COLOR_RESET,
-           currentGame->currentPlayer->username);
+    printw("Joueur actuel : ");
     
-    printf("Score : %d\n",
+    attron(COLOR_PAIR(currentGame->currentPlayer->robotColor));
+    printw("%s", getRobotStringColor(currentGame->currentPlayer->robotColor));
+    attroff(COLOR_PAIR(currentGame->currentPlayer->robotColor));
+    
+    printw(" (%s)\n", currentGame->currentPlayer->username);
+    
+    printw("Score : %d\n",
            currentGame->players[0].score
            + currentGame->players[1].score
            + currentGame->players[2].score
            + currentGame->players[3].score);
     
-    printf("-----------------------------\n");
-}
-
-//
-// Retourne la couleur de texte ANSI correspondant à la couleur du robot passée en paramètre.
-//
-char* getANSITextColorFromRobotColor(int color) {
-    switch (color) {
-        case ROBOT_RED:
-            return ANSI_COLOR_RED;
-            break;
-        case ROBOT_GREEN:
-            return ANSI_COLOR_GREEN;
-            break;
-        case ROBOT_BLUE:
-            return ANSI_COLOR_BLUE;
-            break;
-        case ROBOT_GREY:
-            return ANSI_COLOR_YELLOW;
-            break;
-        default:
-            return ANSI_COLOR_RESET;
-            break;
-    }
-}
-
-//
-// Retourne la couleur de fond ANSI correspondant à la couleur du robot passée en paramètre.
-//
-char* getANSIBGColorFromRobotColor(int color) {
-    switch (color) {
-        case ROBOT_RED:
-            return ANSI_BG_COLOR_RED;
-            break;
-        case ROBOT_GREEN:
-            return ANSI_BG_COLOR_GREEN;
-            break;
-        case ROBOT_BLUE:
-            return ANSI_BG_COLOR_BLUE;
-            break;
-        case ROBOT_GREY:
-            return ANSI_BG_COLOR_YELLOW;
-            break;
-        default:
-            return ANSI_COLOR_RESET;
-            break;
-    }
-}
-
-//
-// Efface l'écran.
-//
-void clearScreen() {
-    system("clear");
+    printw("-----------------------------\n");
+    
+    refresh();
 }

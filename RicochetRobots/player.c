@@ -137,12 +137,12 @@ Direction getRandomDirection(GameState *state) {
 // Demande à l'utilisateur dans quelle direction il souhaite se déplacer.
 //
 Direction waitForDirection() {
-    char c;
+    int c;
     
     fseek(stdin, 0, SEEK_END);
     
     do {
-        c = getchar();
+        c = getch();
     } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP);
     
     switch (c) {

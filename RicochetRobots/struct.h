@@ -10,6 +10,7 @@
 #define RicochetRobots_struct_h
 
 #include <stdbool.h>
+#include <ncurses.h>
 
 // TYPEDEFS PRATIQUES
 /****************************************/
@@ -31,39 +32,13 @@ typedef int Direction;  //la direction est un entier
 #define MAX_USERNAME_SIZE 15    //taille maximale d'un pseudo
 #define MAX_LVL_PATH_SIZE 300   //taille maximale du chemin d'un fichier niveau
 
-// BINDING TOUCHES CLAVIER //
-/****************************************/
-
-//touches de déplacement des robots
-#define KEY_UP 'z'
-#define KEY_LEFT 'q'
-#define KEY_DOWN 's'
-#define KEY_RIGHT 'd'
-
-// COULEURS ANSI //
-/****************************************/
-
-#define ANSI_COLOR_RESET   "\x1b[0m"
-
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-
-#define ANSI_BG_COLOR_RED     "\x1b[41m"
-#define ANSI_BG_COLOR_GREEN   "\x1b[42m"
-#define ANSI_BG_COLOR_YELLOW  "\x1b[43m"
-#define ANSI_BG_COLOR_BLUE    "\x1b[44m"
-#define ANSI_BG_COLOR_MAGENTA "\x1b[45m"
-
 // IDENTIFIANTS DES COULEURS DES ROBOTS //
 /****************************************/
 
-#define ROBOT_RED 0
-#define ROBOT_GREEN 1
-#define ROBOT_BLUE 2
-#define ROBOT_GREY 3
+#define ROBOT_RED 1
+#define ROBOT_GREEN 2
+#define ROBOT_BLUE 3
+#define ROBOT_GREY 4
 
 // IDENTIFIANTS DES DIRECTIONS //
 /****************************************/
