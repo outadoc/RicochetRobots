@@ -136,8 +136,11 @@ Direction getRandomDirection(GameState *state) {
 //
 // Demande à l'utilisateur dans quelle direction il souhaite se déplacer.
 //
-Direction waitForDirection() {
+Direction waitForDirection(Player *player) {
     int c;
+    
+    printw("\nA toi de jouer, %s ! ", player->username);
+    refresh();
     
     fseek(stdin, 0, SEEK_END);
     

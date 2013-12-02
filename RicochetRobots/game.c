@@ -103,9 +103,7 @@ int startSinglePlayer(bool playVsComputer) {
             if(newGame.currentPlayer->isBot) {
                 direction = getRandomDirection(&newGame);
             } else {
-                printw("\nÀ toi de jouer, %s ! ", newGame.currentPlayer->username);
-                refresh();
-                direction = waitForDirection();
+                direction = waitForDirection(newGame.currentPlayer);
             }
             
             //on déplace le robot dans cette direction

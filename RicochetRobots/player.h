@@ -20,7 +20,7 @@ bool moveCurrentPlayer(GameState *state, Direction direction);
 void moveCurrentPlayerWhilePossible(GameState *state, Direction direction);
 
 Direction getRandomDirection(GameState *state);
-Direction waitForDirection();
+Direction waitForDirection(Player *player);
 
 bool isPlayerOnObjective(Player *player, GameBoard *gameBoard);
 Player* getPlayerOnObjective(GameState *state);
