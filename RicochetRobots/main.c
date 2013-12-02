@@ -14,16 +14,16 @@ int main(int argc, const char * argv[]) {
     srand((int) time(NULL));
     
     initscr();
+    
     start_color();
+    use_default_colors();
     
     //paires de couleurs
-    init_pair(ROBOT_RED, -1, COLOR_RED);
-    init_pair(ROBOT_BLUE, -1, COLOR_BLUE);
-    init_pair(ROBOT_GREEN, -1, COLOR_GREEN);
-    init_pair(ROBOT_GREY, -1, COLOR_YELLOW);
-    init_pair(10, COLOR_MAGENTA, -1);
-    
-    attron(COLOR_PAIR(1));
+    init_pair(ROBOT_RED, COLOR_WHITE, COLOR_RED);
+    init_pair(ROBOT_BLUE, COLOR_WHITE, COLOR_BLUE);
+    init_pair(ROBOT_GREEN, COLOR_WHITE, COLOR_GREEN);
+    init_pair(ROBOT_GREY, COLOR_BLACK, COLOR_YELLOW);
+    init_pair(10, COLOR_MAGENTA, COLOR_WHITE);
     
     timeout(-1);
     keypad(stdscr, TRUE);
