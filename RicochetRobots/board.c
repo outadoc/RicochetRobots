@@ -221,13 +221,13 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
             if((c = getc(level)) != '#' && c != '\n') {
                 ungetc(c, level);
                 
-                char robot;
+                char id;
                 int x, y;
                 
                 //on récupère l'id du robot et ses coordonnées
-                fscanf(level, "%c %d %d\n", &robot, &x, &y);
+                fscanf(level, "%c %d %d\n", &id, &x, &y);
                 
-                switch (robot) {
+                switch (id) {
                     case 'R':
                         //robot rouge
                         board->robotsPosition[0].x = x;
@@ -255,6 +255,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                     default:
                         //on ferme le fichier
                         fclose(level);
+                        printw("Caractère coordonnée interdit : %c\n", id);
                         return 1;
                         break;
                 }
@@ -299,6 +300,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                        && cell != CELL_WALL_TOP_RIGHT) {
                         //on ferme le fichier
                         fclose(level);
+                        printw("Caractère obstacle interdit : %c\n", cell);
                         return 1;
                     } else {
                         //si tout va bien, on insère le caractère dans le tableau
@@ -321,8 +323,9 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
         return 0;
     }
     
-    //j'ai nommé ce point du code le "awkward ending".
+    //j'ai nommé ce point du code le "confusion ending".
     //on ferme le fichier
     fclose(level);
+    printw("WTF\n");
     return 0;
 }
