@@ -4,14 +4,14 @@
 
 # Emplacement des robots
 
-# BLEU
-B 10 11
-
 # ROUGE
-R 10 13
+R 10 11
 
 # VERT
-V 6 3
+V 10 13
+
+# BLEU
+B 6 3
 
 # GRIS
 G 4 9

@@ -5,14 +5,14 @@
 # Emplacement des robots et de l'objectif
 # Format : IDENTIFIANT Y X
 
-# ROBOT BLEU
-B 0 3
-
 # ROBOT ROUGE
-R 12 10
+R 0 3
 
 # ROBOT VERT
-V 11 11
+V 12 10
+
+# ROBOT BLEU
+B 11 11
 
 # ROBOT GRIS
 G 8 4
