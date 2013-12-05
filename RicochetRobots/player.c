@@ -20,42 +20,59 @@ bool checkForObstacle(GameState *state, Direction direction) {
     
     int i;
     
-    Coords target = {
-        .x = state->currentPlayer->position.x,
-        .y = state->currentPlayer->position.y
-    };
+    //on créé deux structures de coordonnées
+    //une pour la position actuelle (juste une copie pratique), et une pour la position cible
+    Coords currPos = state->currentPlayer->position, target = currPos;
     
+    //pour chaque direction, on vérifie si il y a un mur qui nous bloque et on renvoie true le cas échéant
     switch (direction) {
         case DIRECTION_DOWN:
             target.x++;
             
             if(target.x > BOARD_SIZE - 1
-                    || state->gameBoard->obstacles[target.x-1][target.y] == CELL_WALL_BOTTOM
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP) return true;
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM_LEFT
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM_RIGHT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP_LEFT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP_RIGHT) return true;
             break;
         case DIRECTION_LEFT:
             target.y--;
             
             if(target.y < 0
-                    || state->gameBoard->obstacles[target.x][target.y+1] == CELL_WALL_LEFT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_RIGHT) return true;
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_LEFT
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM_LEFT
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP_LEFT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_RIGHT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM_RIGHT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP_RIGHT) return true;
             break;
         case DIRECTION_RIGHT:
             target.y++;
             
             if(target.y > BOARD_SIZE - 1
-                    || state->gameBoard->obstacles[target.x][target.y-1] == CELL_WALL_RIGHT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_LEFT) return true;
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_RIGHT
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM_RIGHT
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP_RIGHT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_LEFT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP_LEFT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM_LEFT) return true;
             break;
         case DIRECTION_UP:
             target.x--;
             
             if(target.x < 0
-                    || state->gameBoard->obstacles[target.x+1][target.y] == CELL_WALL_TOP
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM) return true;
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP_LEFT
+                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP_RIGHT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM_LEFT
+                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM_RIGHT) return true;
             break;
     }
     
+    //on vérifie aussi si un autre joueur nous bloque
     for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
         if(state->players[i].robotColor != state->currentPlayer->robotColor
             && state->players[i].position.x == target.x
