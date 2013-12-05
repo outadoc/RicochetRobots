@@ -10,7 +10,6 @@
 #define RicochetRobots_struct_h
 
 #include <stdbool.h>
-#include <ncurses.h>
 
 // TYPEDEFS PRATIQUES
 /****************************************/
