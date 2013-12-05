@@ -9,8 +9,6 @@
 #ifndef RicochetRobots_game_h
 #define RicochetRobots_game_h
 
-#include <ncurses.h>
-
 #include "interface.h"
 #include "board.h"
 #include "struct.h"

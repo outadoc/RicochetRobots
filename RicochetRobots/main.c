@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 outadev. All rights reserved.
 //
 
-#include <stdio.h>
+#include <ncurses.h>
 #include "game.h"
 
 int main(int argc, const char * argv[]) {
