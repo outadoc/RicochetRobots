@@ -50,13 +50,21 @@ typedef int Direction;  //la direction est un entier
 // IDENTIFIANTS DES CASES //
 /****************************************/
 
-#define CELL_EMPTY 'E'       //case vide
-#define CELL_OBJECTIVE 'O'   //case objectif
+//cases spéciales
+#define CELL_EMPTY              'E' //case vide
+#define CELL_OBJECTIVE          'O' //case objectif
 
-#define CELL_WALL_LEFT 'L'   //mur à gauche
-#define CELL_WALL_TOP 'U'    //mur en haut
-#define CELL_WALL_RIGHT 'R'  //mur à droite
-#define CELL_WALL_BOTTOM 'B' //mur en base
+//murs simples
+#define CELL_WALL_LEFT          'L' //mur à gauche
+#define CELL_WALL_TOP           'U' //mur en haut
+#define CELL_WALL_RIGHT         'R' //mur à droite
+#define CELL_WALL_BOTTOM        'B' //mur en base
+
+//murs en L
+#define CELL_WALL_BOTTOM_LEFT   'L' //mur en bas et à gauche
+#define CELL_WALL_TOP_LEFT      'M' //mur en haut et à gauche
+#define CELL_WALL_TOP_RIGHT     'N' //mur en haut et à droite
+#define CELL_WALL_BOTTOM_RIGHT  'P' //mur en bas et à droite
 
 // DÉFINITION DES STRUCTURES //
 /****************************************/

@@ -283,12 +283,17 @@ void displayGameBoard(GameState *state) {
                 attroff(COLOR_PAIR(10));
             }
             
-            //si il n'y a pas de robot dans la case, on affiche un espace
+            //si il n'y a rien dans la case, on affiche un espace
             if(!hasContent) printw("   ");
             
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
+            //on n'oublie pas de prendre en compte les murs en L
             if(state->gameBoard->obstacles[i][j] == CELL_WALL_RIGHT
+               || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_RIGHT
+               || state->gameBoard->obstacles[i][j] == CELL_WALL_TOP_RIGHT
                || (j < BOARD_SIZE && state->gameBoard->obstacles[i][j+1] == CELL_WALL_LEFT)
+               || (j < BOARD_SIZE && state->gameBoard->obstacles[i][j+1] == CELL_WALL_BOTTOM_LEFT)
+               || (j < BOARD_SIZE && state->gameBoard->obstacles[i][j+1] == CELL_WALL_TOP_LEFT)
                || j == BOARD_SIZE - 1) {
                 printw("|");
             } else {
@@ -299,9 +304,13 @@ void displayGameBoard(GameState *state) {
         printw("\n+");
         
         for (j = 0; j < BOARD_SIZE; j++) {
-            //on affiche les murs horizontaux
+            //on affiche les murs horizontaux, d'une façon analogue aux murs verticaux
             if(state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
+               || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_LEFT
+               || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_RIGHT
                || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP)
+               || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_LEFT)
+               || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_RIGHT)
                || i == BOARD_SIZE - 1) {
                 printw("---+");
             } else if(j == BOARD_SIZE -1) {
