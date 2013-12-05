@@ -180,9 +180,6 @@ void askForPlayersInfo(Player players[]) {
         
         //on récupère 14 caractères (+1 pour le \0) dans Player.username
         getstr(players[i].username);
-        
-        //enlève le \n de fin de chaîne
-        //removeCarriageReturn(players[i].username);
     }
 }
 
@@ -204,9 +201,6 @@ void askForSinglePlayerUsername(Player robots[]) {
     //on récupère 14 caractères (+1 pour le \0) dans username
     getstr(username);
     
-    //enlève le \n de fin de chaîne
-    //removeCarriageReturn(username);
-    
     for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
         if(!robots[i].isBot) strcpy(robots[i].username, username);
         else sprintf(robots[i].username, "CPU%d", i);
@@ -225,9 +219,6 @@ void askForLevelPath(char path[]) {
     
     //on récupère 14 caractères (+1 pour le \0) dans path
     getstr(path);
-    
-    //enlève le \n de fin de chaîne
-    //removeCarriageReturn(path);
 }
 
 //
