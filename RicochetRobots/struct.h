@@ -61,10 +61,10 @@ typedef int Direction;  //la direction est un entier
 #define CELL_WALL_BOTTOM        'B' //mur en base
 
 //murs en L
-#define CELL_WALL_BOTTOM_LEFT   'L' //mur en bas et à gauche
-#define CELL_WALL_TOP_LEFT      'M' //mur en haut et à gauche
-#define CELL_WALL_TOP_RIGHT     'N' //mur en haut et à droite
-#define CELL_WALL_BOTTOM_RIGHT  'P' //mur en bas et à droite
+#define CELL_WALL_BOTTOM_LEFT   'V' //mur en bas et à gauche
+#define CELL_WALL_TOP_LEFT      'W' //mur en haut et à gauche
+#define CELL_WALL_TOP_RIGHT     'X' //mur en haut et à droite
+#define CELL_WALL_BOTTOM_RIGHT  'Y' //mur en bas et à droite
 
 // DÉFINITION DES STRUCTURES //
 /****************************************/
