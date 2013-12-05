@@ -25,34 +25,33 @@ typedef int Direction;  //la direction est un entier
 // TAILLE CONSTANTES //
 /****************************************/
 
-#define BOARD_SIZE 16           //taille d'un plateau de jeu
-#define BUILTIN_BOARDS_COUNT 3  //nombre de grilles prédéfinies
-#define MAX_PLAYERS_COUNT 4     //nombre maximal de joueurs
-#define MAX_USERNAME_SIZE 15    //taille maximale d'un pseudo
-#define MAX_LVL_PATH_SIZE 300   //taille maximale du chemin d'un fichier niveau
+#define BOARD_SIZE              16  //taille d'un plateau de jeu
+#define BUILTIN_BOARDS_COUNT    3   //nombre de grilles prédéfinies
+#define MAX_PLAYERS_COUNT       4   //nombre maximal de joueurs
+#define MAX_USERNAME_SIZE       15  //taille maximale d'un pseudo
+#define MAX_LVL_PATH_SIZE       300 //taille maximale du chemin d'un fichier niveau
 
 // IDENTIFIANTS DES COULEURS DES ROBOTS //
 /****************************************/
 
-#define ROBOT_RED 1
+#define ROBOT_RED   1
 #define ROBOT_GREEN 2
-#define ROBOT_BLUE 3
-#define ROBOT_GREY 4
+#define ROBOT_BLUE  3
+#define ROBOT_GREY  4
 
 // IDENTIFIANTS DES DIRECTIONS //
 /****************************************/
 
-#define DIRECTION_UP 0      //haut
+#define DIRECTION_UP    0   //haut
 #define DIRECTION_RIGHT 1   //droite
-#define DIRECTION_DOWN 2    //bas
-#define DIRECTION_LEFT 3    //gauche
+#define DIRECTION_DOWN  2   //bas
+#define DIRECTION_LEFT  3   //gauche
 
 // IDENTIFIANTS DES CASES //
 /****************************************/
 
 //cases spéciales
 #define CELL_EMPTY              'E' //case vide
-#define CELL_OBJECTIVE          'O' //case objectif
 
 //murs simples
 #define CELL_WALL_LEFT          'L' //mur à gauche
@@ -88,6 +87,7 @@ typedef struct {
 typedef struct {
     char obstacles[BOARD_SIZE][BOARD_SIZE];
     Coords robotsPosition[MAX_PLAYERS_COUNT];
+    Coords objectivePos;
 } GameBoard;
 
 //état du jeu en cours

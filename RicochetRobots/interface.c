@@ -264,7 +264,8 @@ void displayGameBoard(GameState *state) {
                     
                     attron(COLOR_PAIR(state->players[k].robotColor));
                     
-                    if(state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
+                    //si on a un objectif ici
+                    if(state->gameBoard->objectivePos.x == i && state->gameBoard->objectivePos.y == j) {
                         printw("[X]");
                     } else {
                         printw("   ");
@@ -276,7 +277,7 @@ void displayGameBoard(GameState *state) {
             }
             
             //si la case n'a pas encore de contenu (et donc pas de robot) et que c'est une case objectif
-            if(!hasContent && state->gameBoard->obstacles[i][j] == CELL_OBJECTIVE) {
+            if(!hasContent && state->gameBoard->objectivePos.x == i && state->gameBoard->objectivePos.y == j) {
                 hasContent = true;
                 attron(COLOR_PAIR(10));
                 printw("[X]");

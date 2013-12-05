@@ -31,7 +31,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'L', 'E', 'E', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'L', 'E', 'E', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'R', 'B', 'E', 'E', 'U', 'U', 'E', 'E', 'E', 'U', 'L', 'E', 'B'},
-                {'B', 'E', 'E', 'E', 'E', 'R', 'U', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'O'},
+                {'B', 'E', 'E', 'E', 'E', 'R', 'U', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'B', 'E', 'B', 'E', 'E', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'L', 'E', 'E', 'E', 'E', 'E', 'E'},
                 {'E', 'U', 'L', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'B', 'E'},
@@ -43,7 +43,8 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {.x = 12, .y = 10},
                 {.x = 11, .y = 11},
                 {.x = 8, .y = 4}
-            }
+            },
+            .objectivePos = {10, 15}
         },
         {
             //deuxième plateau
@@ -55,7 +56,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {'R', 'B', 'E', 'E', 'E', 'E', 'B', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
                 {'B', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'B', 'L', 'E', 'E', 'E', 'B'},
                 {'E', 'E', 'E', 'E', 'E', 'B', 'E', 'E', 'E', 'E', 'E', 'E', 'B', 'E', 'E', 'E'},
-                {'E', 'E', 'E', 'E', 'E', 'O', 'L', 'B', 'B', 'E', 'E', 'R', 'E', 'E', 'E', 'E'},
+                {'E', 'E', 'E', 'E', 'E', 'E', 'L', 'B', 'B', 'E', 'E', 'R', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'B', 'L', 'L', 'R', 'E', 'E', 'E', 'B', 'E', 'E', 'E'},
                 {'E', 'E', 'B', 'E', 'E', 'E', 'E', 'U', 'U', 'E', 'E', 'E', 'R', 'E', 'E', 'B'},
@@ -71,7 +72,8 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {.x = 0, .y = 9},
                 {.x = 12, .y = 8},
                 {.x = 12, .y = 15}
-            }
+            },
+            .objectivePos = {6, 5}
         },
         {
             //deuxième plateau
@@ -82,7 +84,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {'E', 'B', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'B', 'L', 'E', 'E', 'E'},
                 {'E', 'R', 'E', 'E', 'E', 'B', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'B'},
                 {'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
-                {'E', 'E', 'B', 'L', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'O', 'E', 'E'},
+                {'E', 'E', 'B', 'L', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E'},
                 {'B', 'E', 'E', 'E', 'E', 'E', 'E', 'B', 'B', 'E', 'B', 'E', 'E', 'U', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'R', 'R', 'E', 'E', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'R', 'E', 'E', 'E', 'B', 'E', 'E', 'E'},
@@ -99,7 +101,8 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {.x = 10, .y = 13},
                 {.x = 6, .y = 3},
                 {.x = 4, .y = 9}
-            }
+            },
+            .objectivePos = {5, 13}
         }
     };
     
@@ -135,12 +138,8 @@ GameBoard getEmptyGameBoard() {
             {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
             {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
         },
-        .robotsPosition = {
-            {.x = 0, .y = 0},
-            {.x = 0, .y = 0},
-            {.x = 0, .y = 0},
-            {.x = 0, .y = 0}
-        }
+        .robotsPosition = {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
+        .objectivePos = {0, 0}
     };
 }
 
@@ -216,8 +215,8 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
     while((c = getc(level)) != EOF) {
         ungetc(c, level);
         
-        //on s'attend à trouver 4 lignes pour les coordonnées des 4 robots
-        while(i < MAX_PLAYERS_COUNT) {
+        //on s'attend à trouver 5 lignes pour les coordonnées des 4 robots + celles de l'objectif
+        while(i < MAX_PLAYERS_COUNT + 1) {
             //on vérifie si la ligne n'est pas vide ou un commentaire et on recule le curseur comme si de rien n'était
             if((c = getc(level)) != '#' && c != '\n') {
                 ungetc(c, level);
@@ -230,21 +229,29 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                 
                 switch (robot) {
                     case 'R':
+                        //robot rouge
                         board->robotsPosition[0].x = x;
                         board->robotsPosition[0].y = y;
                         break;
                     case 'V':
+                        //robot vert
                         board->robotsPosition[1].x = x;
                         board->robotsPosition[1].y = y;
                         break;
                     case 'B':
+                        //robot bleu
                         board->robotsPosition[2].x = x;
                         board->robotsPosition[2].y = y;
                         break;
                     case 'G':
+                        //robot gris
                         board->robotsPosition[3].x = x;
                         board->robotsPosition[3].y = y;
                         break;
+                    case 'O':
+                        //objectif
+                        board->objectivePos.x = x;
+                        board->objectivePos.y = y;
                     default:
                         //on ferme le fichier
                         fclose(level);
@@ -282,11 +289,14 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                     
                     //si le caractère est invalide, on annule
                     if(cell != CELL_EMPTY
-                       && cell != CELL_OBJECTIVE
                        && cell != CELL_WALL_BOTTOM
                        && cell != CELL_WALL_LEFT
                        && cell != CELL_WALL_RIGHT
-                       && cell != CELL_WALL_TOP) {
+                       && cell != CELL_WALL_TOP
+                       && cell != CELL_WALL_BOTTOM_LEFT
+                       && cell != CELL_WALL_BOTTOM_RIGHT
+                       && cell != CELL_WALL_TOP_LEFT
+                       && cell != CELL_WALL_TOP_RIGHT) {
                         //on ferme le fichier
                         fclose(level);
                         return 1;
