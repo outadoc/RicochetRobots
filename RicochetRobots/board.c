@@ -252,6 +252,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                         //objectif
                         board->objectivePos.x = x;
                         board->objectivePos.y = y;
+                        break;
                     default:
                         //on ferme le fichier
                         fclose(level);
