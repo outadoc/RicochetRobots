@@ -153,14 +153,17 @@ Direction getRandomDirection(GameState *state) {
 //
 // Demande à l'utilisateur dans quelle direction il souhaite se déplacer.
 //
-Direction waitForDirection(Player *player) {
+Direction waitForDirection(GameState *state) {
     int c;
     
-    printw("\nA toi de jouer, %s ! ", player->username);
+    printw("\nA toi de jouer, %s ! ", state->currentPlayer->username);
     refresh();
     
     do {
         c = getch();
+        
+        //si on a redimensionné le terminal, on rafraîchit l'affichage
+        if(c == KEY_RESIZE) refreshDisplay(state);
     } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP);
     
     switch (c) {
