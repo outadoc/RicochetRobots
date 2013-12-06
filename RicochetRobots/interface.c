@@ -56,7 +56,7 @@ int displayMainMenu(bool error) {
     printw("\nmenu> ");
     refresh();
     scanw("%d", &choice);
-    fseek(stdin, 0, SEEK_END);
+    //fseek(stdin, 0, SEEK_END);
     
     return choice;
 }
@@ -85,7 +85,7 @@ int displayGameBoardSelectionMenu(bool error) {
     printw("\nplateau> ");
     refresh();
     scanw("%d", &choice);
-    fseek(stdin, 0, SEEK_END);
+    //fseek(stdin, 0, SEEK_END);
     
     return choice;
 }
@@ -194,7 +194,7 @@ void askForSinglePlayerUsername(Player robots[]) {
     
     printw("Votre pseudo : ");
     //vidage du buffer
-    fseek(stdin, 0, SEEK_END);
+    //fseek(stdin, 0, SEEK_END);
     
     refresh();
     
@@ -213,7 +213,7 @@ void askForSinglePlayerUsername(Player robots[]) {
 void askForLevelPath(char path[]) {
     printw("Entrez le chemin du fichier niveau : ");
     
-    fseek(stdin, 0, SEEK_END);
+    //fseek(stdin, 0, SEEK_END);
     
     refresh();
     

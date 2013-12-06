@@ -159,8 +159,6 @@ Direction waitForDirection(Player *player) {
     printw("\nA toi de jouer, %s ! ", player->username);
     refresh();
     
-    fseek(stdin, 0, SEEK_END);
-    
     do {
         c = getch();
     } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP);

@@ -30,9 +30,7 @@ int main(int argc, const char * argv[]) {
     
     //autres paires de couleurs
     init_pair(10, COLOR_MAGENTA, COLOR_WHITE);
-    
-    //saisir de texte bloquante
-    timeout(-1);
+
     //activation des touches fléchées etc.
     keypad(stdscr, true);
     
