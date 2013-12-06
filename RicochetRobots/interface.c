@@ -55,8 +55,8 @@ int displayMainMenu(bool error) {
         
     printw("\nmenu> ");
     refresh();
+    
     scanw("%d", &choice);
-    //fseek(stdin, 0, SEEK_END);
     
     return choice;
 }
@@ -84,8 +84,8 @@ int displayGameBoardSelectionMenu(bool error) {
     
     printw("\nplateau> ");
     refresh();
+    
     scanw("%d", &choice);
-    //fseek(stdin, 0, SEEK_END);
     
     return choice;
 }
@@ -98,6 +98,7 @@ int displayGameBoardList() {
     
     printw("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
     refresh();
+    
     scanw("%d", &boardNb);
     
     return boardNb;
@@ -155,6 +156,7 @@ bool wantsToReplay() {
         
     printw("\nVoulez-vous rejouer ? (O/n) ");
     refresh();
+    
     answer = getch();
     
     //si on veut rejouer, retourner 1, sinon 0
@@ -193,9 +195,6 @@ void askForSinglePlayerUsername(Player robots[]) {
     char username[MAX_USERNAME_SIZE];
     
     printw("Votre pseudo : ");
-    //vidage du buffer
-    //fseek(stdin, 0, SEEK_END);
-    
     refresh();
     
     //on récupère 14 caractères (+1 pour le \0) dans username
@@ -212,9 +211,6 @@ void askForSinglePlayerUsername(Player robots[]) {
 //
 void askForLevelPath(char path[]) {
     printw("Entrez le chemin du fichier niveau : ");
-    
-    //fseek(stdin, 0, SEEK_END);
-    
     refresh();
     
     //on récupère 14 caractères (+1 pour le \0) dans path

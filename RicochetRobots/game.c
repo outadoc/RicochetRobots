@@ -119,6 +119,9 @@ int startSinglePlayer(bool playVsComputer) {
         
         //un joueur est arrivé sur l'objectif, fin du jeu
         displayGameEnding(newGame.turnCount, getPlayerOnObjective(&newGame), &newGame);
+    } else {
+        refresh();
+        return 1;
     }
     
     return 0;
