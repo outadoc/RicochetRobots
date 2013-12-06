@@ -11,6 +11,7 @@
 
 #include <stdlib.h>
 #include <ncurses.h>
+#include <ctype.h>
 
 #include "game.h"
 #include "player.h"

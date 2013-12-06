@@ -52,13 +52,20 @@ int displayMainMenu(bool error) {
     }
     
     int choice = 0;
-        
+    
     printw("\nmenu> ");
     refresh();
     
-    scanw("%d", &choice);
+    do {
+        //on récupère un chiffre
+        //on ne veut PAS réagir sur un KEY_RESIZE (redimensionnement du terminal)
+        choice = getch();
+    } while(choice == KEY_RESIZE);
     
-    return choice;
+    printw("\n");
+    
+    //on retourne le vrai chiffre (en soustrayant la valeur de '0'
+    return choice - '0';
 }
 
 //
@@ -85,23 +92,37 @@ int displayGameBoardSelectionMenu(bool error) {
     printw("\nplateau> ");
     refresh();
     
-    scanw("%d", &choice);
+    do {
+        //on récupère un chiffre
+        //on ne veut PAS réagir sur un KEY_RESIZE (redimensionnement du terminal)
+        choice = getch();
+    } while(choice == KEY_RESIZE);
     
-    return choice;
+    printw("\n");
+    
+    //on retourne le vrai chiffre (en soustrayant la valeur de '0'
+    return choice - '0';
 }
 
 //
 // Demande à l'utilisateur quel plateau de jeu prédéfini il souhaite charger.
 //
 int displayGameBoardList() {
-    int boardNb = 0;
+    int choice = 0;
     
     printw("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
     refresh();
     
-    scanw("%d", &boardNb);
+    do {
+        //on récupère un chiffre
+        //on ne veut PAS réagir sur un KEY_RESIZE (redimensionnement du terminal)
+        choice = getch();
+    } while(choice == KEY_RESIZE);
     
-    return boardNb;
+    printw("\n");
+    
+    //on retourne le vrai chiffre (en soustrayant la valeur de '0'
+    return choice - '0';
 }
 
 //
