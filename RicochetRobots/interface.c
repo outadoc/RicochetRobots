@@ -148,9 +148,9 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
     
     printw("Gagnant : %s a déplacé le robot ", winner->username);
     
-    attron(COLOR_PAIR(winner->robotColor));
+    attron(COLOR_PAIR(getColorPairFromRobotColor(winner->robotColor)));
     printw("%s", getRobotStringColor(winner->robotColor));
-    attroff(COLOR_PAIR(winner->robotColor));
+    attroff(COLOR_PAIR(getColorPairFromRobotColor(winner->robotColor)));
     
     printw(" sur l'objectif\n");
     
@@ -158,9 +158,9 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
     
     for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
         printw("Score de ");
-        attron(COLOR_PAIR(state->players[i].robotColor));
+        attron(COLOR_PAIR(getColorPairFromRobotColor(state->players[i].robotColor)));
         printw("%s", getRobotStringColor(state->players[i].robotColor));
-        attroff(COLOR_PAIR(state->players[i].robotColor));
+        attroff(COLOR_PAIR(getColorPairFromRobotColor(state->players[i].robotColor)));
         printw(" : %d coups\n", state->players[i].score);
     }
     
@@ -273,7 +273,7 @@ void displayGameBoard(GameState *state) {
                     
                     hasContent = true;
                     
-                    attron(COLOR_PAIR(state->players[k].robotColor));
+                    attron(COLOR_PAIR(getColorPairFromRobotColor(state->players[k].robotColor)));
                     
                     for (l = 0; l < MAX_PLAYERS_COUNT; l++) {
                         //si on a un objectif ici
@@ -288,7 +288,7 @@ void displayGameBoard(GameState *state) {
                         printw("   ");
                     }
                     
-                    attroff(COLOR_PAIR(state->players[k].robotColor));
+                    attroff(COLOR_PAIR(getColorPairFromRobotColor(state->players[k].robotColor)));
                     
                 }
             }
@@ -360,9 +360,9 @@ void refreshDisplay(GameState *currentGame) {
     
     printw("Joueur actuel : ");
     
-    attron(COLOR_PAIR(currentGame->currentPlayer->robotColor));
+    attron(COLOR_PAIR(getColorPairFromRobotColor(currentGame->currentPlayer->robotColor)));
     printw("%s", getRobotStringColor(currentGame->currentPlayer->robotColor));
-    attroff(COLOR_PAIR(currentGame->currentPlayer->robotColor));
+    attroff(COLOR_PAIR(getColorPairFromRobotColor(currentGame->currentPlayer->robotColor)));
     
     printw(" (%s)\n", currentGame->currentPlayer->username);
     

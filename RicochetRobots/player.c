@@ -207,6 +207,26 @@ char* getRobotStringColor(int color) {
     }
 }
 
+int getColorPairFromRobotColor(int color) {
+    switch (color) {
+        case ROBOT_RED:
+            return 1;
+            break;
+        case ROBOT_GREEN:
+            return 2;
+            break;
+        case ROBOT_BLUE:
+            return 3;
+            break;
+        case ROBOT_GREY:
+            return 4;
+            break;
+        default:
+            return -1;
+            break;
+    }
+}
+
 //
 // Vérifie si un joueur est sur l'objectif.
 // Retourne true s'il l'est, false sinon.

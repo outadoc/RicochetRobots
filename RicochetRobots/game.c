@@ -75,10 +75,10 @@ int startSinglePlayer(bool playVsComputer) {
     if(askForGameBoard(&board) == 0) {
         
         Player robots[MAX_PLAYERS_COUNT] = {
-            {.score = 0, .robotColor = ROBOT_RED,   .position = board.robotsPos[0], .isBot = false},
-            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPos[1], .isBot = playVsComputer},
-            {.score = 0, .robotColor = ROBOT_BLUE,  .position = board.robotsPos[2], .isBot = playVsComputer},
-            {.score = 0, .robotColor = ROBOT_GREY,  .position = board.robotsPos[3], .isBot = playVsComputer},
+            {.score = 0, .robotColor = ROBOT_RED,   .position = board.robotsPos[ROBOT_RED], .isBot = false},
+            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPos[ROBOT_GREEN], .isBot = playVsComputer},
+            {.score = 0, .robotColor = ROBOT_BLUE,  .position = board.robotsPos[ROBOT_BLUE], .isBot = playVsComputer},
+            {.score = 0, .robotColor = ROBOT_GREY,  .position = board.robotsPos[ROBOT_GREY], .isBot = playVsComputer},
         };
         
         //on demande le pseudo du joueur

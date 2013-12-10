@@ -249,19 +249,19 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                 switch (id) {
                     case 'R':
                         //robot rouge
-                        tabIndex = 0;
+                        tabIndex = ROBOT_RED;
                         break;
                     case 'V':
                         //robot vert
-                        tabIndex = 1;
+                        tabIndex = ROBOT_GREEN;
                         break;
                     case 'B':
                         //robot bleu
-                        tabIndex = 2;
+                        tabIndex = ROBOT_BLUE;
                         break;
                     case 'G':
                         //robot gris
-                        tabIndex = 3;
+                        tabIndex = ROBOT_GREY;
                         break;
                     default:
                         //on ferme le fichier

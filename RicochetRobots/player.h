@@ -26,5 +26,6 @@ bool isPlayerOnObjective(Player *player, GameBoard *gameBoard);
 Player* getPlayerOnObjective(GameState *state);
 
 char* getRobotStringColor(int color);
+int getColorPairFromRobotColor(int color);
 
 #endif

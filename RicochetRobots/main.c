@@ -23,10 +23,10 @@ int main(int argc, const char * argv[]) {
     use_default_colors();
     
     //paires de couleurs pour chaque robot
-    init_pair(ROBOT_RED, COLOR_WHITE, COLOR_RED);
-    init_pair(ROBOT_BLUE, COLOR_WHITE, COLOR_BLUE);
-    init_pair(ROBOT_GREEN, COLOR_WHITE, COLOR_GREEN);
-    init_pair(ROBOT_GREY, COLOR_BLACK, COLOR_YELLOW);
+    init_pair(1, COLOR_WHITE, COLOR_RED);
+    init_pair(2, COLOR_WHITE, COLOR_GREEN);
+    init_pair(3, COLOR_WHITE, COLOR_BLUE);
+    init_pair(4, COLOR_BLACK, COLOR_YELLOW);
     
     //autres paires de couleurs
     init_pair(10, COLOR_MAGENTA, COLOR_WHITE);

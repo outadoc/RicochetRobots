@@ -34,10 +34,10 @@ typedef int Direction;  //la direction est un entier
 // IDENTIFIANTS DES COULEURS DES ROBOTS //
 /****************************************/
 
-#define ROBOT_RED   1
-#define ROBOT_GREEN 2
-#define ROBOT_BLUE  3
-#define ROBOT_GREY  4
+#define ROBOT_RED   0
+#define ROBOT_GREEN 1
+#define ROBOT_BLUE  2
+#define ROBOT_GREY  3
 
 // IDENTIFIANTS DES DIRECTIONS //
 /****************************************/
