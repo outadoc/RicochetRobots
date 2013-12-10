@@ -231,7 +231,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
         ungetc(c, level);
         
         //on s'attend à trouver 5 lignes pour les coordonnées des 4 robots + celles de l'objectif
-        while(i < MAX_PLAYERS_COUNT * 2) {
+        while(i < MAX_PLAYERS_COUNT) {
             //on vérifie si la ligne n'est pas vide ou un commentaire et on recule le curseur comme si de rien n'était
             if((c = getc(level)) != '#' && c != '\n') {
                 ungetc(c, level);

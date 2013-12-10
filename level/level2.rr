@@ -2,22 +2,20 @@
 # Baptiste Candellier 2013
 # - IUT Caen Campus 3
 
-# Emplacement des robots
+# Emplacement des robots et de leur objectif
 
 # ROUGE
-R 0 11
+R 0 11, 6 5
 
 # VERT
-V 0 9
+V 0 9, -1 -1
 
 # BLEU
-B 12 8
+B 12 8, -1 -1
 
 # GRIS
-G 12 15
+G 12 15, -1 -1
 
-# OBJECTIF
-O 6 5
 
 # Grille de jeu
 EEEEREEEEEELEEEE
