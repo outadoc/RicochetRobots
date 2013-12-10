@@ -279,6 +279,7 @@ void displayGameBoard(GameState *state) {
                         //si on a un objectif ici
                         if(state->gameBoard->objectivesPos[l].x == i && state->gameBoard->objectivesPos[l].y == j) {
                             hasObjective = true;
+                            break;
                         }
                     }
                     
@@ -297,9 +298,12 @@ void displayGameBoard(GameState *state) {
             for (k = 0; k < MAX_PLAYERS_COUNT; k++) {
                 if(!hasContent && state->gameBoard->objectivesPos[k].x == i && state->gameBoard->objectivesPos[k].y == j) {
                     hasContent = true;
+                    
                     attron(COLOR_PAIR(10));
                     printw("[X]");
                     attroff(COLOR_PAIR(10));
+                    
+                    break;
                 }
             }
             
