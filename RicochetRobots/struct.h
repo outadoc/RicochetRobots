@@ -86,7 +86,7 @@ typedef struct {
 //structure du plateau de jeu
 typedef struct {
     char obstacles[BOARD_SIZE][BOARD_SIZE];
-    Coords robotsPosition[MAX_PLAYERS_COUNT];
+    Coords robotsPos[MAX_PLAYERS_COUNT];
     Coords objectivePos;
 } GameBoard;
 

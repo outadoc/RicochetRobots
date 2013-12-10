@@ -38,7 +38,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {'E', 'E', 'E', 'Y', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'Y', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'L', 'E'}
             },
-            .robotsPosition = {
+            .robotsPos = {
                 {.x = 0, .y = 3},
                 {.x = 12, .y = 10},
                 {.x = 11, .y = 11},
@@ -67,7 +67,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {'E', 'E', 'E', 'E', 'E', 'E', 'V', 'E', 'E', 'W', 'E', 'E', 'E', 'E', 'E', 'E'},
                 {'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E'}
             },
-            .robotsPosition = {
+            .robotsPos = {
                 {.x = 0, .y = 11},
                 {.x = 0, .y = 9},
                 {.x = 12, .y = 8},
@@ -96,7 +96,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {'E', 'E', 'B', 'L', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}, 
                 {'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E'}
             },
-            .robotsPosition = {
+            .robotsPos = {
                 {.x = 10, .y = 11},
                 {.x = 10, .y = 13},
                 {.x = 6, .y = 3},
@@ -138,7 +138,7 @@ GameBoard getEmptyGameBoard() {
             {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
             {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
         },
-        .robotsPosition = {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
+        .robotsPos = {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
         .objectivePos = {0, 0}
     };
 }
@@ -230,23 +230,23 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                 switch (id) {
                     case 'R':
                         //robot rouge
-                        board->robotsPosition[0].x = x;
-                        board->robotsPosition[0].y = y;
+                        board->robotsPos[0].x = x;
+                        board->robotsPos[0].y = y;
                         break;
                     case 'V':
                         //robot vert
-                        board->robotsPosition[1].x = x;
-                        board->robotsPosition[1].y = y;
+                        board->robotsPos[1].x = x;
+                        board->robotsPos[1].y = y;
                         break;
                     case 'B':
                         //robot bleu
-                        board->robotsPosition[2].x = x;
-                        board->robotsPosition[2].y = y;
+                        board->robotsPos[2].x = x;
+                        board->robotsPos[2].y = y;
                         break;
                     case 'G':
                         //robot gris
-                        board->robotsPosition[3].x = x;
-                        board->robotsPosition[3].y = y;
+                        board->robotsPos[3].x = x;
+                        board->robotsPos[3].y = y;
                         break;
                     case 'O':
                         //objectif
