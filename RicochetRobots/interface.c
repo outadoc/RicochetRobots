@@ -269,7 +269,7 @@ void displayGameBoard(GameState *state) {
                 //on vérifie, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
                 if(state->players[k].position.x == i && state->players[k].position.y == j) {
                     int l;
-                    int hasObjective = false;
+                    bool hasObjective = false;
                     
                     hasContent = true;
                     
