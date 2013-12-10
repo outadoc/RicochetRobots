@@ -268,12 +268,21 @@ void displayGameBoard(GameState *state) {
             for (k = 0; k < MAX_PLAYERS_COUNT; k++) {
                 //on vérifie, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
                 if(state->players[k].position.x == i && state->players[k].position.y == j) {
+                    int l;
+                    int hasObjective = false;
+                    
                     hasContent = true;
                     
                     attron(COLOR_PAIR(state->players[k].robotColor));
                     
-                    //si on a un objectif ici
-                    if(state->gameBoard->objectivePos.x == i && state->gameBoard->objectivePos.y == j) {
+                    for (l = 0; l < MAX_PLAYERS_COUNT; l++) {
+                        //si on a un objectif ici
+                        if(state->gameBoard->objectivesPos[l].x == i && state->gameBoard->objectivesPos[l].y == j) {
+                            hasObjective = true;
+                        }
+                    }
+                    
+                    if(hasObjective) {
                         printw("[X]");
                     } else {
                         printw("   ");
@@ -285,11 +294,13 @@ void displayGameBoard(GameState *state) {
             }
             
             //si la case n'a pas encore de contenu (et donc pas de robot) et que c'est une case objectif
-            if(!hasContent && state->gameBoard->objectivePos.x == i && state->gameBoard->objectivePos.y == j) {
-                hasContent = true;
-                attron(COLOR_PAIR(10));
-                printw("[X]");
-                attroff(COLOR_PAIR(10));
+            for (k = 0; k < MAX_PLAYERS_COUNT; k++) {
+                if(!hasContent && state->gameBoard->objectivesPos[k].x == i && state->gameBoard->objectivesPos[k].y == j) {
+                    hasContent = true;
+                    attron(COLOR_PAIR(10));
+                    printw("[X]");
+                    attroff(COLOR_PAIR(10));
+                }
             }
             
             //si il n'y a rien dans la case, on affiche un espace

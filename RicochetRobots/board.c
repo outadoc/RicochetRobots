@@ -44,7 +44,12 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {.x = 11, .y = 11},
                 {.x = 8, .y = 4}
             },
-            .objectivePos = {10, 15}
+            .objectivesPos = {
+                {.x = 10, .y = 15},
+                {.x = -1, .y = -1},
+                {.x = -1, .y = -1},
+                {.x = -1, .y = -1}
+            }
         },
         {
             //deuxième plateau
@@ -73,7 +78,12 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {.x = 12, .y = 8},
                 {.x = 12, .y = 15}
             },
-            .objectivePos = {6, 5}
+            .objectivesPos = {
+                {.x = 6, .y = 5},
+                {.x = -1, .y = -1},
+                {.x = -1, .y = -1},
+                {.x = -1, .y = -1}
+            }
         },
         {
             //deuxième plateau
@@ -102,7 +112,12 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {.x = 6, .y = 3},
                 {.x = 4, .y = 9}
             },
-            .objectivePos = {5, 13}
+            .objectivesPos = {
+                {.x = 5, .y = 13},
+                {.x = -1, .y = -1},
+                {.x = -1, .y = -1},
+                {.x = -1, .y = -1}
+            }
         }
     };
     
@@ -139,7 +154,7 @@ GameBoard getEmptyGameBoard() {
             {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
         },
         .robotsPos = {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
-        .objectivePos = {0, 0}
+        .objectivesPos = {{0, 0}, {-1, -1}, {0, 0}, {0, 0}}
     };
 }
 
@@ -216,42 +231,37 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
         ungetc(c, level);
         
         //on s'attend à trouver 5 lignes pour les coordonnées des 4 robots + celles de l'objectif
-        while(i < MAX_PLAYERS_COUNT + 1) {
+        while(i < MAX_PLAYERS_COUNT * 2) {
             //on vérifie si la ligne n'est pas vide ou un commentaire et on recule le curseur comme si de rien n'était
             if((c = getc(level)) != '#' && c != '\n') {
                 ungetc(c, level);
                 
                 char id;
-                int x, y;
+                
+                int rbtX, rbtY;
+                int objX, objY;
+                
+                int tabIndex = 0;
                 
                 //on récupère l'id du robot et ses coordonnées
-                fscanf(level, "%c %d %d\n", &id, &x, &y);
+                fscanf(level, "%c %d %d, %d %d\n", &id, &rbtX, &rbtY, &objX, &objY);
                 
                 switch (id) {
                     case 'R':
                         //robot rouge
-                        board->robotsPos[0].x = x;
-                        board->robotsPos[0].y = y;
+                        tabIndex = 0;
                         break;
                     case 'V':
                         //robot vert
-                        board->robotsPos[1].x = x;
-                        board->robotsPos[1].y = y;
+                        tabIndex = 1;
                         break;
                     case 'B':
                         //robot bleu
-                        board->robotsPos[2].x = x;
-                        board->robotsPos[2].y = y;
+                        tabIndex = 2;
                         break;
                     case 'G':
                         //robot gris
-                        board->robotsPos[3].x = x;
-                        board->robotsPos[3].y = y;
-                        break;
-                    case 'O':
-                        //objectif
-                        board->objectivePos.x = x;
-                        board->objectivePos.y = y;
+                        tabIndex = 3;
                         break;
                     default:
                         //on ferme le fichier
@@ -260,6 +270,12 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                         return 1;
                         break;
                 }
+                
+                board->robotsPos[tabIndex].x = rbtX;
+                board->robotsPos[tabIndex].y = rbtY;
+                
+                board->objectivesPos[tabIndex].x = objX;
+                board->objectivesPos[tabIndex].y = objY;
 
                 i++;
             } else {
