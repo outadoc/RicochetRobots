@@ -337,8 +337,8 @@ void displayGameBoard(GameState *state) {
                || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_RIGHT)
                || i == BOARD_SIZE - 1) {
                 printw("---+");
-            } else if(j == BOARD_SIZE -1) {
-                printw("   +");
+            } else if(i == BOARD_SIZE/2-1 && j == BOARD_SIZE/2-1) {
+                printw("    ");
             } else {
                 printw("   +");
             }
