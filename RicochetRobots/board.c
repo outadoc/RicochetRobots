@@ -189,6 +189,11 @@ int askForGameBoard(GameBoard *board) {
                 return loadBoardFromFile(board, path);
                 break;
             }
+            case 3: {
+                getRandomBoard(board);
+                return 0;
+                break;
+            }
             case 0:
                 return 1;
                 break;
@@ -345,4 +350,49 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
     fclose(level);
     printw("WTF\n");
     return 0;
+}
+
+void getRandomBoard(GameBoard *board) {
+    if(board == NULL) return;
+    
+    int i, j;
+    
+    *board = getEmptyGameBoard();
+    
+    //murs du milieu
+    board->obstacles[BOARD_SIZE/2-1][BOARD_SIZE/2-1] = CELL_WALL_TOP_LEFT;
+    board->obstacles[BOARD_SIZE/2-1][BOARD_SIZE / 2] = CELL_WALL_TOP_RIGHT;
+    board->obstacles[BOARD_SIZE / 2][BOARD_SIZE/2-1] = CELL_WALL_BOTTOM_LEFT;
+    board->obstacles[BOARD_SIZE / 2][BOARD_SIZE / 2] = CELL_WALL_BOTTOM_RIGHT;
+    
+    for(i = 0; i < BOARD_SIZE; i++) {
+        for(j = 0; j < BOARD_SIZE; j++) {
+            //1 chance sur 6 de placer autre-chose qu'une case vide
+            if(rand_between(0, 7) == 0) {
+                if(i == 0 || i == BOARD_SIZE - 1) {
+                    //si on est sur le premier ou le dernier rang
+                    //on place un mur à droite
+                    board->obstacles[i][j] = CELL_WALL_RIGHT;
+                } else if(j == 0 || j == BOARD_SIZE - 1) {
+                    //si on est sur la première ou la dernière colonne
+                    //on place un mur en bas
+                    board->obstacles[i][j] = CELL_WALL_BOTTOM;
+                } else {
+                    if(board->obstacles[i-1][j] == CELL_EMPTY
+                       && board->obstacles[i][j-1] == CELL_EMPTY
+                       && board->obstacles[i-1][j-1] == CELL_EMPTY
+                       && board->obstacles[i-1][j+1] == CELL_EMPTY) {
+                        int set[4] = {
+                            CELL_WALL_BOTTOM_LEFT,
+                            CELL_WALL_BOTTOM_RIGHT,
+                            CELL_WALL_TOP_LEFT,
+                            CELL_WALL_TOP_RIGHT
+                        };
+                        
+                        board->obstacles[i][j] = set[rand_between(0, 5)];
+                    }
+                }
+            }
+        }
+    }
 }
