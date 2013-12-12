@@ -381,7 +381,11 @@ void getRandomBoard(GameBoard *board) {
                     if(board->obstacles[i-1][j] == CELL_EMPTY
                        && board->obstacles[i][j-1] == CELL_EMPTY
                        && board->obstacles[i-1][j-1] == CELL_EMPTY
-                       && board->obstacles[i-1][j+1] == CELL_EMPTY) {
+                       && board->obstacles[i-1][j+1] == CELL_EMPTY
+                       && board->obstacles[i][j+1] == CELL_EMPTY
+                       && board->obstacles[i+1][j] == CELL_EMPTY
+                       && board->obstacles[i+1][j+1] == CELL_EMPTY
+                       && board->obstacles[i+1][j-1] == CELL_EMPTY) {
                         int set[4] = {
                             CELL_WALL_BOTTOM_LEFT,
                             CELL_WALL_BOTTOM_RIGHT,
