@@ -2,8 +2,8 @@
 //  board.c
 //  RicochetRobots
 //
-//  Created by Baptiste on 28/'L'/'B'.
-//  Copyright (c) 20'B' outadev. All rights reserved.
+//  Created by Baptiste on 28/10/13.
+//  Copyright (c) 2013 outadev. All rights reserved.
 //
 // Fonctions et structures relatives au plateau de jeu
 //
