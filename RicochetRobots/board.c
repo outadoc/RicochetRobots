@@ -154,7 +154,7 @@ GameBoard getEmptyGameBoard() {
             {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
         },
         .robotsPos = {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
-        .objectivesPos = {{0, 0}, {-1, -1}, {0, 0}, {0, 0}}
+        .objectivesPos = {{-1, -1}, {-1, -1}, {-1, -1}, {-1, -1}}
     };
 }
 
