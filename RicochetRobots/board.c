@@ -421,6 +421,14 @@ void getRandomBoard(GameBoard *board) {
         board->robotsPos[i].x = coords.x;
         board->robotsPos[i].y = coords.y;
     }
+    
+    //coordonnées aléatoires pour les objectifs
+    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
+        Coords coords = getRandomCoords(board);
+        
+        board->objectivesPos[i].x = coords.x;
+        board->objectivesPos[i].y = coords.y;
+    }
 }
 
 Coords getRandomCoords(GameBoard *board) {
