@@ -399,4 +399,23 @@ void getRandomBoard(GameBoard *board) {
             }
         }
     }
+    
+    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
+        Coords coords = getRandomCoords();
+        
+        board->robotsPos[i].x = coords.x;
+        board->robotsPos[i].y = coords.y;
+    }
+}
+
+Coords getRandomCoords() {
+    Coords coords;
+    
+    do {
+        coords.x = rand_between(0, BOARD_SIZE + 1);
+        coords.y = rand_between(0, BOARD_SIZE + 1);
+    } while(coords.x == BOARD_SIZE/2-1 || coords.x == BOARD_SIZE/2
+            || coords.y == BOARD_SIZE/2-1 || coords.y == BOARD_SIZE/2);
+    
+    return coords;
 }
