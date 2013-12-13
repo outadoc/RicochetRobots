@@ -352,6 +352,19 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
     return 0;
 }
 
+bool areCoordsInList(Coords coords_t[], Coords coords) {
+    int i;
+    
+    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
+        if(coords_t[i].x == coords.x
+           && coords_t[i].y == coords.y) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 void getRandomBoard(GameBoard *board) {
     if(board == NULL) return;
     
@@ -400,22 +413,25 @@ void getRandomBoard(GameBoard *board) {
         }
     }
     
+    //coordonnées aléatoires pour les joueurs
     for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
-        Coords coords = getRandomCoords();
+        Coords coords = getRandomCoords(board);
         
         board->robotsPos[i].x = coords.x;
         board->robotsPos[i].y = coords.y;
     }
 }
 
-Coords getRandomCoords() {
+Coords getRandomCoords(GameBoard *board) {
     Coords coords;
     
     do {
-        coords.x = rand_between(0, BOARD_SIZE + 1);
-        coords.y = rand_between(0, BOARD_SIZE + 1);
+        coords.x = rand_between(0, BOARD_SIZE);
+        coords.y = rand_between(0, BOARD_SIZE);
     } while(coords.x == BOARD_SIZE/2-1 || coords.x == BOARD_SIZE/2
-            || coords.y == BOARD_SIZE/2-1 || coords.y == BOARD_SIZE/2);
+            || coords.y == BOARD_SIZE/2-1 || coords.y == BOARD_SIZE/2
+            || areCoordsInList(board->robotsPos, coords)
+            || areCoordsInList(board->objectivesPos, coords));
     
     return coords;
 }

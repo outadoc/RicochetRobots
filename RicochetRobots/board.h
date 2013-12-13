@@ -16,9 +16,10 @@
 
 int loadBoardFromFile(GameBoard *board, const char path[]);
 void getRandomBoard(GameBoard *board);
-Coords getRandomCoords();
+Coords getRandomCoords(GameBoard *board);
 GameBoard getBuiltInBoardAtIndex(int index);
 
+bool areCoordsInList(Coords coords_t[], Coords coords);
 GameBoard getEmptyGameBoard();
 
 int askForGameBoard(GameBoard *board);
