@@ -355,6 +355,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
 bool areCoordsInList(Coords coords_t[], Coords coords) {
     int i;
     
+    //on vérifie si les coordonnées à tester sont dans l'array
     for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
         if(coords_t[i].x == coords.x
            && coords_t[i].y == coords.y) {
@@ -424,6 +425,9 @@ void getRandomBoard(GameBoard *board) {
 
 Coords getRandomCoords(GameBoard *board) {
     Coords coords;
+    
+    //on récupère des coordonnées aléatoires
+    //mais on recommence si elles sont dans le carré central ou qu'il y a déjà quelque-chose aux même coordonnées
     
     do {
         coords.x = rand_between(0, BOARD_SIZE);
