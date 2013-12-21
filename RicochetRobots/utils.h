@@ -15,5 +15,6 @@
 
 void removeCarriageReturn(char str[]);
 int rand_between(int min, int max);
+int max_strlen(char **str, int n);
 
 #endif

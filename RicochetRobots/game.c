@@ -30,23 +30,23 @@ int start() {
             retry = false;
 
             switch (choice) {
-                case 0:
+                case 3:
                     //si on veut quitter le jeu
                     return 0;
                     break;
-                case 1:
+                case 0:
                     if(startSinglePlayer(false) == 1) {
                         choice = displayMainMenu(false);
                         retry = true;
                     }
                     break;
-                case 2:
+                case 1:
                     if(startSinglePlayer(true) == 1) {
                         choice = displayMainMenu(false);
                         retry = true;
                     }
                     break;
-                case 3: {
+                case 2: {
                     Player players[MAX_PLAYERS_COUNT];
                     askForPlayersInfo(players);
                     break;

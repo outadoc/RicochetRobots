@@ -26,3 +26,15 @@ void removeCarriageReturn(char str[]) {
 int rand_between(int min, int max) {
     return rand() % (max - min) + min;
 }
+
+int max_strlen(char **str, int n) {
+    int i;
+    int maxlen = 0;
+    
+    for(i = 0; i < n; i++) {
+        int currlen = (int) strlen(str[i]);
+        if(currlen > maxlen) maxlen = currlen;
+    }
+    
+    return maxlen;
+}

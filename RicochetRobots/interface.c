@@ -16,20 +16,20 @@
 //
 // Affiche le logo du jeu sur la sortie standard.
 //
-void displayLogo() {
-    clear();
+void displayLogo(WINDOW *win, int width) {
+    //on affiche chaque ligne du logo sur la WINDOW spécifiée
+    //ça rend pas super dans le code, mais il faut jouer avec les espaces blancs et le décalage à gauche pour affiche correctement
+    print_in_middle(win, 1, 4, width, "____  ______________  ________  ______________");
+    print_in_middle(win, 2, 4, width, "/ __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/");
+    print_in_middle(win, 3, 2, width, "/ /_/ // // /   / / / / /   / /_/ / __/   / /");
+    print_in_middle(win, 4, 1, width, "/ _, _// // /___/ /_/ / /___/ __  / /___  / /");
+    print_in_middle(win, 5, 0, width, "/_/ ||||__||||__||||__||||__|||_|||||||_/ /_/");
+    print_in_middle(win, 6, 3, width, "/ __ \\/ __ \\/ __ )/ __ \\/_  __/ ___/         ");
+    print_in_middle(win, 7, 2, width, "/ /_/ / / / / __  / / / / / /  \\____         ");
+    print_in_middle(win, 8, 1, width, "/ _, _/ /_/ / /_/ / /_/ / / /  ___/ /         ");
+    print_in_middle(win, 9, 0, width, "/_/ |_|\\____/_____/\\____/ /_/  /____/         ");
     
-    printw("    ____  ______________  ________  ______________\n");
-    printw("   / __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/\n");
-    printw("  / /_/ // // /   / / / / /   / /_/ / __/   / /\n");
-    printw(" / _, _// // /___/ /_/ / /___/ __  / /___  / /\n");
-    printw("/_/ ||||__||||__||||__||||__|||_|||||||_/ /_/\n");
-    printw("   / __ \\/ __ \\/ __ )/ __ \\/_  __/ ___/\n");
-    printw("  / /_/ / / / / __  / / / / / /  \\__ \n");
-    printw(" / _, _/ /_/ / /_/ / /_/ / / /  ___/ /\n");
-    printw("/_/ |_|\\____/_____/\\____/ /_/  /____/    v%s\n\n", VERSION);
-    
-    refresh();
+    wrefresh(win);
 }
 
 //
@@ -37,35 +37,14 @@ void displayLogo() {
 // Si error vaut true, on affiche une erreur à la place du menu.
 //
 int displayMainMenu(bool error) {
-    if(!error) {
-        displayLogo();
-        
-        printw("MENU PRINCIPAL\n");
-        printw("--------------\n\n");
-        
-        printw("1. Partie solo\n");
-        printw("2. Partie solo VS ordinateur\n");
-        printw("3. Partie multijoueur\n");
-        printw("0. -- Quitter\n");
-    } else {
-        displayMenuError();
-    }
+    char *choices[] = {
+        "Partie solo",
+        "Partie solo VS ordinateur",
+        "Partie multijoueurs",
+        "Quitter"
+    };
     
-    int choice = 0;
-    
-    printw("\nmenu> ");
-    refresh();
-    
-    do {
-        //on récupère un chiffre
-        //on ne veut PAS réagir sur un KEY_RESIZE (redimensionnement du terminal)
-        choice = getch();
-    } while(choice == KEY_RESIZE);
-    
-    printw("\n");
-    
-    //on retourne le vrai chiffre (en soustrayant la valeur de '0'
-    return choice - '0';
+    return displayMenu(choices, ARRAY_SIZE(choices));
 }
 
 //
@@ -379,4 +358,118 @@ void refreshDisplay(GameState *currentGame) {
     printw("-----------------------------\n");
     
     refresh();
+}
+
+void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string) {
+    int length, x, y;
+	float temp;
+    
+	if(win == NULL)
+		win = stdscr;
+    
+	getyx(win, y, x);
+	
+    if(startx != 0)
+		x = startx;
+	if(starty != 0)
+		y = starty;
+	if(width == 0)
+		width = 80;
+    
+	length = (int) strlen(string);
+	temp = (width - length)/ 2;
+	x = startx + (int) temp;
+    
+	mvwprintw(win, y, x, "%s", string);
+	refresh();
+}
+
+int displayMenu(char **choices, int nbChoices) {
+    //variables pour l'affichage du menu
+    ITEM **menuItems;
+    MENU *menu;
+    WINDOW *menuWin = NULL;
+    
+    int i;
+    
+    //largeur du menu = longueur du plus grand des choix possibles
+    int menuWidth = max_strlen(choices, nbChoices);
+    
+    //hauteur = nombre de choix possibles + 15 (pour le logo)
+    int winHeight = nbChoices + 15;
+    int winWidth = 70;
+    
+    //on centre le menu
+    int starty = (LINES - winHeight) / 2;
+	int startx = (COLS - winWidth) / 2;
+    
+    noecho();
+    keypad(stdscr, TRUE);
+    
+    clear();
+    
+    //on alloue de la mémoire pour initialiser les éléments du menu
+    menuItems = (ITEM **) calloc(nbChoices + 1, sizeof(ITEM *));
+    
+    //on créé de nouveaux éléments à partir des choix fournis
+    for(i = 0; i < nbChoices; ++i)
+        menuItems[i] = new_item(choices[i], NULL);
+    
+    //on met un élément nul à la fin du tableau
+    menuItems[nbChoices] = (ITEM *) NULL;
+    
+    //on initialise le menu
+    menu = new_menu((ITEM **) menuItems);
+    
+    //création d'une fenêtre pour le menu
+    menuWin = newwin(winHeight, winWidth, starty, startx);
+    
+	//on associe le menu à une fenêtre et une sous-fenêtre
+    set_menu_win(menu, menuWin);
+    //fenêtre hauteur largeur x y
+    set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, 12, (winWidth - menuWidth) / 2));
+    
+    //on lui précise bien que le menu fait N lignes et 1 colonne
+    set_menu_format(menu, nbChoices, 1);
+    
+	//on affiche une bordure autour de la fenêtre
+    box(menuWin, 0, 0);
+    
+    //on affiche le logo du jeu
+	displayLogo(menuWin, winWidth);
+    
+	//et hop, on affiche le menu et on rafraîchit.
+	post_menu(menu);
+	wrefresh(menuWin);
+    
+    //caractère courant
+    int c;
+    
+    //boucle pour le menu
+    while((c = getch())) {
+        switch(c) {
+            case KEY_DOWN:
+                menu_driver(menu, REQ_DOWN_ITEM);
+                break;
+            case KEY_UP:
+                menu_driver(menu, REQ_UP_ITEM);
+                break;
+            case 10: {
+                int choice = item_index(current_item(menu));
+                unpost_menu(menu);
+                free_menu(menu);
+                
+                for(i = 0; i < nbChoices; ++i)
+                    free_item(menuItems[i]);
+                
+                return choice;
+                break;
+            }
+        }
+        
+        refresh();
+        wrefresh(menuWin);
+    }
+    
+    return 0;
 }
