@@ -298,6 +298,7 @@ void displayGameBoard(GameState *state) {
     }
     
     wrefresh(boardWin);
+    delwin(boardWin);
 }
 
 //
@@ -328,6 +329,7 @@ void refreshDisplay(GameState *currentGame) {
     
     refresh();
     wrefresh(infoWin);
+    delwin(infoWin);
 }
 
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string) {
