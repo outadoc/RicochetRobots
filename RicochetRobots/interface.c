@@ -365,7 +365,7 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     int i = 0;
     
     //largeur du menu = longueur du plus grand des choix possibles
-    int menuWidth = max_strlen(choices, nbChoices) + 1;
+    int menuWidth = max_strlen(choices, nbChoices) + 2;
     
     //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = nbChoices + 17;
@@ -375,6 +375,8 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     int starty = (LINES - winHeight) / 2;
 	int startx = (COLS - winWidth) / 2;
     
+    curs_set(0);
+    set_menu_mark(menu, "> ");
     noecho();
     clear();
     
@@ -451,7 +453,9 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
                 refresh();
                 
                 delwin(menuWin);
+                
                 echo();
+                curs_set(1);
                 
                 return choice;
                 break;
