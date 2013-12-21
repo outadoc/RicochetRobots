@@ -66,21 +66,25 @@ int displayGameBoardSelectionMenu(bool error) {
 // Demande à l'utilisateur quel plateau de jeu prédéfini il souhaite charger.
 //
 int displayGameBoardList() {
-    int choice = 0;
+    int i, choice;
+    char *choices[BUILTIN_BOARDS_COUNT];
     
-    printw("Numéro du plateau à charger (entre 1 et %d) : ", BUILTIN_BOARDS_COUNT);
-    refresh();
+    //on est obligés d'allouer dynamiquement ici
+    //on remplit un tableau de strings : Plateau 1, Plateau 2, etc.
+    for(i = 0; i < BUILTIN_BOARDS_COUNT; i++) {
+        choices[i] = (char *) malloc(sizeof(char) * 12);
+        sprintf(choices[i], "Plateau %d", i + 1);
+    }
     
-    do {
-        //on récupère un chiffre
-        //on ne veut PAS réagir sur un KEY_RESIZE (redimensionnement du terminal)
-        choice = getch();
-    } while(choice == KEY_RESIZE);
+    //on affiche le menu
+    choice = displayMenu(choices, BUILTIN_BOARDS_COUNT, "PLATEAU PREDEFINI...");
     
-    printw("\n");
+    for(i = 0; i < BUILTIN_BOARDS_COUNT; i++) {
+        //on libère la mémoire
+        free(choices[i]);
+    }
     
-    //on retourne le vrai chiffre (en soustrayant la valeur de '0'
-    return choice - '0';
+    return choice;
 }
 
 //

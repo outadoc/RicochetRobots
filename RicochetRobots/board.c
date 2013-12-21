@@ -180,7 +180,7 @@ int askForGameBoard(GameBoard *board) {
                     boardNb = displayGameBoardList(false);
                 } while(boardNb < 1 || boardNb > BUILTIN_BOARDS_COUNT);
                 
-                *board = getBuiltInBoardAtIndex(boardNb - 1);
+                *board = getBuiltInBoardAtIndex(boardNb);
                 break;
             }
             case 1: {
