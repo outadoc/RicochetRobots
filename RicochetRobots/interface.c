@@ -44,7 +44,7 @@ int displayMainMenu(bool error) {
         "Quitter"
     };
     
-    return displayMenu(choices, ARRAY_SIZE(choices));
+    return displayMenu(choices, ARRAY_SIZE(choices), "MENU PRINCIPAL");
 }
 
 //
@@ -59,7 +59,7 @@ int displayGameBoardSelectionMenu(bool error) {
         "Retour au menu principal"
     };
     
-    return displayMenu(choices, ARRAY_SIZE(choices));
+    return displayMenu(choices, ARRAY_SIZE(choices), "CHOIX DU PLATEAU");
 }
 
 //
@@ -363,7 +363,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 	refresh();
 }
 
-int displayMenu(char **choices, int nbChoices) {
+int displayMenu(char **choices, int nbChoices, char title[]) {
     //variables pour l'affichage du menu
     ITEM **menuItems = NULL;
     MENU *menu = NULL;
@@ -375,7 +375,7 @@ int displayMenu(char **choices, int nbChoices) {
     int menuWidth = max_strlen(choices, nbChoices) + 1;
     
     //hauteur = nombre de choix possibles + 15 (pour le logo)
-    int winHeight = nbChoices + 15;
+    int winHeight = nbChoices + 17;
     int winWidth = 70;
     
     //on centre le menu
@@ -407,7 +407,7 @@ int displayMenu(char **choices, int nbChoices) {
 	//on associe le menu à une fenêtre et une sous-fenêtre
     set_menu_win(menu, menuWin);
     //fenêtre hauteur largeur x y
-    set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, 12, (winWidth - menuWidth) / 2));
+    set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, 15, (winWidth - menuWidth) / 2));
     
     //on lui précise bien que le menu fait N lignes et 1 colonne
     set_menu_format(menu, nbChoices, 1);
@@ -417,6 +417,18 @@ int displayMenu(char **choices, int nbChoices) {
     
     //on affiche le logo du jeu
 	displayLogo(menuWin, winWidth);
+    
+    //et deux lignes horizontales
+    mvwaddch(menuWin, 11, 0, ACS_LTEE);
+    mvwhline(menuWin, 11, 1, ACS_HLINE, winWidth - 1);
+    mvwaddch(menuWin, 11, winWidth - 1, ACS_RTEE);
+    
+    //on affiche un titre
+    print_in_middle(menuWin, 12, 0, winWidth, title);
+    
+    mvwaddch(menuWin, 13, 0, ACS_LTEE);
+    mvwhline(menuWin, 13, 1, ACS_HLINE, winWidth - 1);
+    mvwaddch(menuWin, 13, winWidth - 1, ACS_RTEE);
     
 	//et hop, on affiche le menu et on rafraîchit.
 	post_menu(menu);
