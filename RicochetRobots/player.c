@@ -156,9 +156,6 @@ Direction getRandomDirection(GameState *state) {
 Direction waitForDirection(GameState *state) {
     int c;
     
-    printw("\nA toi de jouer, %s ! ", state->currentPlayer->username);
-    refresh();
-    
     do {
         c = getch();
         

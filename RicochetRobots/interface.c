@@ -204,20 +204,15 @@ void displayGameBoard(GameState *state) {
     
     int i, j;
     
-    for (i = 0; i < BOARD_SIZE; i++) {
-        if(i == 0) {
-            printw("\n+");
-            
-            for (j = 0; j < BOARD_SIZE; j++) {
-                //première ligne ? on affiche une ligne de "-"
-                printw("---+");
-            }
-        }
-        
+    WINDOW *boardWin = newwin(2 * BOARD_SIZE + 1, 4 * BOARD_SIZE + 1, 0, 0);
+    box(boardWin, 0, 0);
+    
+    for (i = 0; i < BOARD_SIZE - 1; i++) {
         //début de ligne
-        printw("\n|");
-        
         for (j = 0; j < BOARD_SIZE; j++) {
+            int charLine = i * 2 + 1;
+            int charCol = j * 4;
+            
             //on affiche les murs verticaux
             //si il y a quelque-chose dans la case actuelle
             int k;
@@ -242,9 +237,9 @@ void displayGameBoard(GameState *state) {
                     }
                     
                     if(hasObjective) {
-                        printw("[X]");
+                        mvwprintw(boardWin, charLine, charCol + 1, "[X]");
                     } else {
-                        printw("   ");
+                        mvwprintw(boardWin, charLine, charCol + 1, "   ");
                     }
                     
                     COL_OFF_BOT(state->players[k].robotColor);
@@ -258,15 +253,12 @@ void displayGameBoard(GameState *state) {
                     hasContent = true;
                     
                     attron(COLOR_PAIR(10));
-                    printw("[X]");
+                    mvwprintw(boardWin, charLine, charCol + 1, "[X]");
                     attroff(COLOR_PAIR(10));
                     
                     break;
                 }
             }
-            
-            //si il n'y a rien dans la case, on affiche un espace
-            if(!hasContent) printw("   ");
             
             //si on doit afficher un mur à droite : si il y a un mur à droite dans la case actuelle ou un mur à gauche dans la case directement à droite
             //on n'oublie pas de prendre en compte les murs en L
@@ -277,33 +269,32 @@ void displayGameBoard(GameState *state) {
                || (j < BOARD_SIZE && state->gameBoard->obstacles[i][j+1] == CELL_WALL_BOTTOM_LEFT)
                || (j < BOARD_SIZE && state->gameBoard->obstacles[i][j+1] == CELL_WALL_TOP_LEFT)
                || j == BOARD_SIZE - 1) {
-                printw("|");
-            } else {
-                printw(" ");
+                mvwaddch(boardWin, charLine, charCol + 4, ACS_VLINE);
             }
         }
         
-        printw("\n+");
-        
-        for (j = 0; j < BOARD_SIZE; j++) {
+        for (j = 0; j < BOARD_SIZE - 1; j++) {
+            int charLine = i * 2 + 2;
+            int charCol = j * 4;
+            
             //on affiche les murs horizontaux, d'une façon analogue aux murs verticaux
             if(state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
                || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_LEFT
                || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_RIGHT
                || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP)
                || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_LEFT)
-               || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_RIGHT)
-               || i == BOARD_SIZE - 1) {
-                printw("---+");
-            } else if(i == BOARD_SIZE/2-1 && j == BOARD_SIZE/2-1) {
-                printw("    ");
-            } else {
-                printw("   +");
+               || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_RIGHT)) {
+                mvwaddch(boardWin, charLine, charCol + 1, ACS_HLINE);
+                mvwaddch(boardWin, charLine, charCol + 2, ACS_HLINE);
+                mvwaddch(boardWin, charLine, charCol + 3, ACS_HLINE);
+                mvwaddch(boardWin, charLine, charCol + 4, ACS_PLUS);
+            } else if(!(i == BOARD_SIZE/2-1 && j == BOARD_SIZE/2-1)) {
+                mvwaddch(boardWin, charLine, charCol + 4, ACS_PLUS);
             }
         }
     }
     
-    printw("\n");
+    wrefresh(boardWin);
 }
 
 //
@@ -313,30 +304,26 @@ void displayGameBoard(GameState *state) {
 void refreshDisplay(GameState *currentGame) {
     if(currentGame == NULL) return;
     
-    clear();
-    
     displayGameBoard(currentGame);
     
-    printw("\n-----------------------------\n");
-    printw("Tour %d\n", currentGame->turnCount);
+    WINDOW *infoWin = newwin(6, 35, 0, 4 * BOARD_SIZE + 5);
+    box(infoWin, 0, 0);
     
-    printw("Joueur actuel : ");
+    mvwprintw(infoWin, 1, 2, "Tour %d\n", currentGame->turnCount);
+    mvwprintw(infoWin, 2, 2, "Joueur actuel : %s", currentGame->currentPlayer->username);
+    mvwprintw(infoWin, 3, 2, "Robot actuel : ");
     
     COL_ON_BOT(currentGame->currentPlayer->robotColor);
-    printw("%s", getRobotStringColor(currentGame->currentPlayer->robotColor));
+    wprintw(infoWin, "%s", getRobotStringColor(currentGame->currentPlayer->robotColor));
     COL_OFF_BOT(currentGame->currentPlayer->robotColor);
     
-    printw(" (%s)\n", currentGame->currentPlayer->username);
-    
-    printw("Score : %d\n",
+    mvwprintw(infoWin, 4, 2, "Score : %d\n",
            currentGame->players[0].score
            + currentGame->players[1].score
            + currentGame->players[2].score
            + currentGame->players[3].score);
     
-    printw("-----------------------------\n");
-    
-    refresh();
+    wrefresh(infoWin);
 }
 
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string) {
@@ -453,6 +440,9 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
                 
                 for(i = 0; i < nbChoices; ++i)
                     free_item(menuItems[i]);
+                
+                clear();
+                refresh();
                 
                 delwin(menuWin);
                 echo();
