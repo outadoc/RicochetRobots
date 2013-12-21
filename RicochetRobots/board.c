@@ -173,7 +173,7 @@ int askForGameBoard(GameBoard *board) {
         retry = false;
         
         switch (choice) {
-            case 1: {
+            case 0: {
                 int boardNb = 0;
                 
                 do {
@@ -183,18 +183,18 @@ int askForGameBoard(GameBoard *board) {
                 *board = getBuiltInBoardAtIndex(boardNb - 1);
                 break;
             }
-            case 2: {
+            case 1: {
                 char path[MAX_LVL_PATH_SIZE];
                 askForLevelPath(path);
                 return loadBoardFromFile(board, path);
                 break;
             }
-            case 3: {
+            case 2: {
                 getRandomBoard(board);
                 return 0;
                 break;
             }
-            case 0:
+            case 3:
                 return 1;
                 break;
             default:

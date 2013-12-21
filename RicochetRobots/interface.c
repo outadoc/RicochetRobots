@@ -51,36 +51,15 @@ int displayMainMenu(bool error) {
 // Affiche le menu de sélection du plateau de jeu sur la sortie standard.
 // Si error vaut true, on affiche une erreur à la place du menu.
 //
-int displayGameBoardSelectionMenu(bool error) {
-    if(!error) {
-        clear();
-        
-        printw("\nCHOIX DU PLATEAU\n");
-        printw("----------------\n\n");
-        
-        printw("1. Plateau prédéfini\n");
-        printw("2. Plateau depuis un fichier\n");
-        printw("3. Plateau aléatoire\n");
-        printw("0. -- Retour au menu principal\n");
-    } else {
-        displayMenuError();
-    }
+int displayGameBoardSelectionMenu(bool error) {    
+    char *choices[] = {
+        "Plateau predefini",
+        "Plateau depuis un fichier",
+        "Plateau aleatoire",
+        "Retour au menu principal"
+    };
     
-    int choice = 0;
-    
-    printw("\nplateau> ");
-    refresh();
-    
-    do {
-        //on récupère un chiffre
-        //on ne veut PAS réagir sur un KEY_RESIZE (redimensionnement du terminal)
-        choice = getch();
-    } while(choice == KEY_RESIZE);
-    
-    printw("\n");
-    
-    //on retourne le vrai chiffre (en soustrayant la valeur de '0'
-    return choice - '0';
+    return displayMenu(choices, ARRAY_SIZE(choices));
 }
 
 //
@@ -386,11 +365,11 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 
 int displayMenu(char **choices, int nbChoices) {
     //variables pour l'affichage du menu
-    ITEM **menuItems;
-    MENU *menu;
+    ITEM **menuItems = NULL;
+    MENU *menu = NULL;
     WINDOW *menuWin = NULL;
     
-    int i;
+    int i = 0;
     
     //largeur du menu = longueur du plus grand des choix possibles
     int menuWidth = max_strlen(choices, nbChoices);
@@ -412,8 +391,9 @@ int displayMenu(char **choices, int nbChoices) {
     menuItems = (ITEM **) calloc(nbChoices + 1, sizeof(ITEM *));
     
     //on créé de nouveaux éléments à partir des choix fournis
-    for(i = 0; i < nbChoices; ++i)
+    for(i = 0; i < nbChoices; i++) {
         menuItems[i] = new_item(choices[i], NULL);
+    }
     
     //on met un élément nul à la fin du tableau
     menuItems[nbChoices] = (ITEM *) NULL;
@@ -442,6 +422,8 @@ int displayMenu(char **choices, int nbChoices) {
 	post_menu(menu);
 	wrefresh(menuWin);
     
+    refresh();
+    
     //caractère courant
     int c;
     
@@ -462,12 +444,13 @@ int displayMenu(char **choices, int nbChoices) {
                 for(i = 0; i < nbChoices; ++i)
                     free_item(menuItems[i]);
                 
+                delwin(menuWin);
+                
                 return choice;
                 break;
             }
         }
         
-        refresh();
         wrefresh(menuWin);
     }
     
