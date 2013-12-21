@@ -429,8 +429,8 @@ Coords getRandomCoords(GameBoard *board) {
     //mais on recommence si elles sont dans le carré central ou qu'il y a déjà quelque-chose aux même coordonnées
     
     do {
-        coords.x = rand_between(0, BOARD_SIZE);
-        coords.y = rand_between(0, BOARD_SIZE);
+        coords.x = rand_between(0, BOARD_SIZE - 1);
+        coords.y = rand_between(0, BOARD_SIZE - 1);
     } while(coords.x == BOARD_SIZE/2-1 || coords.x == BOARD_SIZE/2
             || coords.y == BOARD_SIZE/2-1 || coords.y == BOARD_SIZE/2
             || areCoordsInList(board->robotsPos, coords)
