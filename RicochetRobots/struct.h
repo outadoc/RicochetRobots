@@ -65,8 +65,8 @@ typedef int Direction;  //la direction est un entier
 #define CELL_WALL_TOP_RIGHT     'X' //mur en haut et à droite
 #define CELL_WALL_BOTTOM_RIGHT  'Y' //mur en bas et à droite
 
-#define COL_ON_BOT(col)         attron(COLOR_PAIR(getColorPairFromRobotColor((col))))
-#define COL_OFF_BOT(col)        attroff(COLOR_PAIR(getColorPairFromRobotColor((col))))
+#define COL_ON_BOT(win, col)         wattron((win), COLOR_PAIR(getColorPairFromRobotColor((col))))
+#define COL_OFF_BOT(win, col)        wattroff((win), COLOR_PAIR(getColorPairFromRobotColor((col))))
 
 // DÉFINITION DES STRUCTURES //
 /****************************************/
