@@ -383,8 +383,6 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
 	int startx = (COLS - winWidth) / 2;
     
     noecho();
-    keypad(stdscr, TRUE);
-    
     clear();
     
     //on alloue de la mémoire pour initialiser les éléments du menu
@@ -457,6 +455,7 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
                     free_item(menuItems[i]);
                 
                 delwin(menuWin);
+                echo();
                 
                 return choice;
                 break;
