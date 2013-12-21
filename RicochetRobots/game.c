@@ -95,6 +95,9 @@ int startSinglePlayer(bool playVsComputer) {
         //on met à jour l'affichage une première fois
         refreshDisplay(&newGame);
         
+        //on fait disparaitre le curseur
+        curs_set(0);
+        
         //tant qu'aucun robot n'est sur l'objectif
         while(getPlayerOnObjective(&newGame) == NULL) {
             Direction direction;
@@ -116,6 +119,9 @@ int startSinglePlayer(bool playVsComputer) {
             //on met à jour l'affichage après chaque tour
             refreshDisplay(&newGame);
         }
+        
+        //hop, on fait réapparaitre le curseur
+        curs_set(1);
         
         //un joueur est arrivé sur l'objectif, fin du jeu
         displayGameEnding(newGame.turnCount, getPlayerOnObjective(&newGame), &newGame);
