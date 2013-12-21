@@ -36,7 +36,7 @@ void displayLogo(WINDOW *win, int width) {
 // Affiche le menu principal du jeu sur la sortie standard.
 // Si error vaut true, on affiche une erreur à la place du menu.
 //
-int displayMainMenu(bool error) {
+int displayMainMenu() {
     char *choices[] = {
         "Partie solo",
         "Partie solo VS ordinateur",
@@ -51,7 +51,7 @@ int displayMainMenu(bool error) {
 // Affiche le menu de sélection du plateau de jeu sur la sortie standard.
 // Si error vaut true, on affiche une erreur à la place du menu.
 //
-int displayGameBoardSelectionMenu(bool error) {    
+int displayGameBoardSelectionMenu() {
     char *choices[] = {
         "Plateau predefini",
         "Plateau depuis un fichier",

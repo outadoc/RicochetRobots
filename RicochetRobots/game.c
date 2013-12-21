@@ -23,7 +23,7 @@ int start() {
         bool retry = false;
 
         //on affiche les options du menu principal
-        choice = displayMainMenu(false);
+        choice = displayMainMenu();
 
         //tant qu'on n'a pas choisi une option correcte du menu
         do {
@@ -36,13 +36,13 @@ int start() {
                     break;
                 case 0:
                     if(startSinglePlayer(false) == 1) {
-                        choice = displayMainMenu(false);
+                        choice = displayMainMenu();
                         retry = true;
                     }
                     break;
                 case 1:
                     if(startSinglePlayer(true) == 1) {
-                        choice = displayMainMenu(false);
+                        choice = displayMainMenu();
                         retry = true;
                     }
                     break;
@@ -53,7 +53,7 @@ int start() {
                 }
                 default:
                     //si le choix est incorrect, on réessaye
-                    choice = displayMainMenu(true);
+                    choice = displayMainMenu();
                     retry = true;
                     break;
             }

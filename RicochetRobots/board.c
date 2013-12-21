@@ -164,45 +164,36 @@ GameBoard getEmptyGameBoard() {
 //
 int askForGameBoard(GameBoard *board) {
     int choice = 0;
-    bool retry = false;
     
-    choice = displayGameBoardSelectionMenu(false);
+    choice = displayGameBoardSelectionMenu();
     
-    //tant qu'on n'a pas choisi une option correcte du menu
-    do {
-        retry = false;
-        
-        switch (choice) {
-            case 0: {
-                int boardNb = 0;
-                
-                do {
-                    boardNb = displayGameBoardList(false);
-                } while(boardNb < 0 || boardNb > BUILTIN_BOARDS_COUNT - 1);
-                
-                *board = getBuiltInBoardAtIndex(boardNb);
-                break;
-            }
-            case 1: {
-                char path[MAX_LVL_PATH_SIZE];
-                askForLevelPath(path);
-                return loadBoardFromFile(board, path);
-                break;
-            }
-            case 2: {
-                getRandomBoard(board);
-                return 0;
-                break;
-            }
-            case 3:
-                return 1;
-                break;
-            default:
-                choice = displayGameBoardSelectionMenu(true);
-                retry = true;
-                break;
+    switch (choice) {
+        case 0: {
+            int boardNb = 0;
+            
+            do {
+                boardNb = displayGameBoardList();
+            } while(boardNb < 0 || boardNb > BUILTIN_BOARDS_COUNT - 1);
+            
+            *board = getBuiltInBoardAtIndex(boardNb);
+            break;
         }
-    } while(retry);
+        case 1: {
+            char path[MAX_LVL_PATH_SIZE];
+            askForLevelPath(path);
+            return loadBoardFromFile(board, path);
+            break;
+        }
+        case 2: {
+            getRandomBoard(board);
+            return 0;
+            break;
+        }
+        case 3:
+        default:
+            return 1;
+            break;
+    }
     
     return 0;
 }

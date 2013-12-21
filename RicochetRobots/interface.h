@@ -22,8 +22,8 @@
 #include "struct.h"
 #include "utils.h"
 
-int displayMainMenu(bool error);
-int displayGameBoardSelectionMenu(bool error);
+int displayMainMenu();
+int displayGameBoardSelectionMenu();
 int displayGameBoardList();
 
 bool wantsToReplay();
