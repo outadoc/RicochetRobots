@@ -372,7 +372,7 @@ int displayMenu(char **choices, int nbChoices) {
     int i = 0;
     
     //largeur du menu = longueur du plus grand des choix possibles
-    int menuWidth = max_strlen(choices, nbChoices);
+    int menuWidth = max_strlen(choices, nbChoices) + 1;
     
     //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = nbChoices + 15;
