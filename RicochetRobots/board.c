@@ -178,7 +178,7 @@ int askForGameBoard(GameBoard *board) {
                 
                 do {
                     boardNb = displayGameBoardList(false);
-                } while(boardNb < 1 || boardNb > BUILTIN_BOARDS_COUNT);
+                } while(boardNb < 0 || boardNb > BUILTIN_BOARDS_COUNT - 1);
                 
                 *board = getBuiltInBoardAtIndex(boardNb);
                 break;
