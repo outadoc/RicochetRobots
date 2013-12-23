@@ -12,21 +12,15 @@
 #include "utils.h"
 
 //
-// Supprime le retour chariot à la fin d'une chaîne de caractères.
-// Utile avec fgets.
-//
-void removeCarriageReturn(char str[]) {
-    size_t ln = strlen(str) - 1;
-    if (str[ln] == '\n') str[ln] = '\0';
-}
-
-//
 // Génère un entier pseudo aléatoire compris entre min et max.
 //
 int rand_between(int min, int max) {
     return rand() % (max - min) + min;
 }
 
+//
+// Retourne la longueur du string le plus grand parmi un tableau de strings
+//
 int max_strlen(char **str, int n) {
     int i;
     int maxlen = 0;

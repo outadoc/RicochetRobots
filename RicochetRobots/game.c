@@ -99,7 +99,7 @@ int startSinglePlayer() {
         curs_set(0);
         
         //tant qu'aucun robot n'est sur l'objectif
-        while(getPlayerOnObjective(&newGame) == NULL) {
+        while(getRobotOnObjective(&newGame) == NULL) {
             Direction direction;
             
             //on demande à l'utilisateur dans quelle direction il veut aller OU si c'est un bot, on récupère une direction aléatoire
@@ -110,7 +110,7 @@ int startSinglePlayer() {
             }
             
             //on déplace le robot dans cette direction
-            moveCurrentPlayerWhilePossible(&newGame, direction);
+            moveCurrentRobotWhilePossible(&newGame, direction);
             newGame.currentRobot = &robots[newGame.turnCount % ROBOTS_COUNT];
             
             //on met à jour l'affichage après chaque tour
@@ -121,7 +121,7 @@ int startSinglePlayer() {
         curs_set(1);
         
         //un joueur est arrivé sur l'objectif, fin du jeu
-        displayGameEnding(getPlayerOnObjective(&newGame), &newGame);
+        displayGameEnding(getRobotOnObjective(&newGame), &newGame);
     } else {
         refresh();
         return 1;

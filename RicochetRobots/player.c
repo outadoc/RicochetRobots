@@ -88,7 +88,7 @@ bool checkForObstacle(GameState *state, Direction direction) {
 // Déplace le joueur courant dans la direction fournie.
 // Retourne true si on a pu le déplacer, false sinon.
 //
-bool moveCurrentPlayer(GameState *state, Direction direction) {
+bool moveCurrentRobot(GameState *state, Direction direction) {
     if(state == NULL || direction > 3) return false;
     
     if(!checkForObstacle(state, direction)) {
@@ -120,11 +120,11 @@ bool moveCurrentPlayer(GameState *state, Direction direction) {
 //
 // Déplace l'utilisateur courant dans la direction fournie, jusqu'à ce qu'il rencontre un obstacle.
 //
-void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
+void moveCurrentRobotWhilePossible(GameState *state, Direction direction) {
     if(state == NULL || direction > 3) return;
     
-    //tant qu'on peut déplacer le joueur courant, on le fait
-    while(moveCurrentPlayer(state, direction));
+    //tant qu'on peut déplacer le robot courant, on le fait
+    while(moveCurrentRobot(state, direction));
     
     //on augmente les compteurs
     state->currentPlayer->score++;
@@ -229,7 +229,7 @@ int getColorPairFromRobotColor(int color) {
 // Vérifie si un joueur est sur l'objectif.
 // Retourne true s'il l'est, false sinon.
 //
-bool isPlayerOnObjective(Robot *robot, GameBoard *gameBoard) {
+bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard) {
     if(robot == NULL || gameBoard == NULL) return false;
     
     int i;
@@ -246,13 +246,13 @@ bool isPlayerOnObjective(Robot *robot, GameBoard *gameBoard) {
 // Retourne le joueur qui est sur l'objectif.
 // Retourne NULL si aucun ne l'est.
 //
-Player* getPlayerOnObjective(GameState *state) {
+Player* getRobotOnObjective(GameState *state) {
     if(state == NULL) return NULL;
     
     int i;
     
     for (i = 0; i < ROBOTS_COUNT; i++) {
-        if(isPlayerOnObjective(&state->robots[i], state->gameBoard)) return &state->players[i];
+        if(isRobotOnObjective(&state->robots[i], state->gameBoard)) return &state->players[i];
     }
     
     return NULL;

@@ -19,15 +19,15 @@
 void displayLogo(WINDOW *win, int width) {
     //on affiche chaque ligne du logo sur la WINDOW spécifiée
     //ça rend pas super dans le code, mais il faut jouer avec les espaces blancs et le décalage à gauche pour affiche correctement
-    print_in_middle(win, 1, 4, width, "____  ______________  ________  ______________");
-    print_in_middle(win, 2, 4, width, "/ __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/");
-    print_in_middle(win, 3, 2, width, "/ /_/ // // /   / / / / /   / /_/ / __/   / /");
-    print_in_middle(win, 4, 1, width, "/ _, _// // /___/ /_/ / /___/ __  / /___  / /");
-    print_in_middle(win, 5, 0, width, "/_/ ||||__||||__||||__||||__|||_|||||||_/ /_/");
-    print_in_middle(win, 6, 3, width, "/ __ \\/ __ \\/ __ )/ __ \\/_  __/ ___/         ");
-    print_in_middle(win, 7, 2, width, "/ /_/ / / / / __  / / / / / /  \\____         ");
-    print_in_middle(win, 8, 1, width, "/ _, _/ /_/ / /_/ / /_/ / / /  ___/ /         ");
-    print_in_middle(win, 9, 0, width, "/_/ |_|\\____/_____/\\____/ /_/  /____/         ");
+    displayInCenter(win, 1, 4, width, "____  ______________  ________  ______________");
+    displayInCenter(win, 2, 4, width, "/ __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/");
+    displayInCenter(win, 3, 2, width, "/ /_/ // // /   / / / / /   / /_/ / __/   / /");
+    displayInCenter(win, 4, 1, width, "/ _, _// // /___/ /_/ / /___/ __  / /___  / /");
+    displayInCenter(win, 5, 0, width, "/_/ ||||__||||__||||__||||__|||_|||||||_/ /_/");
+    displayInCenter(win, 6, 3, width, "/ __ \\/ __ \\/ __ )/ __ \\/_  __/ ___/         ");
+    displayInCenter(win, 7, 2, width, "/ /_/ / / / / __  / / / / / /  \\____         ");
+    displayInCenter(win, 8, 1, width, "/ _, _/ /_/ / /_/ / /_/ / / /  ___/ /         ");
+    displayInCenter(win, 9, 0, width, "/_/ |_|\\____/_____/\\____/ /_/  /____/         ");
     
     wrefresh(win);
 }
@@ -312,7 +312,7 @@ void refreshDisplay(GameState *currentGame) {
     delwin(infoWin);
 }
 
-void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string) {
+void displayInCenter(WINDOW *win, int starty, int startx, int width, char *string) {
     int length, x, y;
 	float temp;
     
@@ -456,7 +456,7 @@ WINDOW* getMenuWindow(int contentHeight, char title[]) {
     mvwaddch(win, 11, winWidth - 1, ACS_RTEE);
     
     //on affiche un titre
-    print_in_middle(win, 12, 0, winWidth, title);
+    displayInCenter(win, 12, 0, winWidth, title);
     
     mvwaddch(win, 13, 0, ACS_LTEE);
     mvwhline(win, 13, 1, ACS_HLINE, winWidth - 1);

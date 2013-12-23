@@ -16,14 +16,14 @@
 #include "interface.h"
 
 bool checkForObstacle(GameState *state, Direction direction);
-bool moveCurrentPlayer(GameState *state, Direction direction);
-void moveCurrentPlayerWhilePossible(GameState *state, Direction direction);
+bool moveCurrentRobot(GameState *state, Direction direction);
+void moveCurrentRobotWhilePossible(GameState *state, Direction direction);
 
 Direction getRandomDirection(GameState *state);
 Direction waitForDirection(GameState *state);
 
-bool isPlayerOnObjective(Robot *robot, GameBoard *gameBoard);
-Player* getPlayerOnObjective(GameState *state);
+bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard);
+Player* getRobotOnObjective(GameState *state);
 
 char* getRobotStringColor(int color);
 int getColorPairFromRobotColor(int color);
