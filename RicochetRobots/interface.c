@@ -88,14 +88,6 @@ int displayGameBoardList() {
 }
 
 //
-// Affiche une erreur de choix de menu sur la sortie standard.
-//
-void displayMenuError() {
-    printw("Woops. Mauvaise option.");
-    refresh();
-}
-
-//
 // Affiche le tableau de scores de fin de jeu sur la sortie standard.
 //
 void displayGameEnding(int score, Player *winner, GameState *state) {
@@ -177,11 +169,7 @@ void askForSinglePlayerUsername(Player robots[]) {
     int i;
     char username[MAX_USERNAME_SIZE];
     
-    printw("Votre pseudo : ");
-    refresh();
-    
-    //on récupère 14 caractères (+1 pour le \0) dans username
-    getstr(username);
+    displayTextPromptMenu("CHOIX DU PSEUDO", "Pseudo :", username, MAX_USERNAME_SIZE);
     
     for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
         if(!robots[i].isBot) strcpy(robots[i].username, username);
@@ -439,9 +427,24 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     return 0;
 }
 
+void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n) {
+    clear(); refresh();
+    
+    //variables pour l'affichage du menu
+    WINDOW *menuWin = getMenuWindow(1, title);;
+    mvwprintw(menuWin, WIN_TOP_MARGIN + 2, 2, "%s", fieldTitle);
+    
+    wrefresh(menuWin);
+    
+    mvwgetnstr(menuWin, WIN_TOP_MARGIN + 2, strlen(fieldTitle) + 3, result, n);
+    
+    delwin(menuWin);
+    clear(); refresh();
+}
+
 WINDOW* getMenuWindow(int contentHeight, char title[]) {
     //hauteur = nombre de choix possibles + 15 (pour le logo)
-    int winHeight = contentHeight + 17;
+    int winHeight = contentHeight + WIN_TOP_MARGIN + 4;
     int winWidth = 70;
     
     //on centre le menu

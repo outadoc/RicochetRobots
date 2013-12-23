@@ -10,6 +10,7 @@
 #define RicochetRobots_display_h
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+#define WIN_TOP_MARGIN 13
 
 #include <ctype.h>
 #include <string.h>
@@ -27,7 +28,6 @@ int displayGameBoardSelectionMenu();
 int displayGameBoardList();
 
 bool wantsToReplay();
-void displayMenuError();
 
 void listBuiltInBoards();
 void displayLogo(WINDOW *win, int width);
@@ -44,5 +44,6 @@ void askForLevelPath(char path[]);
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string);
 int displayMenu(char **choices, int nbChoices, char title[]);
 WINDOW* getMenuWindow(int contentHeight, char title[]);
+void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n);
 
 #endif
