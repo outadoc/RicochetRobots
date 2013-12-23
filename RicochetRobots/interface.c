@@ -316,23 +316,16 @@ void refreshDisplay(GameState *currentGame) {
 
 void displayInCenter(WINDOW *win, int starty, int startx, int width, char *string) {
     int length, x, y;
-	float temp;
     
-	if(win == NULL)
-		win = stdscr;
-    
+	if(win == NULL) win = stdscr;
 	getyx(win, y, x);
 	
-    if(startx != 0)
-		x = startx;
-	if(starty != 0)
-		y = starty;
-	if(width == 0)
-		width = 80;
+    if(startx != 0) x = startx;
+	if(starty != 0) y = starty;
+	if(width == 0) width = 80;
     
 	length = (int) strlen(string);
-	temp = (width - length)/ 2;
-	x = startx + (int) temp;
+	x = startx + (int) (width - length) / 2;
     
 	mvwprintw(win, y, x, "%s", string);
 	refresh();
