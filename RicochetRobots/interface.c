@@ -211,7 +211,7 @@ void displayGameBoard(GameState *state) {
     WINDOW *boardWin = newwin(2 * BOARD_SIZE + 1, 4 * BOARD_SIZE + 1, 0, 0);
     box(boardWin, 0, 0);
     
-    for (i = 0; i < BOARD_SIZE - 1; i++) {
+    for (i = 0; i < BOARD_SIZE; i++) {
         //début de ligne
         for (j = 0; j < BOARD_SIZE; j++) {
             int charLine = i * 2 + 1;
@@ -276,22 +276,23 @@ void displayGameBoard(GameState *state) {
             }
         }
         
-        for (j = 0; j < BOARD_SIZE - 1; j++) {
+        for (j = 0; j < BOARD_SIZE; j++) {
             int charLine = i * 2 + 2;
             int charCol = j * 4;
             
             //on affiche les murs horizontaux, d'une façon analogue aux murs verticaux
-            if(state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
+            if(i < BOARD_SIZE - 1 &&
+               (state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
                || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_LEFT
                || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_RIGHT
-               || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP)
-               || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_LEFT)
-               || (i < BOARD_SIZE && state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_RIGHT)) {
+               || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP
+               || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_LEFT
+               || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_RIGHT)) {
                 mvwaddch(boardWin, charLine, charCol + 1, ACS_HLINE);
                 mvwaddch(boardWin, charLine, charCol + 2, ACS_HLINE);
                 mvwaddch(boardWin, charLine, charCol + 3, ACS_HLINE);
                 mvwaddch(boardWin, charLine, charCol + 4, ACS_PLUS);
-            } else if(!(i == BOARD_SIZE/2-1 && j == BOARD_SIZE/2-1)) {
+            } else if(i < BOARD_SIZE - 1 && (i != BOARD_SIZE/2-1 || j != BOARD_SIZE/2-1)) {
                 mvwaddch(boardWin, charLine, charCol + 4, ACS_PLUS);
             }
         }
