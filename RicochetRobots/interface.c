@@ -129,9 +129,7 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
 bool wantsToReplay() {
     char answer = '\0';
         
-    printw("\nVoulez-vous rejouer ? (O/n) ");
-    refresh();
-    
+    printw("Voulez-vous rejouer ? (O/n) "); refresh();
     answer = getch();
     
     //si on veut rejouer, retourner 1, sinon 0
@@ -152,10 +150,7 @@ void askForPlayersInfo(Player players[]) {
     
     for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
         printw("Pseudo du joueur %d : ", i+1);
-        
         refresh();
-        
-        //on récupère 14 caractères (+1 pour le \0) dans Player.username
         getstr(players[i].username);
     }
 }
