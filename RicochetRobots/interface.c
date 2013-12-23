@@ -363,22 +363,11 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     MENU *menu = NULL;
     WINDOW *menuWin = NULL;
     
-    int i = 0;
-    
+    int i = 0, c;
+    int winWidth = 70;
     //largeur du menu = longueur du plus grand des choix possibles
     int menuWidth = max_strlen(choices, nbChoices) + 2;
     
-    //hauteur = nombre de choix possibles + 15 (pour le logo)
-    int winHeight = nbChoices + 17;
-    int winWidth = 70;
-    
-    //on centre le menu
-    int starty = (LINES - winHeight) / 2;
-	int startx = (COLS - winWidth) / 2;
-    
-    curs_set(0);
-    set_menu_mark(menu, "> ");
-    noecho();
     clear();
     
     //on alloue de la mémoire pour initialiser les éléments du menu
@@ -394,44 +383,25 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     
     //on initialise le menu
     menu = new_menu((ITEM **) menuItems);
-    
-    //création d'une fenêtre pour le menu
-    menuWin = newwin(winHeight, winWidth, starty, startx);
-    
-	//on associe le menu à une fenêtre et une sous-fenêtre
-    set_menu_win(menu, menuWin);
-    //fenêtre hauteur largeur x y
-    set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, 15, (winWidth - menuWidth) / 2));
+    menuWin = getMenuWindow(nbChoices, title);
     
     //on lui précise bien que le menu fait N lignes et 1 colonne
     set_menu_format(menu, nbChoices, 1);
     
-	//on affiche une bordure autour de la fenêtre
-    box(menuWin, 0, 0);
+    //on associe le menu à une fenêtre et une sous-fenêtre
+    set_menu_win(menu, menuWin);
+    //fenêtre hauteur largeur x y
+    set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, 15, (winWidth - menuWidth) / 2));
     
-    //on affiche le logo du jeu
-	displayLogo(menuWin, winWidth);
-    
-    //et deux lignes horizontales
-    mvwaddch(menuWin, 11, 0, ACS_LTEE);
-    mvwhline(menuWin, 11, 1, ACS_HLINE, winWidth - 1);
-    mvwaddch(menuWin, 11, winWidth - 1, ACS_RTEE);
-    
-    //on affiche un titre
-    print_in_middle(menuWin, 12, 0, winWidth, title);
-    
-    mvwaddch(menuWin, 13, 0, ACS_LTEE);
-    mvwhline(menuWin, 13, 1, ACS_HLINE, winWidth - 1);
-    mvwaddch(menuWin, 13, winWidth - 1, ACS_RTEE);
-    
-	//et hop, on affiche le menu et on rafraîchit.
+    //et hop, on affiche le menu et on rafraîchit.
 	post_menu(menu);
-	wrefresh(menuWin);
-    
+	
     refresh();
+    wrefresh(menuWin);
     
-    //caractère courant
-    int c;
+    curs_set(0);
+    set_menu_mark(menu, "> ");
+    noecho();
     
     //boucle pour le menu
     while((c = getch())) {
@@ -467,4 +437,36 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     }
     
     return 0;
+}
+
+WINDOW* getMenuWindow(int contentHeight, char title[]) {
+    //hauteur = nombre de choix possibles + 15 (pour le logo)
+    int winHeight = contentHeight + 17;
+    int winWidth = 70;
+    
+    //on centre le menu
+    int starty = (LINES - winHeight) / 2;
+	int startx = (COLS - winWidth) / 2;
+    
+    WINDOW *win = newwin(winHeight, winWidth, starty, startx);
+    
+	//on affiche une bordure autour de la fenêtre
+    box(win, 0, 0);
+    
+    //on affiche le logo du jeu
+	displayLogo(win, winWidth);
+    
+    //et deux lignes horizontales
+    mvwaddch(win, 11, 0, ACS_LTEE);
+    mvwhline(win, 11, 1, ACS_HLINE, winWidth - 1);
+    mvwaddch(win, 11, winWidth - 1, ACS_RTEE);
+    
+    //on affiche un titre
+    print_in_middle(win, 12, 0, winWidth, title);
+    
+    mvwaddch(win, 13, 0, ACS_LTEE);
+    mvwhline(win, 13, 1, ACS_HLINE, winWidth - 1);
+    mvwaddch(win, 13, winWidth - 1, ACS_RTEE);
+    
+    return win;
 }
