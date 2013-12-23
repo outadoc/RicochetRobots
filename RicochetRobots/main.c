@@ -29,6 +29,7 @@ int main(int argc, const char * argv[]) {
     init_pair(4, COLOR_BLACK, COLOR_YELLOW);
     
     //autres paires de couleurs
+    //case objectif
     init_pair(10, COLOR_MAGENTA, COLOR_WHITE);
 
     //activation des touches fléchées etc.

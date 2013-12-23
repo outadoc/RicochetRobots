@@ -212,7 +212,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
     
     if(level == NULL) {
         //si le fichier n'a pas pu être chargé
-        perror("Erreur");
+        displayLevelLoadingError(strerror(errno));
         
         //on ferme le fichier
         fclose(level);
@@ -259,12 +259,17 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                         //robot gris
                         tabIndex = ROBOT_GREY;
                         break;
-                    default:
+                    default: {
                         //on ferme le fichier
                         fclose(level);
-                        printw("Caractère coordonnée interdit : %c\n", id);
+                        
+                        char err[50];
+                        sprintf(err, "Caractère coordonnée interdit : %c", id);
+                        displayLevelLoadingError(err);
+                        
                         return 1;
                         break;
+                    }
                 }
                 
                 board->robotsPos[tabIndex].x = rbtX;
@@ -313,7 +318,11 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                        && cell != CELL_WALL_TOP_RIGHT) {
                         //on ferme le fichier
                         fclose(level);
-                        printw("Caractère obstacle interdit : %c\n", cell);
+                        
+                        char err[50];
+                        sprintf(err, "Caractère obstacle interdit : %c", cell);
+                        displayLevelLoadingError(err);
+
                         return 1;
                     } else {
                         //si tout va bien, on insère le caractère dans le tableau
@@ -339,7 +348,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
     //j'ai nommé ce point du code le "confusion ending".
     //on ferme le fichier
     fclose(level);
-    printw("WTF\n");
+    displayLevelLoadingError("WTF");
     return 0;
 }
 

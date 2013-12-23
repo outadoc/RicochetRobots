@@ -181,11 +181,14 @@ void askForSinglePlayerUsername(Player robots[]) {
 // Demande au joueur le chemin du niveau à charger.
 //
 void askForLevelPath(char path[]) {
-    printw("Entrez le chemin du fichier niveau : ");
+    displayTextPromptMenu("CHARGER DEPUIS UN FICHIER", "Chemin du fichier niveau :", path, MAX_LVL_PATH_SIZE);
+}
+
+void displayLevelLoadingError(char message[]) {
+    clear();
+    printw("Erreur de chargement: %s\n", message);
     refresh();
-    
-    //on récupère 14 caractères (+1 pour le \0) dans path
-    getstr(path);
+    getch();
 }
 
 //
