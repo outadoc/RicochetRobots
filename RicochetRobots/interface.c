@@ -192,8 +192,10 @@ void displayGameBoard(GameState *state) {
     if(state == NULL) return;
     
     int i, j;
+    int width = 4 * BOARD_SIZE + 1;
+    int height = 2 * BOARD_SIZE + 1;
     
-    WINDOW *boardWin = newwin(2 * BOARD_SIZE + 1, 4 * BOARD_SIZE + 1, 0, 0);
+    WINDOW *boardWin = newwin(height, width, (LINES - height) / 2, (FIRST_COL_WIDTH - width) / 2);
     box(boardWin, 0, 0);
     
     for (i = 0; i < BOARD_SIZE; i++) {
@@ -296,12 +298,12 @@ void refreshDisplay(GameState *currentGame) {
     
     displayGameBoard(currentGame);
     
-    WINDOW *infoWin = newwin(5, 35, 0, 4 * BOARD_SIZE + 5);
+    WINDOW *infoWin = newwin(5, SECOND_COL_WIDTH, 1, COLS - SECOND_COL_WIDTH - 1);
     box(infoWin, 0, 0);
     
-    mvwprintw(infoWin, 1, 2, "Score : %d\n", currentGame->turnCount);
+    mvwprintw(infoWin, 1, 2, "Score         : %d\n", currentGame->turnCount);
     mvwprintw(infoWin, 2, 2, "Joueur actuel : %s", currentGame->currentPlayer->username);
-    mvwprintw(infoWin, 3, 2, "Robot actuel : ");
+    mvwprintw(infoWin, 3, 2, "Robot actuel  : ");
     
     COL_ON_BOT(infoWin, currentGame->currentRobot->robotColor);
     wprintw(infoWin, "%s", getRobotStringColor(currentGame->currentRobot->robotColor));

@@ -10,7 +10,10 @@
 #define RicochetRobots_display_h
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+
 #define WIN_TOP_MARGIN 13
+#define SECOND_COL_WIDTH 50
+#define FIRST_COL_WIDTH (COLS - SECOND_COL_WIDTH)
 
 #include <ctype.h>
 #include <string.h>
