@@ -372,6 +372,8 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     //fenêtre hauteur largeur x y
     set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, 15, (winWidth - menuWidth) / 2));
     
+    set_menu_mark(menu, "> ");
+    
     //et hop, on affiche le menu et on rafraîchit.
 	post_menu(menu);
 	
@@ -379,7 +381,6 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     wrefresh(menuWin);
     
     curs_set(0);
-    set_menu_mark(menu, "> ");
     noecho();
     
     //boucle pour le menu
