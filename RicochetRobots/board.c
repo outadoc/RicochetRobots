@@ -227,7 +227,7 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
         ungetc(c, level);
         
         //on s'attend à trouver 5 lignes pour les coordonnées des 4 robots + celles de l'objectif
-        while(i < MAX_PLAYERS_COUNT) {
+        while(i < ROBOTS_COUNT) {
             //on vérifie si la ligne n'est pas vide ou un commentaire et on recule le curseur comme si de rien n'était
             if((c = getc(level)) != '#' && c != '\n') {
                 ungetc(c, level);
@@ -356,7 +356,7 @@ bool areCoordsInList(Coords coords_t[], Coords coords) {
     int i;
     
     //on vérifie si les coordonnées à tester sont dans l'array
-    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
+    for(i = 0; i < ROBOTS_COUNT; i++) {
         if(coords_t[i].x == coords.x
            && coords_t[i].y == coords.y) {
             return true;
@@ -415,7 +415,7 @@ void getRandomBoard(GameBoard *board) {
     }
     
     //coordonnées aléatoires pour les joueurs
-    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
+    for(i = 0; i < ROBOTS_COUNT; i++) {
         Coords coords = getRandomCoords(board);
         
         board->robotsPos[i].x = coords.x;
@@ -423,7 +423,7 @@ void getRandomBoard(GameBoard *board) {
     }
     
     //coordonnées aléatoires pour les objectifs
-    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
+    for(i = 0; i < ROBOTS_COUNT; i++) {
         Coords coords = getRandomCoords(board);
         
         board->objectivesPos[i].x = coords.x;

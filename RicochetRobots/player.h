@@ -22,7 +22,7 @@ void moveCurrentPlayerWhilePossible(GameState *state, Direction direction);
 Direction getRandomDirection(GameState *state);
 Direction waitForDirection(GameState *state);
 
-bool isPlayerOnObjective(Player *player, GameBoard *gameBoard);
+bool isPlayerOnObjective(Robot *robot, GameBoard *gameBoard);
 Player* getPlayerOnObjective(GameState *state);
 
 char* getRobotStringColor(int color);

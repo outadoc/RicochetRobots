@@ -32,7 +32,7 @@ bool wantsToReplay();
 void listBuiltInBoards();
 void displayLogo(WINDOW *win, int width);
 void clearScreen();
-void displayGameEnding(int score, Player *winner, GameState *state);
+void displayGameEnding(Player *winner, GameState *state);
 
 void displayGameBoard(GameState *state);
 void refreshDisplay(GameState *currentGame);

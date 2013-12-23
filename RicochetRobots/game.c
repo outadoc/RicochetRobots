@@ -35,19 +35,13 @@ int start() {
                     return 0;
                     break;
                 case 0:
-                    if(startSinglePlayer(false) == 1) {
+                    if(startSinglePlayer() == 1) {
                         choice = displayMainMenu();
                         retry = true;
                     }
                     break;
-                case 1:
-                    if(startSinglePlayer(true) == 1) {
-                        choice = displayMainMenu();
-                        retry = true;
-                    }
-                    break;
-                case 2: {
-                    Player players[MAX_PLAYERS_COUNT];
+                case 1: {
+                    Player players[ROBOTS_COUNT];
                     askForPlayersInfo(players);
                     break;
                 }
@@ -68,27 +62,33 @@ int start() {
 // Boucle de partie.
 // Demande à l'utilisateur les infos nécessaires au lancement de la partie, puis exécute la boucle jusqu'à la fin du jeu.
 //
-int startSinglePlayer(bool playVsComputer) {
+int startSinglePlayer() {
     GameBoard board;
     
     //si askForGameBoard renvoie 0, on est prêts à continuer
     if(askForGameBoard(&board) == 0) {
         
-        Player robots[MAX_PLAYERS_COUNT] = {
-            {.score = 0, .robotColor = ROBOT_RED,   .position = board.robotsPos[ROBOT_RED],   .isBot = false},
-            {.score = 0, .robotColor = ROBOT_GREEN, .position = board.robotsPos[ROBOT_GREEN], .isBot = playVsComputer},
-            {.score = 0, .robotColor = ROBOT_BLUE,  .position = board.robotsPos[ROBOT_BLUE],  .isBot = playVsComputer},
-            {.score = 0, .robotColor = ROBOT_GREY,  .position = board.robotsPos[ROBOT_GREY],  .isBot = playVsComputer},
+        Robot robots[ROBOTS_COUNT] = {
+            {.robotColor = ROBOT_RED,   .position = board.robotsPos[ROBOT_RED]},
+            {.robotColor = ROBOT_GREEN, .position = board.robotsPos[ROBOT_GREEN]},
+            {.robotColor = ROBOT_BLUE,  .position = board.robotsPos[ROBOT_BLUE]},
+            {.robotColor = ROBOT_GREY,  .position = board.robotsPos[ROBOT_GREY]},
+        };
+        
+        Player players[] = {
+            {.score = 0, .isBot = false}
         };
         
         //on demande le pseudo du joueur
-        askForSinglePlayerUsername(robots);
+        askForSinglePlayerUsername(players);
         
         //instanciation du jeu
         GameState newGame = {
             .turnCount = 0,
-            .currentPlayer = &robots[0],
-            .players = robots,
+            .currentPlayer = &players[0],
+            .players = players,
+            .currentRobot = &robots[0],
+            .robots = robots,
             .gameBoard = &board
         };
         
@@ -111,10 +111,7 @@ int startSinglePlayer(bool playVsComputer) {
             
             //on déplace le robot dans cette direction
             moveCurrentPlayerWhilePossible(&newGame, direction);
-            
-            //on passe au joueur suivant
-            //le modulo est cyclique, c'est parfait : chaque joueur jouera tous les MAX_PLAYERS_COUNT tours.
-            newGame.currentPlayer = &robots[newGame.turnCount % MAX_PLAYERS_COUNT];
+            newGame.currentRobot = &robots[newGame.turnCount % ROBOTS_COUNT];
             
             //on met à jour l'affichage après chaque tour
             refreshDisplay(&newGame);
@@ -124,7 +121,7 @@ int startSinglePlayer(bool playVsComputer) {
         curs_set(1);
         
         //un joueur est arrivé sur l'objectif, fin du jeu
-        displayGameEnding(newGame.turnCount, getPlayerOnObjective(&newGame), &newGame);
+        displayGameEnding(getPlayerOnObjective(&newGame), &newGame);
     } else {
         refresh();
         return 1;

@@ -27,7 +27,7 @@ typedef int Direction;  //la direction est un entier
 
 #define BOARD_SIZE              16  //taille d'un plateau de jeu
 #define BUILTIN_BOARDS_COUNT    3   //nombre de grilles prédéfinies
-#define MAX_PLAYERS_COUNT       4   //nombre maximal de joueurs
+#define ROBOTS_COUNT       4   //nombre maximal de joueurs
 #define MAX_USERNAME_SIZE       15  //taille maximale d'un pseudo
 #define MAX_LVL_PATH_SIZE       300 //taille maximale du chemin d'un fichier niveau
 
@@ -79,18 +79,22 @@ typedef struct {
 
 //structure pour décrire les joueurs
 typedef struct {
-    int robotColor;
     char username[MAX_USERNAME_SIZE];
     int score;
-    Coords position;
     bool isBot;
 } Player;
+
+typedef struct {
+    int robotColor;
+    Coords position;
+    int score;
+} Robot;
 
 //structure du plateau de jeu
 typedef struct {
     char obstacles[BOARD_SIZE][BOARD_SIZE];
-    Coords robotsPos[MAX_PLAYERS_COUNT];
-    Coords objectivesPos[MAX_PLAYERS_COUNT];
+    Coords robotsPos[ROBOTS_COUNT];
+    Coords objectivesPos[ROBOTS_COUNT];
 } GameBoard;
 
 //état du jeu en cours
@@ -101,6 +105,9 @@ typedef struct {
     //joueur courant
     Player* currentPlayer;
     Player* players;
+    
+    Robot* currentRobot;
+    Robot* robots;
     
     GameBoard* gameBoard;
     

@@ -39,7 +39,6 @@ void displayLogo(WINDOW *win, int width) {
 int displayMainMenu() {
     char *choices[] = {
         "Partie solo",
-        "Partie solo VS ordinateur",
         "Partie multijoueurs",
         "Quitter"
     };
@@ -90,7 +89,7 @@ int displayGameBoardList() {
 //
 // Affiche le tableau de scores de fin de jeu sur la sortie standard.
 //
-void displayGameEnding(int score, Player *winner, GameState *state) {
+void displayGameEnding(Player *winner, GameState *state) {
     if(state == NULL) return;
     
     int i;
@@ -103,19 +102,25 @@ void displayGameEnding(int score, Player *winner, GameState *state) {
     printw("Gagnant : %s a déplacé le robot ", winner->username);
     
     //COL_ON_BOT(winner->robotColor);
-    printw("%s", getRobotStringColor(winner->robotColor));
+    printw("%s", getRobotStringColor(state->currentRobot->robotColor));
     //COL_OFF_BOT(winner->robotColor);
     
     printw(" sur l'objectif\n");
     
-    printw("\nScore total : %d coups\n\n", score);
+    printw("\nScore total : %d coups\n\n", state->turnCount);
     
-    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
+    for(i = 0; i < ROBOTS_COUNT; i++) {
         printw("Score de ");
         //COL_ON_BOT(state->players[i].robotColor);
-        printw("%s", getRobotStringColor(state->players[i].robotColor));
+        printw("%s", getRobotStringColor(state->robots[i].robotColor));
         //COL_OFF_BOT(state->players[i].robotColor);
-        printw(" : %d coups\n", state->players[i].score);
+        printw(" : %d coups\n", state->robots[i].score);
+    }
+    
+    printw("\n");
+    
+    for(i = 0; i < ARRAY_SIZE(state->players); i++) {
+        printw("Score de %s : %d coups\n", state->players[i].username, state->players[i].score);
     }
     
     printw("------------------------------------\n\n");
@@ -148,7 +153,7 @@ void askForPlayersInfo(Player players[]) {
     
     int i;
     
-    for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
+    for (i = 0; i < ROBOTS_COUNT; i++) {
         printw("Pseudo du joueur %d : ", i+1);
         refresh();
         getstr(players[i].username);
@@ -158,24 +163,18 @@ void askForPlayersInfo(Player players[]) {
 //
 // Demande le pseudo du joueur et le copie dans chaque robot.
 //
-void askForSinglePlayerUsername(Player robots[]) {
-    if(robots == NULL) return;
+void askForSinglePlayerUsername(Player *player) {
+    if(player == NULL) return;
     
-    int i;
-    char username[MAX_USERNAME_SIZE];
-    
-    displayTextPromptMenu("CHOIX DU PSEUDO", "Pseudo :", username, MAX_USERNAME_SIZE);
-    
-    for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
-        if(!robots[i].isBot) strcpy(robots[i].username, username);
-        else sprintf(robots[i].username, "CPU%d", i);
-    }
+    displayTextPromptMenu("CHOIX DU PSEUDO", "Pseudo :", player->username, MAX_USERNAME_SIZE);
 }
 
 //
 // Demande au joueur le chemin du niveau à charger.
 //
 void askForLevelPath(char path[]) {
+    if(path == NULL) return;
+    
     displayTextPromptMenu("CHARGER DEPUIS UN FICHIER", "Chemin du fichier niveau :", path, MAX_LVL_PATH_SIZE);
 }
 
@@ -208,17 +207,17 @@ void displayGameBoard(GameState *state) {
             int k;
             bool hasContent = false;
             
-            for (k = 0; k < MAX_PLAYERS_COUNT; k++) {
+            for (k = 0; k < ROBOTS_COUNT; k++) {
                 //on vérifie, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
-                if(state->players[k].position.x == i && state->players[k].position.y == j) {
+                if(state->robots[k].position.x == i && state->robots[k].position.y == j) {
                     int l;
                     bool hasObjective = false;
                     
                     hasContent = true;
                     
-                    COL_ON_BOT(boardWin, state->players[k].robotColor);
+                    COL_ON_BOT(boardWin, state->robots[k].robotColor);
                     
-                    for (l = 0; l < MAX_PLAYERS_COUNT; l++) {
+                    for (l = 0; l < ROBOTS_COUNT; l++) {
                         //si on a un objectif ici
                         if(state->gameBoard->objectivesPos[l].x == i && state->gameBoard->objectivesPos[l].y == j) {
                             hasObjective = true;
@@ -232,12 +231,12 @@ void displayGameBoard(GameState *state) {
                         mvwprintw(boardWin, charLine, charCol + 1, "   ");
                     }
                     
-                    COL_OFF_BOT(boardWin, state->players[k].robotColor);
+                    COL_OFF_BOT(boardWin, state->robots[k].robotColor);
                 }
             }
             
             //si la case n'a pas encore de contenu (et donc pas de robot) et que c'est une case objectif
-            for (k = 0; k < MAX_PLAYERS_COUNT; k++) {
+            for (k = 0; k < ROBOTS_COUNT; k++) {
                 if(!hasContent && state->gameBoard->objectivesPos[k].x == i && state->gameBoard->objectivesPos[k].y == j) {
                     hasContent = true;
                     
@@ -297,22 +296,16 @@ void refreshDisplay(GameState *currentGame) {
     
     displayGameBoard(currentGame);
     
-    WINDOW *infoWin = newwin(6, 35, 0, 4 * BOARD_SIZE + 5);
+    WINDOW *infoWin = newwin(5, 35, 0, 4 * BOARD_SIZE + 5);
     box(infoWin, 0, 0);
     
-    mvwprintw(infoWin, 1, 2, "Tour %d\n", currentGame->turnCount);
+    mvwprintw(infoWin, 1, 2, "Score : %d\n", currentGame->turnCount);
     mvwprintw(infoWin, 2, 2, "Joueur actuel : %s", currentGame->currentPlayer->username);
     mvwprintw(infoWin, 3, 2, "Robot actuel : ");
     
-    COL_ON_BOT(infoWin, currentGame->currentPlayer->robotColor);
-    wprintw(infoWin, "%s", getRobotStringColor(currentGame->currentPlayer->robotColor));
-    COL_OFF_BOT(infoWin, currentGame->currentPlayer->robotColor);
-    
-    mvwprintw(infoWin, 4, 2, "Score : %d\n",
-           currentGame->players[0].score
-           + currentGame->players[1].score
-           + currentGame->players[2].score
-           + currentGame->players[3].score);
+    COL_ON_BOT(infoWin, currentGame->currentRobot->robotColor);
+    wprintw(infoWin, "%s", getRobotStringColor(currentGame->currentRobot->robotColor));
+    COL_OFF_BOT(infoWin, currentGame->currentRobot->robotColor);
     
     refresh();
     wrefresh(infoWin);

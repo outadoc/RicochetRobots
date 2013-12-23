@@ -22,7 +22,7 @@ bool checkForObstacle(GameState *state, Direction direction) {
     
     //on créé deux structures de coordonnées
     //une pour la position actuelle (juste une copie pratique), et une pour la position cible
-    Coords currPos = state->currentPlayer->position, target = currPos;
+    Coords currPos = state->currentRobot->position, target = currPos;
     
     //pour chaque direction, on vérifie si il y a un mur qui nous bloque et on renvoie true le cas échéant
     switch (direction) {
@@ -73,10 +73,10 @@ bool checkForObstacle(GameState *state, Direction direction) {
     }
     
     //on vérifie aussi si un autre joueur nous bloque
-    for(i = 0; i < MAX_PLAYERS_COUNT; i++) {
-        if(state->players[i].robotColor != state->currentPlayer->robotColor
-            && state->players[i].position.x == target.x
-            && state->players[i].position.y == target.y) {
+    for(i = 0; i < ROBOTS_COUNT; i++) {
+        if(state->robots[i].robotColor != state->currentRobot->robotColor
+            && state->robots[i].position.x == target.x
+            && state->robots[i].position.y == target.y) {
            return true;
         }
     }
@@ -94,16 +94,16 @@ bool moveCurrentPlayer(GameState *state, Direction direction) {
     if(!checkForObstacle(state, direction)) {
         switch (direction) {
             case DIRECTION_DOWN:
-                state->currentPlayer->position.x++;
+                state->currentRobot->position.x++;
                 break;
             case DIRECTION_LEFT:
-                state->currentPlayer->position.y--;
+                state->currentRobot->position.y--;
                 break;
             case DIRECTION_RIGHT:
-                state->currentPlayer->position.y++;
+                state->currentRobot->position.y++;
                 break;
             case DIRECTION_UP:
-                state->currentPlayer->position.x--;
+                state->currentRobot->position.x--;
                 break;
         }
         
@@ -128,6 +128,7 @@ void moveCurrentPlayerWhilePossible(GameState *state, Direction direction) {
     
     //on augmente les compteurs
     state->currentPlayer->score++;
+    state->currentRobot->score++;
     state->turnCount++;
 }
 
@@ -228,14 +229,14 @@ int getColorPairFromRobotColor(int color) {
 // Vérifie si un joueur est sur l'objectif.
 // Retourne true s'il l'est, false sinon.
 //
-bool isPlayerOnObjective(Player *player, GameBoard *gameBoard) {
-    if(player == NULL || gameBoard == NULL) return false;
+bool isPlayerOnObjective(Robot *robot, GameBoard *gameBoard) {
+    if(robot == NULL || gameBoard == NULL) return false;
     
     int i;
     
-    for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
-        if(gameBoard->objectivesPos[i].x == player->position.x
-           && gameBoard->objectivesPos[i].y == player->position.y) return true;
+    for (i = 0; i < ROBOTS_COUNT; i++) {
+        if(gameBoard->objectivesPos[i].x == robot->position.x
+           && gameBoard->objectivesPos[i].y == robot->position.y) return true;
     }
     
     return false;
@@ -250,8 +251,8 @@ Player* getPlayerOnObjective(GameState *state) {
     
     int i;
     
-    for (i = 0; i < MAX_PLAYERS_COUNT; i++) {
-        if(isPlayerOnObjective(&state->players[i], state->gameBoard)) return &state->players[i];
+    for (i = 0; i < ROBOTS_COUNT; i++) {
+        if(isPlayerOnObjective(&state->robots[i], state->gameBoard)) return &state->players[i];
     }
     
     return NULL;
