@@ -135,7 +135,10 @@ bool wantsToReplay() {
     char answer = '\0';
         
     printw("Voulez-vous rejouer ? (O/n) "); refresh();
+    
+    nocbreak();
     answer = getch();
+    cbreak();
     
     //si on veut rejouer, retourner 1, sinon 0
     if(answer == 'o' || answer == 'O') {
@@ -451,8 +454,10 @@ WINDOW* getMenuWindow(int contentHeight, char title[]) {
     mvwhline(win, 11, 1, ACS_HLINE, winWidth - 1);
     mvwaddch(win, 11, winWidth - 1, ACS_RTEE);
     
+    wattron(win, A_UNDERLINE);
     //on affiche un titre
     displayInCenter(win, 12, 0, winWidth, title);
+    wattroff(win, A_UNDERLINE);
     
     mvwaddch(win, 13, 0, ACS_LTEE);
     mvwhline(win, 13, 1, ACS_HLINE, winWidth - 1);
