@@ -69,10 +69,10 @@ int startSinglePlayer() {
     if(askForGameBoard(&board) == 0) {
         
         Robot robots[ROBOTS_COUNT] = {
-            {.robotColor = ROBOT_RED,   .position = board.robotsPos[ROBOT_RED]},
-            {.robotColor = ROBOT_GREEN, .position = board.robotsPos[ROBOT_GREEN]},
-            {.robotColor = ROBOT_BLUE,  .position = board.robotsPos[ROBOT_BLUE]},
-            {.robotColor = ROBOT_GREY,  .position = board.robotsPos[ROBOT_GREY]},
+            {.robotColor = ROBOT_RED,   .score = 0, .position = board.robotsPos[ROBOT_RED]},
+            {.robotColor = ROBOT_GREEN, .score = 0, .position = board.robotsPos[ROBOT_GREEN]},
+            {.robotColor = ROBOT_BLUE,  .score = 0, .position = board.robotsPos[ROBOT_BLUE]},
+            {.robotColor = ROBOT_GREY,  .score = 0, .position = board.robotsPos[ROBOT_GREY]},
         };
         
         Player players[] = {
