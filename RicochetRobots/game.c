@@ -30,7 +30,7 @@ int start() {
             retry = false;
 
             switch (choice) {
-                case 3:
+                case 2:
                     //si on veut quitter le jeu
                     return 0;
                     break;
