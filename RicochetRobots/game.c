@@ -52,9 +52,6 @@ int start() {
                     break;
             }
         } while(retry);
-
-        //on demande au joueur s'il veut rejouer : dans le cas contraire, on quitte le jeu
-        if(!wantsToReplay()) return 0;
     }
 }
 

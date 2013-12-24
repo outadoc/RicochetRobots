@@ -97,49 +97,67 @@ void displayGameEnding(Player *winner, GameState *state) {
     
     clear();
     
-    printw("\n------------------------------------\n");
-    printw("Partie terminée !\n");
+    //hauteur = nombre de choix possibles + 15 (pour le logo)
+    int winHeight = 15;
+    int winWidth = 70;
     
-    printw("Gagnant : %s a déplacé le robot ", winner->username);
+    //on centre le menu
+    int starty = (LINES - winHeight) / 2;
+	int startx = (COLS - winWidth) / 2;
     
-    //COL_ON_BOT(winner->robotColor);
-    printw("%s", getRobotStringColor(state->currentRobot->robotColor));
-    //COL_OFF_BOT(winner->robotColor);
+    WINDOW *win = newwin(winHeight, winWidth, starty, startx);
     
-    printw(" sur l'objectif\n");
+	//on affiche une bordure autour de la fenêtre
+    box(win, 0, 0);
     
-    printw("\nScore total : %d coups\n\n", state->turnCount);
+    wattron(win, A_UNDERLINE);
+    //on affiche un titre
+    displayInCenter(win, 1, 0, winWidth, "PARTIE TERMINEE");
+    wattroff(win, A_UNDERLINE);
+    
+    mvwaddch(win, 2, 0, ACS_LTEE);
+    mvwhline(win, 2, 1, ACS_HLINE, winWidth - 1);
+    mvwaddch(win, 2, winWidth - 1, ACS_RTEE);
+    
+    mvwprintw(win, 3, 2, "Gagnant : %s a déplacé le robot ", winner->username);
+    
+    COL_ON_BOT(win, state->currentRobot->robotColor);
+    wprintw(win, "%s", getRobotStringColor(state->currentRobot->robotColor));
+    COL_OFF_BOT(win, state->currentRobot->robotColor);
+    
+    wprintw(win, " sur l'objectif");
+    
+    mvwprintw(win, 5, 2, "Score total : %d coups", state->turnCount);
     
     for(i = 0; i < ROBOTS_COUNT; i++) {
-        printw("Score de ");
-        //COL_ON_BOT(state->players[i].robotColor);
-        printw("%s", getRobotStringColor(state->robots[i].robotColor));
-        //COL_OFF_BOT(state->players[i].robotColor);
-        printw(" : %d coups\n", state->robots[i].score);
+        mvwprintw(win, 7 + i, 2, "Score de ");
+        COL_ON_BOT(win, state->robots[i].robotColor);
+        wprintw(win, "%s", getRobotStringColor(state->robots[i].robotColor));
+        COL_OFF_BOT(win, state->robots[i].robotColor);
+        wprintw(win, " : %d coups", state->robots[i].score);
     }
     
-    printw("\n");
-    
-    for(i = 0; i < ARRAY_SIZE(state->players); i++) {
-        printw("Score de %s : %d coups\n", state->players[i].username, state->players[i].score);
-    }
-    
-    printw("------------------------------------\n\n");
-    
-    refresh();
+    wmove(win, 7 + i + 1, 2);
+    if(!wantsToReplay(win)) exit(EXIT_SUCCESS);
 }
 
 //
 // Demande à l'utilisateur s'il souhaite rejouer.
 //
-bool wantsToReplay() {
+bool wantsToReplay(WINDOW *win) {
     char answer = '\0';
         
-    printw("Voulez-vous rejouer ? (O/n) "); refresh();
+    wprintw(win, "Voulez-vous rejouer ? (O/n) ");
+    
+    refresh();
+    wrefresh(win);
     
     nocbreak();
-    answer = getch();
+    answer = wgetch(win);
     cbreak();
+    
+    //vidage du buffer
+    wgetch(win);
     
     //si on veut rejouer, retourner 1, sinon 0
     if(answer == 'o' || answer == 'O') {

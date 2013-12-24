@@ -32,7 +32,7 @@ int displayMainMenu();
 int displayGameBoardSelectionMenu();
 int displayGameBoardList();
 
-bool wantsToReplay();
+bool wantsToReplay(WINDOW *win);
 
 void listBuiltInBoards();
 void displayLogo(WINDOW *win, int width);
