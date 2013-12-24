@@ -93,7 +93,7 @@ int startSinglePlayer() {
         };
         
         //on met à jour l'affichage une première fois
-        refreshDisplay(&newGame);
+        refreshGameDisplay(&newGame);
         
         //on fait disparaitre le curseur
         curs_set(0);
@@ -114,7 +114,7 @@ int startSinglePlayer() {
             newGame.currentRobot = &robots[newGame.turnCount % ROBOTS_COUNT];
             
             //on met à jour l'affichage après chaque tour
-            refreshDisplay(&newGame);
+            refreshGameDisplay(&newGame);
         }
         
         //hop, on fait réapparaitre le curseur

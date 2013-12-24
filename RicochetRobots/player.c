@@ -109,7 +109,7 @@ bool moveCurrentRobot(GameState *state, Direction direction) {
         
         //on endort le programme pendant 100 millisecondes
         usleep(100 * 1000);
-        refreshDisplay(state);
+        refreshGameDisplay(state);
         
         return true;
     }
@@ -161,7 +161,7 @@ Direction waitForDirection(GameState *state) {
         c = getch();
         
         //si on a redimensionné le terminal, on rafraîchit l'affichage
-        if(c == KEY_RESIZE) refreshDisplay(state);
+        if(c == KEY_RESIZE) refreshGameDisplay(state);
     } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP);
     
     switch (c) {

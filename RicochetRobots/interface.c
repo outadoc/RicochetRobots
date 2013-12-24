@@ -288,18 +288,13 @@ void displayGameBoard(GameState *state) {
         }
     }
     
+    refresh();
     wrefresh(boardWin);
     delwin(boardWin);
 }
 
-//
-// Rafraîchit l'affichage pendant une partie.
-// Affiche le plateau de jeu, ainsi qu'un résumé des informations sur la partie en cours.
-//
-void refreshDisplay(GameState *currentGame) {
+void displayGameStatus(GameState *currentGame) {
     if(currentGame == NULL) return;
-    
-    displayGameBoard(currentGame);
     
     WINDOW *infoWin = newwin(5, SECOND_COL_WIDTH, 1, COLS - SECOND_COL_WIDTH - 1);
     box(infoWin, 0, 0);
@@ -315,6 +310,45 @@ void refreshDisplay(GameState *currentGame) {
     refresh();
     wrefresh(infoWin);
     delwin(infoWin);
+}
+
+void displayCommands() {
+    WINDOW *cmdWin = newwin(11, SECOND_COL_WIDTH, 7, COLS - SECOND_COL_WIDTH - 1);
+    box(cmdWin, 0, 0);
+    
+    wattron(cmdWin, A_UNDERLINE);
+    mvwprintw(cmdWin, 1, 2, "Commandes de partie");
+    wattroff(cmdWin, A_UNDERLINE);
+    
+    mvwprintw(cmdWin, 2, 2, "Flèches directionnelles : déplacer le robot");
+    mvwprintw(cmdWin, 3, 2, "Echap : quitter la partie");
+    
+    wattron(cmdWin, A_UNDERLINE);
+    mvwprintw(cmdWin, 5, 2, "Changer de robot");
+    wattroff(cmdWin, A_UNDERLINE);
+    
+    mvwprintw(cmdWin, 6, 2, "R : robot rouge");
+    mvwprintw(cmdWin, 7, 2, "B : robot bleu");
+    mvwprintw(cmdWin, 8, 2, "V : robot vert");
+    mvwprintw(cmdWin, 9, 2, "G : robot gris");
+    
+    refresh();
+    wrefresh(cmdWin);
+    delwin(cmdWin);
+}
+
+//
+// Rafraîchit l'affichage pendant une partie.
+// Affiche le plateau de jeu, ainsi qu'un résumé des informations sur la partie en cours.
+//
+void refreshGameDisplay(GameState *currentGame) {
+    if(currentGame == NULL) return;
+    
+    clear();
+    
+    displayGameBoard(currentGame);
+    displayGameStatus(currentGame);
+    displayCommands();
 }
 
 void displayInCenter(WINDOW *win, int starty, int startx, int width, char *string) {

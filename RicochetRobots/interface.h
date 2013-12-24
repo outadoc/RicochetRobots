@@ -12,7 +12,7 @@
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
 #define WIN_TOP_MARGIN 13
-#define SECOND_COL_WIDTH 50
+#define SECOND_COL_WIDTH 60
 #define FIRST_COL_WIDTH (COLS - SECOND_COL_WIDTH)
 
 #include <ctype.h>
@@ -38,7 +38,8 @@ void clearScreen();
 void displayGameEnding(Player *winner, GameState *state);
 
 void displayGameBoard(GameState *state);
-void refreshDisplay(GameState *currentGame);
+void displayGameStatus(GameState *currentGame);
+void refreshGameDisplay(GameState *currentGame);
 
 void askForPlayersInfo(Player players[]);
 void askForSinglePlayerUsername(Player robots[]);
