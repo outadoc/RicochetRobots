@@ -113,7 +113,6 @@ int startSinglePlayer() {
             
             //on déplace le robot dans cette direction
             moveCurrentRobotWhilePossible(&newGame, direction);
-            newGame.currentRobot = &robots[newGame.turnCount % ROBOTS_COUNT];
             
             //on met à jour l'affichage après chaque tour
             refreshGameDisplay(&newGame);

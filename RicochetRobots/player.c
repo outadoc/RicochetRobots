@@ -158,10 +158,39 @@ Direction waitForDirection(GameState *state) {
     int c;
     
     do {
+        noecho();
         c = getch();
+        echo();
         
-        //si on a redimensionné le terminal, on rafraîchit l'affichage
-        if(c == KEY_RESIZE) refreshGameDisplay(state);
+        //on fait un premier switch:
+        //si on ne demande pas directement une direction, il faudra traiter la demande, mais sans bouger le robot (on continue donc la boucle)
+        switch(c) {
+            case 'r':
+            case 'R':
+                state->currentRobot = &state->robots[ROBOT_RED];
+                refreshGameDisplay(state);
+                break;
+            case 'b':
+            case 'B':
+                state->currentRobot = &state->robots[ROBOT_BLUE];
+                refreshGameDisplay(state);
+                break;
+            case 'v':
+            case 'V':
+                state->currentRobot = &state->robots[ROBOT_GREEN];
+                refreshGameDisplay(state);
+                break;
+            case 'g':
+            case 'G':
+                state->currentRobot = &state->robots[ROBOT_GREY];
+                refreshGameDisplay(state);
+                break;
+            case KEY_RESIZE:
+                //si on a redimensionné le terminal, on rafraîchit l'affichage
+                refreshGameDisplay(state);
+                break;
+        }
+        
     } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP && c != KEY_ESC_ALT);
     
     switch (c) {
