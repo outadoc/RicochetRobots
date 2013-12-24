@@ -109,6 +109,8 @@ int startSinglePlayer() {
                 direction = waitForDirection(&newGame);
             }
             
+            if(direction == -1) return 1;
+            
             //on déplace le robot dans cette direction
             moveCurrentRobotWhilePossible(&newGame, direction);
             newGame.currentRobot = &robots[newGame.turnCount % ROBOTS_COUNT];

@@ -162,7 +162,7 @@ Direction waitForDirection(GameState *state) {
         
         //si on a redimensionné le terminal, on rafraîchit l'affichage
         if(c == KEY_RESIZE) refreshGameDisplay(state);
-    } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP);
+    } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP && c != KEY_ESC_ALT);
     
     switch (c) {
         case KEY_DOWN:
@@ -176,6 +176,9 @@ Direction waitForDirection(GameState *state) {
             break;
         case KEY_UP:
             return DIRECTION_UP;
+            break;
+        case KEY_ESC_ALT:
+            return -1;
             break;
     }
     
