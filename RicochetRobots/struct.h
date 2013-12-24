@@ -68,6 +68,9 @@ typedef int Direction;  //la direction est un entier
 #define COL_ON_BOT(win, col)         wattron((win), COLOR_PAIR(getColorPairFromRobotColor((col))))
 #define COL_OFF_BOT(win, col)        wattroff((win), COLOR_PAIR(getColorPairFromRobotColor((col))))
 
+#define COL_ON_BOT_BG(win, col)         wattron((win), COLOR_PAIR(getBGColorPairFromRobotColor((col))))
+#define COL_OFF_BOT_BG(win, col)        wattroff((win), COLOR_PAIR(getBGColorPairFromRobotColor((col))))
+
 // DÉFINITION DES STRUCTURES //
 /****************************************/
 

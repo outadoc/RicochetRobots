@@ -27,5 +27,6 @@ Player* getRobotOnObjective(GameState *state);
 
 char* getRobotStringColor(int color);
 int getColorPairFromRobotColor(int color);
+int getBGColorPairFromRobotColor(int color);
 
 #endif

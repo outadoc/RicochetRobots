@@ -246,7 +246,7 @@ void displayGameBoard(GameState *state) {
                     
                     hasContent = true;
                     
-                    COL_ON_BOT(boardWin, state->robots[k].robotColor);
+                    COL_ON_BOT_BG(boardWin, state->robots[k].robotColor);
                     
                     for (l = 0; l < ROBOTS_COUNT; l++) {
                         //si on a un objectif ici
@@ -262,7 +262,7 @@ void displayGameBoard(GameState *state) {
                         mvwprintw(boardWin, charLine, charCol + 1, "   ");
                     }
                     
-                    COL_OFF_BOT(boardWin, state->robots[k].robotColor);
+                    COL_OFF_BOT_BG(boardWin, state->robots[k].robotColor);
                 }
             }
             
@@ -271,9 +271,9 @@ void displayGameBoard(GameState *state) {
                 if(!hasContent && state->gameBoard->objectivesPos[k].x == i && state->gameBoard->objectivesPos[k].y == j) {
                     hasContent = true;
                     
-                    wattron(boardWin, COLOR_PAIR(10));
+                    COL_ON_BOT(boardWin, k);
                     mvwprintw(boardWin, charLine, charCol + 1, "[X]");
-                    wattroff(boardWin, COLOR_PAIR(10));
+                    COL_OFF_BOT(boardWin, k);
                     
                     break;
                 }

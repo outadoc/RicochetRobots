@@ -30,7 +30,10 @@ int main(int argc, const char * argv[]) {
     
     //autres paires de couleurs
     //case objectif
-    init_pair(10, COLOR_MAGENTA, COLOR_WHITE);
+    init_pair(11, COLOR_RED, -1);
+    init_pair(12, COLOR_GREEN, -1);
+    init_pair(13, COLOR_BLUE, -1);
+    init_pair(14, COLOR_YELLOW, -1);
 
     //activation des touches fléchées etc.
     keypad(stdscr, true);
