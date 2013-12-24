@@ -109,6 +109,7 @@ int startSinglePlayer() {
                 direction = waitForDirection(&newGame);
             }
             
+            //si on a appuyé sur "echap" ou un truc du genre
             if(direction == -1) return 1;
             
             //on déplace le robot dans cette direction
