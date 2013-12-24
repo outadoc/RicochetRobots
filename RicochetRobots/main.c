@@ -40,7 +40,8 @@ int main(int argc, const char * argv[]) {
     //exécution de la boucle principale
     start();
     
-    //fin de la fenêtre
+    //fin du mode curses
+    clear();
     endwin();
     
     return 0;

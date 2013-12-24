@@ -95,7 +95,7 @@ void displayGameEnding(Player *winner, GameState *state) {
     
     int i;
     
-    clear();
+    //clear();
     
     //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = 15;
@@ -137,8 +137,17 @@ void displayGameEnding(Player *winner, GameState *state) {
         wprintw(win, " : %d coups", state->robots[i].score);
     }
     
+    //on déplace le curseur pour écrire au bon endroit
     wmove(win, 7 + i + 1, 2);
-    if(!wantsToReplay(win)) exit(EXIT_SUCCESS);
+    bool replay = wantsToReplay(win);
+    
+    delwin(win);
+    
+    if(!replay) {
+        clear();
+        endwin();
+        exit(EXIT_SUCCESS);
+    }
 }
 
 //
