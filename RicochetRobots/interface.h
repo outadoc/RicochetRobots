@@ -50,5 +50,6 @@ void displayInCenter(WINDOW *win, int starty, int startx, int width, char *strin
 int displayMenu(char **choices, int nbChoices, char title[]);
 WINDOW* getMenuWindow(int contentHeight, char title[]);
 void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n);
+int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max);
 
 #endif
