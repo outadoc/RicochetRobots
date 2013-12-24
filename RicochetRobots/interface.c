@@ -95,11 +95,10 @@ void displayGameEnding(GameState *state) {
     
     int i;
     
-    //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = 15;
     int winWidth = 70;
     
-    //on centre le menu
+    //on centre la fenêtre
     int starty = (LINES - winHeight) / 2;
 	int startx = (COLS - winWidth) / 2;
     
@@ -113,6 +112,7 @@ void displayGameEnding(GameState *state) {
     displayInCenter(win, 1, 0, winWidth, "PARTIE TERMINEE");
     wattroff(win, A_UNDERLINE);
     
+    //bordure du titre
     mvwaddch(win, 2, 0, ACS_LTEE);
     mvwhline(win, 2, 1, ACS_HLINE, winWidth - 1);
     mvwaddch(win, 2, winWidth - 1, ACS_RTEE);
