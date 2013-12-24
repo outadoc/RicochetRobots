@@ -116,6 +116,8 @@ int startSinglePlayer() {
             refreshGameDisplay(&newGame);
         }
         
+        //fin du jeu !
+        
         //hop, on fait réapparaitre le curseur
         curs_set(1);
         
