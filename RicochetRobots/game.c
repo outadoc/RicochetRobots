@@ -120,7 +120,7 @@ int startSinglePlayer() {
         curs_set(1);
         
         //un joueur est arrivé sur l'objectif, fin du jeu
-        displayGameEnding(getRobotOnObjective(&newGame), &newGame);
+        displayGameEnding(&newGame);
     } else {
         refresh();
         return 1;

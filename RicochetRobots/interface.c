@@ -90,12 +90,10 @@ int displayGameBoardList() {
 //
 // Affiche le tableau de scores de fin de jeu sur la sortie standard.
 //
-void displayGameEnding(Player *winner, GameState *state) {
+void displayGameEnding(GameState *state) {
     if(state == NULL) return;
     
     int i;
-    
-    //clear();
     
     //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = 15;
@@ -119,7 +117,7 @@ void displayGameEnding(Player *winner, GameState *state) {
     mvwhline(win, 2, 1, ACS_HLINE, winWidth - 1);
     mvwaddch(win, 2, winWidth - 1, ACS_RTEE);
     
-    mvwprintw(win, 3, 2, "Gagnant : %s a déplacé le robot ", winner->username);
+    mvwprintw(win, 3, 2, "Gagnant : %s a déplacé le robot ", state->currentPlayer->username);
     
     COL_ON_BOT(win, state->currentRobot->robotColor);
     wprintw(win, "%s", getRobotStringColor(state->currentRobot->robotColor));
