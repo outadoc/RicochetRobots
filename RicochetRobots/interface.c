@@ -446,8 +446,9 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
             case KEY_UP:
                 menu_driver(menu, REQ_UP_ITEM);
                 break;
-            case 10: {
+            case 10: { //entrée
                 int choice = item_index(current_item(menu));
+                
                 unpost_menu(menu);
                 free_menu(menu);
                 

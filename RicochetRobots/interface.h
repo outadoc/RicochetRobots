@@ -11,6 +11,8 @@
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
+#define KEY_ESC_ALT 27
+
 #define WIN_TOP_MARGIN 13
 #define SECOND_COL_WIDTH 60
 #define FIRST_COL_WIDTH (COLS - SECOND_COL_WIDTH)

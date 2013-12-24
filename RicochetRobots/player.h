@@ -15,8 +15,6 @@
 #include "struct.h"
 #include "interface.h"
 
-#define KEY_ESC_ALT 27
-
 bool checkForObstacle(GameState *state, Direction direction);
 bool moveCurrentRobot(GameState *state, Direction direction);
 void moveCurrentRobotWhilePossible(GameState *state, Direction direction);
