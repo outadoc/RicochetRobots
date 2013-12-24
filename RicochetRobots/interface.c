@@ -299,9 +299,9 @@ void displayGameStatus(GameState *currentGame) {
     WINDOW *infoWin = newwin(5, SECOND_COL_WIDTH, 1, COLS - SECOND_COL_WIDTH - 1);
     box(infoWin, 0, 0);
     
-    mvwprintw(infoWin, 1, 2, "Score         : %d\n", currentGame->turnCount);
-    mvwprintw(infoWin, 2, 2, "Joueur actuel : %s", currentGame->currentPlayer->username);
-    mvwprintw(infoWin, 3, 2, "Robot actuel  : ");
+    mvwprintw(infoWin, 1, 2, "Score total \t\t: %d\n", currentGame->turnCount);
+    mvwprintw(infoWin, 2, 2, "Joueur actuel \t: %s", currentGame->currentPlayer->username);
+    mvwprintw(infoWin, 3, 2, "Robot actuel \t\t: ");
     
     COL_ON_BOT(infoWin, currentGame->currentRobot->robotColor);
     wprintw(infoWin, "%s", getRobotStringColor(currentGame->currentRobot->robotColor));
@@ -312,8 +312,29 @@ void displayGameStatus(GameState *currentGame) {
     delwin(infoWin);
 }
 
+void displayScores(GameState *currentGame) {
+    if(currentGame == NULL) return;
+    
+    int i;
+    
+    WINDOW *scoresWin = newwin(6, SECOND_COL_WIDTH, 7, COLS - SECOND_COL_WIDTH - 1);
+    box(scoresWin, 0, 0);
+    
+    for(i = 0; i < ROBOTS_COUNT; i++) {
+        mvwprintw(scoresWin, i + 1, 2, "Score de ");
+        COL_ON_BOT(scoresWin, currentGame->robots[i].robotColor);
+        wprintw(scoresWin, "%s", getRobotStringColor(currentGame->robots[i].robotColor));
+        COL_OFF_BOT(scoresWin, currentGame->robots[i].robotColor);
+        wprintw(scoresWin, " \t: %d", currentGame->robots[i].score);
+    }
+    
+    refresh();
+    wrefresh(scoresWin);
+    delwin(scoresWin);
+}
+
 void displayCommands() {
-    WINDOW *cmdWin = newwin(11, SECOND_COL_WIDTH, 7, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *cmdWin = newwin(11, SECOND_COL_WIDTH, 14, COLS - SECOND_COL_WIDTH - 1);
     box(cmdWin, 0, 0);
     
     wattron(cmdWin, A_UNDERLINE);
@@ -348,6 +369,7 @@ void refreshGameDisplay(GameState *currentGame) {
     
     displayGameBoard(currentGame);
     displayGameStatus(currentGame);
+    displayScores(currentGame);
     displayCommands();
 }
 

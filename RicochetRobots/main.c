@@ -35,6 +35,8 @@ int main(int argc, const char * argv[]) {
     //activation des touches fléchées etc.
     keypad(stdscr, true);
     
+    set_tabsize(4);
+    
     //exécution de la boucle principale
     start();
     
