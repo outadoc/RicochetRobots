@@ -282,7 +282,7 @@ void displayGameBoard(GameState *state) {
                 mvwaddch(boardWin, charLine, charCol + 2, ACS_HLINE);
                 mvwaddch(boardWin, charLine, charCol + 3, ACS_HLINE);
                 mvwaddch(boardWin, charLine, charCol + 4, ACS_PLUS);
-            } else if(i < BOARD_SIZE - 1 && (i != BOARD_SIZE/2-1 || j != BOARD_SIZE/2-1)) {
+            } else if(i < BOARD_SIZE - 1 && j < BOARD_SIZE - 1 && (i != BOARD_SIZE/2-1 || j != BOARD_SIZE/2-1)) {
                 mvwaddch(boardWin, charLine, charCol + 4, ACS_PLUS);
             }
         }
