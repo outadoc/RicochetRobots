@@ -27,7 +27,7 @@ typedef int Direction;  //la direction est un entier
 
 #define BOARD_SIZE              16  //taille d'un plateau de jeu
 #define BUILTIN_BOARDS_COUNT    3   //nombre de grilles prédéfinies
-#define ROBOTS_COUNT       4   //nombre maximal de joueurs
+#define ROBOTS_COUNT            4   //nombre de robots
 #define MAX_USERNAME_SIZE       15  //taille maximale d'un pseudo
 #define MAX_LVL_PATH_SIZE       300 //taille maximale du chemin d'un fichier niveau
 
