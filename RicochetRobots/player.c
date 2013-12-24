@@ -237,6 +237,9 @@ char* getRobotStringColor(int color) {
     }
 }
 
+//
+// Retourne la paire de couleurs ncurses correspondant au robot.
+//
 int getColorPairFromRobotColor(int color) {
     switch (color) {
         case ROBOT_RED:

@@ -319,6 +319,9 @@ void displayGameBoard(GameState *state) {
     delwin(boardWin);
 }
 
+//
+// Affiche des infos sur le jeu en cours.
+//
 void displayGameStatus(GameState *currentGame) {
     if(currentGame == NULL) return;
     
@@ -338,6 +341,9 @@ void displayGameStatus(GameState *currentGame) {
     delwin(infoWin);
 }
 
+//
+// Affiche les scores du jeu en cours.
+//
 void displayScores(GameState *currentGame) {
     if(currentGame == NULL) return;
     
@@ -359,6 +365,9 @@ void displayScores(GameState *currentGame) {
     delwin(scoresWin);
 }
 
+//
+// Affiche une fenêtre d'aide sur les commandes disponibles.
+//
 void displayCommands() {
     WINDOW *cmdWin = newwin(11, SECOND_COL_WIDTH, 14, COLS - SECOND_COL_WIDTH - 1);
     box(cmdWin, 0, 0);
@@ -399,6 +408,9 @@ void refreshGameDisplay(GameState *currentGame) {
     displayCommands();
 }
 
+//
+// Affiche le texte passé en paramètre au centre de la fenêtre.
+//
 void displayInCenter(WINDOW *win, int starty, int startx, int width, char *string) {
     int length, x, y;
     
@@ -416,6 +428,9 @@ void displayInCenter(WINDOW *win, int starty, int startx, int width, char *strin
 	refresh();
 }
 
+//
+// Affiche une fenêtre de menu.
+//
 int displayMenu(char **choices, int nbChoices, char title[]) {
     //variables pour l'affichage du menu
     ITEM **menuItems = NULL;
@@ -500,6 +515,10 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     return 0;
 }
 
+//
+// Affiche une fenêtre de demande de texte.
+// Ex: demande du pseudo.
+//
 void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n) {
     clear(); refresh();
     
@@ -515,6 +534,10 @@ void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n
     clear(); refresh();
 }
 
+//
+// Affiche une fenêtre de demande d'entier.
+// Ex: demande du nombre de joueurs participant.
+//
 int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max) {
     int n = 0;
     
@@ -536,6 +559,9 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max) {
     return n;
 }
 
+//
+// Retourne une fenêtre générique avec le logo du jeu.
+//
 WINDOW* getMenuWindow(int contentHeight, char title[]) {
     //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = contentHeight + WIN_TOP_MARGIN + 4;

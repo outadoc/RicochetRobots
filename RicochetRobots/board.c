@@ -352,6 +352,9 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
     return 0;
 }
 
+//
+// Vérifie si les coordonnées passées en paramètre font partie du tableau.
+//
 bool areCoordsInList(Coords coords_t[], Coords coords) {
     int i;
     
@@ -366,6 +369,9 @@ bool areCoordsInList(Coords coords_t[], Coords coords) {
     return false;
 }
 
+//
+// Retourne un plateau de jeu aléatoire.
+//
 void getRandomBoard(GameBoard *board) {
     if(board == NULL) return;
     
@@ -431,6 +437,10 @@ void getRandomBoard(GameBoard *board) {
     }
 }
 
+//
+// Retourne des coordonnées aléatoires
+// en vérifiant que la case en question est bien vide.
+//
 Coords getRandomCoords(GameBoard *board) {
     Coords coords;
     
