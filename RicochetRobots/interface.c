@@ -510,16 +510,18 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
 // Ex: demande du pseudo.
 //
 void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n) {
-    //variables pour l'affichage du menu
-    WINDOW *menuWin = getMenuWindowNoLogo(1, title);
-    mvwprintw(menuWin, 4, 2, "%s", fieldTitle);
-    
-    wrefresh(menuWin);
-    refresh();
-    
-    mvwgetnstr(menuWin, 4, (int) strlen(fieldTitle) + 3, result, n);
-    
-    delwin(menuWin);
+    do {
+        //variables pour l'affichage du menu
+        WINDOW *menuWin = getMenuWindowNoLogo(1, title);
+        mvwprintw(menuWin, 4, 2, "%s", fieldTitle);
+        
+        wrefresh(menuWin);
+        refresh();
+        
+        mvwgetnstr(menuWin, 4, (int) strlen(fieldTitle) + 3, result, n);
+        
+        delwin(menuWin);
+    } while(strlen(result) < 1);
 }
 
 //
