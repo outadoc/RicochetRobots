@@ -140,7 +140,8 @@ int startMultiPlayer() {
     if(askForGameBoard(&board) == 0) {
         int i;
         int playersCount = askForPlayersCount();
-        Player players[playersCount];
+        
+        Player players[MAX_PLAYERS_COUNT];
         
         Robot robots[ROBOTS_COUNT] = {
             {.robotColor = ROBOT_RED,   .score = 0, .position = board.robotsPos[ROBOT_RED]},

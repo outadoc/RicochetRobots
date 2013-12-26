@@ -188,7 +188,10 @@ void askForPlayersInfo(Player players[], int playersCount) {
     int i;
     
     for (i = 0; i < playersCount; i++) {
-        displayTextPromptMenu("PSEUDOS DES JOUEURS", "Pseudo du joueur", players[i].username, MAX_USERNAME_SIZE);
+        char title[22];
+        sprintf(title, "Pseudo du joueur %d :", i + 1);
+        
+        displayTextPromptMenu("PSEUDOS DES JOUEURS", title, players[i].username, MAX_USERNAME_SIZE);
     }
 }
 
