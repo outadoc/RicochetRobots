@@ -95,7 +95,7 @@ void displayGameEnding(GameState *state) {
     
     int i;
     
-    WINDOW *win = getMenuWindowNoLogo(11, "PARTIE TERMINEE");
+    WINDOW *win = getMenuWindowNoLogo(11, "PARTIE TERMINEE", -1, -1);
     
     mvwprintw(win, 3, 2, "Gagnant : %s a déplacé le robot ", state->currentPlayer->username);
     
@@ -155,14 +155,17 @@ bool wantsToReplay(WINDOW *win) {
 }
 
 int askForPlayersCount() {
-    return displayNumberPromptMenu("INITIALISATION MULTIJOUEUR", "Nombre de joueurs ?", 2, MAX_PLAYERS_COUNT);
+    return displayNumberPromptMenu("INITIALISATION MULTIJOUEUR", "Nombre de joueurs :", 2, MAX_PLAYERS_COUNT, -1, -1);
 }
 
 void askForScoreGoals(Player players[], int n) {
     int i;
     
     for(i = 0; i < n; i++) {
-        players[i].goal = displayNumberPromptMenu("PREVISIONS", "Nombre de coups prévus :", 1, 999);
+        char str[MAX_USERNAME_SIZE + 30];
+        sprintf(str, "Nombre de coups prévus pour %s :", players[i].username);
+        
+        players[i].goal = displayNumberPromptMenu("PREVISIONS", str, 1, 999, -1, COLS - POPUP_WINDOW_WIDTH - 1);
     }
 }
 
@@ -179,7 +182,7 @@ void askForPlayersInfo(Player players[], int playersCount) {
         char title[22];
         sprintf(title, "Pseudo du joueur %d :", i + 1);
         
-        displayTextPromptMenu("PSEUDOS DES JOUEURS", title, players[i].username, MAX_USERNAME_SIZE);
+        displayTextPromptMenu("PSEUDOS DES JOUEURS", title, players[i].username, MAX_USERNAME_SIZE, -1, -1);
     }
 }
 
@@ -189,7 +192,7 @@ void askForPlayersInfo(Player players[], int playersCount) {
 void askForSinglePlayerUsername(Player *player) {
     if(player == NULL) return;
     
-    displayTextPromptMenu("CHOIX DU PSEUDO", "Pseudo :", player->username, MAX_USERNAME_SIZE);
+    displayTextPromptMenu("CHOIX DU PSEUDO", "Pseudo :", player->username, MAX_USERNAME_SIZE, -1, -1);
 }
 
 //
@@ -198,7 +201,7 @@ void askForSinglePlayerUsername(Player *player) {
 void askForLevelPath(char path[]) {
     if(path == NULL) return;
     
-    displayTextPromptMenu("CHARGER DEPUIS UN FICHIER", "Chemin du fichier niveau :", path, MAX_LVL_PATH_SIZE);
+    displayTextPromptMenu("CHARGER DEPUIS UN FICHIER", "Chemin du fichier niveau :", path, MAX_LVL_PATH_SIZE, -1, -1);
 }
 
 void displayLevelLoadingError(char message[]) {
@@ -437,7 +440,7 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
     WINDOW *menuWin = NULL;
     
     int i = 0, c;
-    int winWidth = 70;
+    int winWidth = POPUP_WINDOW_WIDTH;
     //largeur du menu = longueur du plus grand des choix possibles
     int menuWidth = max_strlen(choices, nbChoices) + 2;
     
@@ -456,7 +459,7 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
     
     //on initialise le menu
     menu = new_menu((ITEM **) menuItems);
-    menuWin = (logo) ? getMenuWindow(nbChoices, title) : getMenuWindowNoLogo(nbChoices, title);
+    menuWin = (logo) ? getMenuWindow(nbChoices, title) : getMenuWindowNoLogo(nbChoices, title, -1, -1);
     
     //on lui précise bien que le menu fait N lignes et 1 colonne
     set_menu_format(menu, nbChoices, 1);
@@ -517,10 +520,10 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
 // Affiche une fenêtre de demande de texte.
 // Ex: demande du pseudo.
 //
-void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n) {
+void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n, int yPos, int xPos) {
     do {
         //variables pour l'affichage du menu
-        WINDOW *menuWin = getMenuWindowNoLogo(1, title);
+        WINDOW *menuWin = getMenuWindowNoLogo(1, title, yPos, xPos);
         mvwprintw(menuWin, 4, 2, "%s", fieldTitle);
         
         wrefresh(menuWin);
@@ -536,12 +539,12 @@ void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n
 // Affiche une fenêtre de demande d'entier.
 // Ex: demande du nombre de joueurs participant.
 //
-int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max) {
+int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, int yPos, int xPos) {
     int n = 0;
     
     do {
         //variables pour l'affichage du menu
-        WINDOW *menuWin = getMenuWindowNoLogo(1, title);
+        WINDOW *menuWin = getMenuWindowNoLogo(1, title, yPos, xPos);
         mvwprintw(menuWin, 4, 2, "%s", fieldTitle);
         
         wrefresh(menuWin);
@@ -560,8 +563,8 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max) {
 //
 WINDOW* getMenuWindow(int contentHeight, char title[]) {
     //hauteur = nombre de choix possibles + 15 (pour le logo)
-    int winHeight = contentHeight + WIN_TOP_MARGIN + 4;
-    int winWidth = 70;
+    int winHeight = contentHeight + WIN_LOGO_TOP_MARGIN + 4;
+    int winWidth = POPUP_WINDOW_WIDTH + 10;
     
     //on centre le menu
     int starty = (LINES - winHeight) / 2;
@@ -594,14 +597,14 @@ WINDOW* getMenuWindow(int contentHeight, char title[]) {
     return win;
 }
 
-WINDOW* getMenuWindowNoLogo(int contentHeight, char title[]) {
+WINDOW* getMenuWindowNoLogo(int contentHeight, char title[], int yPos, int xPos) {
     //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = contentHeight + 6;
-    int winWidth = 70;
+    int winWidth = POPUP_WINDOW_WIDTH;
     
     //on centre le menu
-    int starty = (LINES - winHeight) / 2;
-	int startx = (COLS - winWidth) / 2;
+    int starty = (yPos > 0) ? yPos : (LINES - winHeight) / 2;
+	int startx = (xPos > 0) ? xPos : (COLS - winWidth) / 2;
     
     WINDOW *win = newwin(winHeight, winWidth, starty, startx);
     

@@ -168,8 +168,11 @@ int startMultiPlayer() {
             .gameBoard = &board
         };
         
-        //on met à jour l'affichage une première fois
-        refreshGameDisplay(&newGame);
+        //on affiche le plateau pour que les joueurs puissent faire leurs prévisions
+        clear();
+        displayGameBoard(&newGame);
+        
+        //on leur demande leur prévision
         askForScoreGoals(players, newGame.playersCount);
         
         //on fait disparaitre le curseur

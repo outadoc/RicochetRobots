@@ -13,8 +13,10 @@
 
 #define KEY_ESC_ALT 27
 
-#define WIN_TOP_MARGIN 13
-#define SECOND_COL_WIDTH 60
+#define WIN_LOGO_TOP_MARGIN 13
+#define POPUP_WINDOW_WIDTH  60
+
+#define SECOND_COL_WIDTH    60
 #define FIRST_COL_WIDTH (COLS - SECOND_COL_WIDTH)
 
 #include <ctype.h>
@@ -55,9 +57,9 @@ void displayInCenter(WINDOW *win, int starty, int startx, int width, char *strin
 int displayMenu(char **choices, int nbChoices, char title[], bool logo);
 
 WINDOW* getMenuWindow(int contentHeight, char title[]);
-WINDOW* getMenuWindowNoLogo(int contentHeight, char title[]);
+WINDOW* getMenuWindowNoLogo(int contentHeight, char title[], int yPos, int xPos);
 
-void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n);
-int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max);
+void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n, int yPos, int xPos);
+int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, int yPos, int xPos);
 
 #endif
