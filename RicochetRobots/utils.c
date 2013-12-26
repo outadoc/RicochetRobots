@@ -22,6 +22,8 @@ int rand_between(int min, int max) {
 // Retourne la longueur du string le plus grand parmi un tableau de strings
 //
 int max_strlen(char **str, int n) {
+    if(str == NULL || n <= 0) return 0;
+    
     int i;
     int maxlen = 0;
     

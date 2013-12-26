@@ -16,6 +16,8 @@
 // Retourne un plateau prédéfini à l'indice fourni.
 //
 GameBoard getBuiltInBoardAtIndex(int index) {
+    if(index < 0 || index >= BUILTIN_BOARDS_COUNT) return getEmptyGameBoard();
+    
     GameBoard builtinBoards[] = {
     {
             //premier plateau
@@ -121,11 +123,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
         }
     };
     
-    if(index >= 0 && index < BUILTIN_BOARDS_COUNT) {
-        return builtinBoards[index];
-    } else {
-        return getEmptyGameBoard();
-    }
+    return builtinBoards[index];
 }
 
 //
@@ -163,9 +161,9 @@ GameBoard getEmptyGameBoard() {
 // Retourne 0 si tout se passe bien.
 //
 int askForGameBoard(GameBoard *board) {
-    int choice = 0;
+    if(board == NULL) return 1;
     
-    choice = displayGameBoardSelectionMenu();
+    int choice = displayGameBoardSelectionMenu();
     
     switch (choice) {
         case 0: {
@@ -352,6 +350,8 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
 // Vérifie si les coordonnées passées en paramètre font partie du tableau.
 //
 bool areCoordsInList(Coords coords_t[], Coords coords) {
+    if(coords_t == NULL) return false;
+    
     int i;
     
     //on vérifie si les coordonnées à tester sont dans l'array
@@ -438,6 +438,8 @@ void getRandomBoard(GameBoard *board) {
 // en vérifiant que la case en question est bien vide.
 //
 Coords getRandomCoords(GameBoard *board) {
+    if(board == NULL) return (Coords) {-1, -1};
+    
     Coords coords;
     
     //on récupère des coordonnées aléatoires
@@ -459,6 +461,8 @@ Coords getRandomCoords(GameBoard *board) {
 // Met les scores à zéro et donne les valeurs par défaut aux positions des robots.
 //
 void resetMap(GameState *state) {
+    if(state == NULL) return;
+    
     int i;
     
     for(i = 0; i < ROBOTS_COUNT; i++) {

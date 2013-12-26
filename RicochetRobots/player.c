@@ -142,6 +142,8 @@ void moveCurrentRobotWhilePossible(GameState *state, Direction direction) {
 // Retourne une direction aléatoire.
 //
 Direction getRandomDirection(GameState *state) {
+    if(state == NULL) return -1;
+    
     int dir = 0;
     
     //tant qu'il y a un obstacle dans la direction choisie aléatoirement
@@ -158,6 +160,8 @@ Direction getRandomDirection(GameState *state) {
 // Demande à l'utilisateur dans quelle direction il souhaite se déplacer.
 //
 Direction waitForDirection(GameState *state) {
+    if(state == NULL) return -1;
+    
     int c;
     
     do {
