@@ -436,7 +436,7 @@ void displayInCenter(WINDOW *win, int starty, int startx, int width, char *strin
 	x = startx + (int) (width - length) / 2;
     
 	mvwprintw(win, y, x, "%s", string);
-	refresh();
+    refresh();
 }
 
 //
@@ -530,18 +530,16 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
 // Ex: demande du pseudo.
 //
 void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n) {
-    clear(); refresh();
-    
     //variables pour l'affichage du menu
     WINDOW *menuWin = getMenuWindow(1, title);;
     mvwprintw(menuWin, WIN_TOP_MARGIN + 2, 2, "%s", fieldTitle);
     
     wrefresh(menuWin);
+    refresh();
     
     mvwgetnstr(menuWin, WIN_TOP_MARGIN + 2, (int) strlen(fieldTitle) + 3, result, n);
     
     delwin(menuWin);
-    clear(); refresh();
 }
 
 //
@@ -552,18 +550,16 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max) {
     int n = 0;
     
     do {
-        clear(); refresh();
-        
         //variables pour l'affichage du menu
         WINDOW *menuWin = getMenuWindow(1, title);;
         mvwprintw(menuWin, WIN_TOP_MARGIN + 2, 2, "%s", fieldTitle);
         
         wrefresh(menuWin);
+        refresh();
         
         mvwscanw(menuWin, WIN_TOP_MARGIN + 2, (int) strlen(fieldTitle) + 3, "%d", &n);
         
         delwin(menuWin);
-        clear(); refresh();
     } while(n < min || n > max);
     
     return n;
