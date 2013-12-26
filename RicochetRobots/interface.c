@@ -413,7 +413,7 @@ void displayGameBoard(GameState *state) {
 void displayGameStatus(GameState *currentGame) {
     if(currentGame == NULL) return;
     
-    WINDOW *infoWin = newwin((currentGame->playersCount > 1) ? 6 : 5, SECOND_COL_WIDTH, 12, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *infoWin = newwin((currentGame->playersCount > 1) ? 6 : 5, SECOND_COL_WIDTH, 13, COLS - SECOND_COL_WIDTH - 1);
     box(infoWin, 0, 0);
     
     if(currentGame->playersCount > 1) {
@@ -453,7 +453,7 @@ void displayScores(GameState *currentGame) {
     int i;
     int height = (currentGame->playersCount > ROBOTS_COUNT) ? currentGame->playersCount + 2 : ROBOTS_COUNT + 2;
     
-    WINDOW *scoresWin = newwin(height, SECOND_COL_WIDTH, (currentGame->playersCount > 1) ? 18 : 17, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *scoresWin = newwin(height, SECOND_COL_WIDTH, (currentGame->playersCount > 1) ? 19 : 18, COLS - SECOND_COL_WIDTH - 1);
     box(scoresWin, 0, 0);
     
     for(i = 0; i < ROBOTS_COUNT; i++) {
@@ -479,24 +479,25 @@ void displayScores(GameState *currentGame) {
 // Affiche une fenêtre d'aide sur les commandes disponibles.
 //
 void displayCommands() {
-    WINDOW *cmdWin = newwin(11, SECOND_COL_WIDTH, 1, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *cmdWin = newwin(12, SECOND_COL_WIDTH, 1, COLS - SECOND_COL_WIDTH - 1);
     box(cmdWin, 0, 0);
     
     wattron(cmdWin, A_UNDERLINE);
     mvwprintw(cmdWin, 1, 2, "Commandes de partie");
     wattroff(cmdWin, A_UNDERLINE);
     
-    mvwprintw(cmdWin, 2, 2, "Flèches directionnelles : déplacer le robot");
-    mvwprintw(cmdWin, 3, 2, "Echap : quitter la partie");
+    mvwprintw(cmdWin, 2, 2, "Echap : quitter la partie");
+    mvwprintw(cmdWin, 3, 2, "Flèches directionnelles : déplacer le robot");
+    mvwprintw(cmdWin, 4, 2, "X : déplacer dans une direction aléatoire");
     
     wattron(cmdWin, A_UNDERLINE);
-    mvwprintw(cmdWin, 5, 2, "Changer de robot");
+    mvwprintw(cmdWin, 6, 2, "Changer de robot");
     wattroff(cmdWin, A_UNDERLINE);
     
-    mvwprintw(cmdWin, 6, 2, "R : robot rouge");
-    mvwprintw(cmdWin, 7, 2, "B : robot bleu");
-    mvwprintw(cmdWin, 8, 2, "V : robot vert");
-    mvwprintw(cmdWin, 9, 2, "G : robot gris");
+    mvwprintw(cmdWin, 7, 2, "R : robot rouge");
+    mvwprintw(cmdWin, 8, 2, "B : robot bleu");
+    mvwprintw(cmdWin, 9, 2, "V : robot vert");
+    mvwprintw(cmdWin, 10, 2, "G : robot gris");
     
     refresh();
     wrefresh(cmdWin);
