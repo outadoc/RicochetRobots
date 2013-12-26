@@ -109,7 +109,9 @@ bool moveCurrentRobot(GameState *state, Direction direction) {
         
         //on endort le programme pendant 100 millisecondes
         usleep(100 * 1000);
-        refreshGameDisplay(state);
+        
+        //on affiche le plateau de jeu à chaque déplacement d'une case
+        displayGameBoard(state);
         
         return true;
     }
