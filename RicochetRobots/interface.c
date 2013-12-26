@@ -512,12 +512,12 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
 void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n) {
     //variables pour l'affichage du menu
     WINDOW *menuWin = getMenuWindowNoLogo(1, title);
-    mvwprintw(menuWin, WIN_TOP_MARGIN + 2, 2, "%s", fieldTitle);
+    mvwprintw(menuWin, 4, 2, "%s", fieldTitle);
     
     wrefresh(menuWin);
     refresh();
     
-    mvwgetnstr(menuWin, WIN_TOP_MARGIN + 2, (int) strlen(fieldTitle) + 3, result, n);
+    mvwgetnstr(menuWin, 4, (int) strlen(fieldTitle) + 3, result, n);
     
     delwin(menuWin);
 }
@@ -532,12 +532,12 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max) {
     do {
         //variables pour l'affichage du menu
         WINDOW *menuWin = getMenuWindowNoLogo(1, title);
-        mvwprintw(menuWin, WIN_TOP_MARGIN + 2, 2, "%s", fieldTitle);
+        mvwprintw(menuWin, 4, 2, "%s", fieldTitle);
         
         wrefresh(menuWin);
         refresh();
         
-        mvwscanw(menuWin, WIN_TOP_MARGIN + 2, (int) strlen(fieldTitle) + 3, "%d", &n);
+        mvwscanw(menuWin, 4, (int) strlen(fieldTitle) + 3, "%d", &n);
         
         delwin(menuWin);
     } while(n < min || n > max);
