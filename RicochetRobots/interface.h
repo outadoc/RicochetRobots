@@ -9,15 +9,18 @@
 #ifndef RicochetRobots_display_h
 #define RicochetRobots_display_h
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-
+//define pour la touche "echap"
 #define KEY_ESC_ALT 27
 
+//marge haut de la fenêtre avec le logo
 #define WIN_LOGO_TOP_MARGIN 13
+//largeur de la fenêtre popup sans le logo
 #define POPUP_WINDOW_WIDTH  60
 
+//taille de la deuxième colonne
 #define SECOND_COL_WIDTH    60
-#define FIRST_COL_WIDTH (COLS - SECOND_COL_WIDTH)
+//taille de la première colonne
+#define FIRST_COL_WIDTH     (COLS - SECOND_COL_WIDTH)
 
 #include <ctype.h>
 #include <string.h>

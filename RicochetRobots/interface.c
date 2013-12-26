@@ -44,7 +44,7 @@ int displayMainMenu() {
         "Quitter"
     };
     
-    return displayMenu(choices, ARRAY_SIZE(choices), "MENU PRINCIPAL", true);
+    return displayMenu(choices, 3, "MENU PRINCIPAL", true);
 }
 
 //
@@ -59,7 +59,7 @@ int displayGameBoardSelectionMenu() {
         "Retour au menu principal"
     };
     
-    return displayMenu(choices, ARRAY_SIZE(choices), "CHOIX DU PLATEAU", false);
+    return displayMenu(choices, 4, "CHOIX DU PLATEAU", false);
 }
 
 //
@@ -242,10 +242,16 @@ bool wantsToReplay(WINDOW *win, int top) {
     return false;
 }
 
+//
+// Demande le nombre de joueurs à gérer et le retourne.
+//
 int askForPlayersCount() {
     return displayNumberPromptMenu("INITIALISATION MULTIJOUEUR", "Nombre de joueurs :", 2, MAX_PLAYERS_COUNT, -1, -1);
 }
 
+//
+// Demande à chaque joueur son objectif de coups et les stocke dans l'état du jeu.
+//
 void askForScoreGoals(GameState *state) {
     int i;
     
@@ -295,6 +301,10 @@ void askForLevelPath(char path[]) {
     displayTextPromptMenu("CHARGER DEPUIS UN FICHIER", "Chemin du fichier niveau :", path, MAX_LVL_PATH_SIZE, -1, -1);
 }
 
+//
+// Affiche une erreur de chargement du niveau sur la sortie standard.
+// Attend que l'utilisateur appuie sur une touche.
+//
 void displayLevelLoadingError(char message[]) {
     clear();
     printw("Erreur de chargement: %s\n", message);
@@ -711,6 +721,9 @@ WINDOW* getMenuWindow(int contentHeight, char title[]) {
     return win;
 }
 
+//
+// Retourne une fenêtre popup générique, sans le logo du jeu.
+//
 WINDOW* getMenuWindowNoLogo(int contentHeight, char title[], int yPos, int xPos) {
     //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = contentHeight + 6;

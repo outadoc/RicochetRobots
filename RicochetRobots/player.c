@@ -255,6 +255,9 @@ bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard) {
     return false;
 }
 
+//
+// Retourne vrai si tous les robots sont sur leurs objectifs respectifs.
+//
 bool areAllRobotsOnTheirObjectives(Robot robots[], GameBoard *gameBoard) {
     if(robots == NULL || gameBoard == NULL) return false;
     
@@ -267,10 +270,18 @@ bool areAllRobotsOnTheirObjectives(Robot robots[], GameBoard *gameBoard) {
     return true;
 }
 
+//
+// Fonction de tri pour qsort.
+// Trie les joueurs par objectif de coups croissant.
+//
 int sortByGoal(Player *a, Player *b) {
     return (a->goal > b->goal);
 }
 
+//
+// Fonction de tri pour qsort.
+// Trie les joueurs par score croissant.
+//
 int sortByScore(Player *a, Player *b) {
     return (a->victoryCount > b->victoryCount);
 }

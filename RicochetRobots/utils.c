@@ -12,7 +12,7 @@
 #include "utils.h"
 
 //
-// Génère un entier pseudo aléatoire compris entre min et max.
+// Génère un entier pseudo aléatoire compris entre min (compris) et max (non compris).
 //
 int rand_between(int min, int max) {
     return rand() % (max - min) + min;

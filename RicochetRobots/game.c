@@ -15,6 +15,7 @@
 
 //
 // Boucle principale du jeu.
+// Affiche le menu principal et gère les options principales.
 //
 int start() {
     //boucle principale : on en sort avec un return
@@ -57,7 +58,7 @@ int start() {
 }
 
 //
-// Boucle de partie.
+// Boucle de partie solo.
 // Demande à l'utilisateur les infos nécessaires au lancement de la partie, puis exécute la boucle jusqu'à la fin du jeu.
 //
 int startSinglePlayer() {
@@ -127,6 +128,10 @@ int startSinglePlayer() {
     return 0;
 }
 
+//
+// Boucle de partie multijoueur.
+// Demande aux utilisateurs les infos nécessaires au lancement de la partie, puis exécute la boucle jusqu'à la fin du jeu.
+//
 int startMultiPlayer() {
     GameBoard board;
     

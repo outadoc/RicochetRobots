@@ -454,6 +454,10 @@ Coords getRandomCoords(GameBoard *board) {
     return coords;
 }
 
+//
+// Remet un plateau à zéro.
+// Met les scores à zéro et donne les valeurs par défaut aux positions des robots.
+//
 void resetMap(GameState *state) {
     int i;
     
