@@ -23,6 +23,7 @@ Direction getRandomDirection(GameState *state);
 Direction waitForDirection(GameState *state);
 
 bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard);
+bool areAllRobotsOnTheirObjectives(Robot robots[], GameBoard *gameBoard);
 
 char* getRobotStringColor(int color);
 int getColorPairFromRobotColor(int color);

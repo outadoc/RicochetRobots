@@ -97,8 +97,8 @@ int startSinglePlayer() {
         //on fait disparaitre le curseur
         curs_set(0);
         
-        //pour l'instant on va faire une jolie boucle infinie, hein
-        while(true) {
+        //tant que tous les robots ne sont pas sur leurs objectifs respectifs
+        while(!areAllRobotsOnTheirObjectives(state.robots, state.gameBoard)) {
             //on demande à l'utilisateur dans quelle direction il veut aller
             Direction direction = waitForDirection(&state);
             

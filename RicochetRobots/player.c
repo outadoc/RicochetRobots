@@ -256,6 +256,18 @@ bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard) {
     return false;
 }
 
+bool areAllRobotsOnTheirObjectives(Robot robots[], GameBoard *gameBoard) {
+    if(robots == NULL || gameBoard == NULL) return false;
+    
+    int i;
+    
+    for(i = 0; i < ROBOTS_COUNT; i++) {
+        if(!isRobotOnObjective(&robots[i], gameBoard)) return false;
+    }
+    
+    return true;
+}
+
 int sortByGoal(Player *a, Player *b) {
     return (a->goal > b->goal);
 }
