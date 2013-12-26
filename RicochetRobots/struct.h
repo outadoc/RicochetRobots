@@ -30,6 +30,7 @@ typedef int Direction;  //la direction est un entier
 #define ROBOTS_COUNT            4   //nombre de robots
 #define MAX_USERNAME_SIZE       15  //taille maximale d'un pseudo
 #define MAX_LVL_PATH_SIZE       300 //taille maximale du chemin d'un fichier niveau
+#define MAX_PLAYERS_COUNT       15  //nombre maximal de joueurs
 
 // IDENTIFIANTS DES COULEURS DES ROBOTS //
 /****************************************/
@@ -104,12 +105,15 @@ typedef struct {
 typedef struct {
     //nombre de tours
     int turnCount;
+    //nombre de joueurs
+    int playersCount;
     
-    //joueur courant
     Player* currentPlayer;
     Player* players;
+    
     Robot* currentRobot;
     Robot* robots;
+    
     GameBoard* gameBoard;
 } GameState;
 

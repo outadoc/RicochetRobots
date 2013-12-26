@@ -325,7 +325,7 @@ void displayGameBoard(GameState *state) {
 void displayGameStatus(GameState *currentGame) {
     if(currentGame == NULL) return;
     
-    WINDOW *infoWin = newwin(5, SECOND_COL_WIDTH, 1, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *infoWin = newwin(5, SECOND_COL_WIDTH, 12, COLS - SECOND_COL_WIDTH - 1);
     box(infoWin, 0, 0);
     
     mvwprintw(infoWin, 1, 2, "Score total \t\t: %d\n", currentGame->turnCount);
@@ -348,8 +348,9 @@ void displayScores(GameState *currentGame) {
     if(currentGame == NULL) return;
     
     int i;
+    int height = (currentGame->playersCount > ROBOTS_COUNT) ? currentGame->playersCount + 2 : ROBOTS_COUNT + 2;
     
-    WINDOW *scoresWin = newwin(6, SECOND_COL_WIDTH, 7, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *scoresWin = newwin(height, SECOND_COL_WIDTH, 17, COLS - SECOND_COL_WIDTH - 1);
     box(scoresWin, 0, 0);
     
     for(i = 0; i < ROBOTS_COUNT; i++) {
@@ -358,6 +359,10 @@ void displayScores(GameState *currentGame) {
         wprintw(scoresWin, "%s", getRobotStringColor(currentGame->robots[i].robotColor));
         COL_OFF_BOT(scoresWin, currentGame->robots[i].robotColor);
         wprintw(scoresWin, " \t: %d", currentGame->robots[i].score);
+    }
+    
+    for(i = 0; i < currentGame->playersCount; i++) {
+        mvwprintw(scoresWin, i + 1, 27, "Score de %s \t: %d", currentGame->players[i].username, currentGame->players[i].score);
     }
     
     refresh();
@@ -369,7 +374,7 @@ void displayScores(GameState *currentGame) {
 // Affiche une fenêtre d'aide sur les commandes disponibles.
 //
 void displayCommands() {
-    WINDOW *cmdWin = newwin(11, SECOND_COL_WIDTH, 14, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *cmdWin = newwin(11, SECOND_COL_WIDTH, 1, COLS - SECOND_COL_WIDTH - 1);
     box(cmdWin, 0, 0);
     
     wattron(cmdWin, A_UNDERLINE);

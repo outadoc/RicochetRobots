@@ -81,6 +81,7 @@ int startSinglePlayer() {
         //instanciation du jeu
         GameState newGame = {
             .turnCount = 0,
+            .playersCount = 1,
             .currentPlayer = &players[0],
             .players = players,
             .currentRobot = &robots[0],
