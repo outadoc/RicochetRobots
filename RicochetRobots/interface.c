@@ -135,14 +135,25 @@ void displayMultiGameEnding(GameState *state) {
     if(state == NULL) return;
     
     int i;
+    char winner[MAX_USERNAME_SIZE];
     
-    WINDOW *win = getMenuWindowNoLogo(state->playersCount + 6, "PARTIE TERMINEE", -1, -1);
+    if(state->players[0].victoryCount == 0) {
+        //si le score du meilleur est 0, personne n'a gagné
+        strcpy(winner, "PERSONNE !");
+    } else if(state->players[0].victoryCount == state->players[1].victoryCount) {
+        //si le score du premier est celui du deuxième, il y a égalité
+        strcpy(winner, "ÉGALITÉ");
+    } else {
+        strcpy(winner, state->players[0].username);
+    }
+    
+    WINDOW *win = getMenuWindowNoLogo(state->playersCount + 4, "PARTIE TERMINEE", -1, -1);
     
     //à ce point, les joueurs sont triés par ordre croissant sur victoryCount
-    mvwprintw(win, 3, 2, "Gagnant : %s", state->players[0].username);
+    mvwprintw(win, 4, 2, "Gagnant : %s", winner);
     
     for(i = 0; i < state->playersCount; i++) {
-        mvwprintw(win, 6 + i, 2, "Score de %s : %d victoires", state->players[i].victoryCount);
+        mvwprintw(win, 6 + i, 2, "Score de %s \t: %d victoires", state->players[i].username, state->players[i].victoryCount);
     }
     
     //on déplace le curseur pour écrire au bon endroit
