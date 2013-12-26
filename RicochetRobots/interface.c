@@ -176,9 +176,7 @@ bool wantsToReplay(WINDOW *win, int top) {
     int winWidth = POPUP_WINDOW_WIDTH;
     //largeur du menu = longueur du plus grand des choix possibles
     int menuWidth = 25;
-    
-    clear();
-    
+        
     //on alloue de la mémoire pour initialiser les éléments du menu
     menuItems = (ITEM **) calloc(nbChoices + 1, sizeof(ITEM *));
     
