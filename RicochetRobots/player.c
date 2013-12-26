@@ -123,13 +123,17 @@ bool moveCurrentRobot(GameState *state, Direction direction) {
 void moveCurrentRobotWhilePossible(GameState *state, Direction direction) {
     if(state == NULL || direction > 3) return;
     
-    //tant qu'on peut déplacer le robot courant, on le fait
-    while(moveCurrentRobot(state, direction));
+    bool moved = false;
     
-    //on augmente les compteurs
-    state->currentPlayer->score++;
-    state->currentRobot->score++;
-    state->turnCount++;
+    //tant qu'on peut déplacer le robot courant, on le fait
+    while(moveCurrentRobot(state, direction)) moved = true;
+    
+    if(moved) {
+        //on augmente les compteurs
+        state->currentPlayer->score++;
+        state->currentRobot->score++;
+        state->turnCount++;
+    }
 }
 
 //
