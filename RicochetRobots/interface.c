@@ -176,7 +176,7 @@ bool wantsToReplay(WINDOW *win, int top) {
     int winWidth = POPUP_WINDOW_WIDTH;
     //largeur du menu = longueur du plus grand des choix possibles
     int menuWidth = 25;
-        
+    
     //on alloue de la mémoire pour initialiser les éléments du menu
     menuItems = (ITEM **) calloc(nbChoices + 1, sizeof(ITEM *));
     
@@ -223,8 +223,16 @@ bool wantsToReplay(WINDOW *win, int top) {
                 menu_driver(menu, REQ_RIGHT_ITEM);
                 break;
             case 10: { //entrée
+                int choice = item_index(current_item(menu));
+                
+                unpost_menu(menu);
+                free_menu(menu);
+                
+                for(i = 0; i < nbChoices; ++i)
+                    free_item(menuItems[i]);
+                
                 //si l'indice est 1 on renvoie 0 et vice-versa
-                return !item_index(current_item(menu));
+                return !choice;
             }
         }
         
