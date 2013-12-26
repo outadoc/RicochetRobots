@@ -84,6 +84,7 @@ typedef struct {
 //structure pour décrire les joueurs
 typedef struct {
     int score;
+    int victoryCount;
     int goal;
     bool isBot;
     char username[MAX_USERNAME_SIZE];

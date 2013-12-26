@@ -453,3 +453,14 @@ Coords getRandomCoords(GameBoard *board) {
     
     return coords;
 }
+
+void resetMap(GameState *state) {
+    int i;
+    
+    for(i = 0; i < ROBOTS_COUNT; i++) {
+        state->robots[i].position.x = state->gameBoard->robotsPos[i].x;
+        state->robots[i].position.y = state->gameBoard->robotsPos[i].y;
+        
+        state->robots[i].score = 0;
+    }
+}

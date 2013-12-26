@@ -330,9 +330,9 @@ void displayGameStatus(GameState *currentGame) {
     
     if(currentGame->playersCount > 1) {
         //si on est en multijoueur
-        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d / %d\n", currentGame->turnCount, currentGame->currentPlayer->goal);
+        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d / %d\n", currentGame->currentPlayer->score, currentGame->currentPlayer->goal);
     } else {
-        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d\n", currentGame->turnCount);
+        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d\n", currentGame->currentPlayer->score);
     }
     
     mvwprintw(infoWin, 2, 2, "Joueur actuel \t: %s", currentGame->currentPlayer->username);

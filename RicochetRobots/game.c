@@ -81,7 +81,7 @@ int startSinglePlayer() {
         askForSinglePlayerUsername(players);
         
         //instanciation du jeu
-        GameState newGame = {
+        GameState state = {
             .turnCount = 0,
             .playersCount = 1,
             .currentPlayer = &players[0],
@@ -92,30 +92,24 @@ int startSinglePlayer() {
         };
         
         //on met à jour l'affichage une première fois
-        refreshGameDisplay(&newGame);
+        refreshGameDisplay(&state);
         
         //on fait disparaitre le curseur
         curs_set(0);
         
         //pour l'instant on va faire une jolie boucle infinie, hein
         while(true) {
-            Direction direction;
-            
-            //on demande à l'utilisateur dans quelle direction il veut aller OU si c'est un bot, on récupère une direction aléatoire
-            if(newGame.currentPlayer->isBot) {
-                direction = getRandomDirection(&newGame);
-            } else {
-                direction = waitForDirection(&newGame);
-            }
+            //on demande à l'utilisateur dans quelle direction il veut aller
+            Direction direction = waitForDirection(&state);
             
             //si on a appuyé sur "echap" ou un truc du genre
             if(direction == -1) return 1;
             
             //on déplace le robot dans cette direction
-            moveCurrentRobotWhilePossible(&newGame, direction);
+            moveCurrentRobotWhilePossible(&state, direction);
             
             //on met à jour l'affichage après chaque tour
-            refreshGameDisplay(&newGame);
+            refreshGameDisplay(&state);
         }
         
         //fin du jeu !
@@ -124,7 +118,7 @@ int startSinglePlayer() {
         curs_set(1);
         
         //un joueur est arrivé sur l'objectif, fin du jeu
-        displayGameEnding(&newGame);
+        displayGameEnding(&state);
     } else {
         refresh();
         return 1;
@@ -140,6 +134,7 @@ int startMultiPlayer() {
     if(askForGameBoard(&board) == 0) {
         int i;
         int playersCount = askForPlayersCount();
+        int usedColors[ROBOTS_COUNT]; //cet array va contenir les couleurs de robots pour lesquelles on a déjà joué
         
         Player players[MAX_PLAYERS_COUNT];
         
@@ -153,66 +148,102 @@ int startMultiPlayer() {
         for(i = 0; i < playersCount; i++) {
             players[i].score = 0;
             players[i].isBot = false;
+            players[i].victoryCount = 0;
         }
         
         askForPlayersInfo(players, playersCount);
         
         //instanciation du jeu
-        GameState newGame = {
+        GameState state = {
             .turnCount = 0,
             .playersCount = playersCount,
             .currentPlayer = &players[0],
             .players = players,
             .currentRobot = &robots[0],
             .robots = robots,
-            .gameBoard = &board,
-            .robotColorToMove = rand_between(0, ROBOTS_COUNT)
+            .gameBoard = &board
         };
         
-        //on affiche le plateau pour que les joueurs puissent faire leurs prévisions
-        clear();
-        displayGameBoard(&newGame);
-        
-        //on leur demande leur prévision
-        askForScoreGoals(&newGame);
-        
-        //on fait disparaitre le curseur
-        curs_set(0);
-        
-        refreshGameDisplay(&newGame);
-        
-        //tant que le robot qu'on veut n'est pas sur un objectif
-        while(!isRobotOnObjective(&robots[newGame.robotColorToMove], newGame.gameBoard)) {
-            Direction direction;
+        //une partie se joue en 4 tours
+        for(i = 0; i < ROBOTS_COUNT; i++) {
+            int j;
+            bool isInArray = false;
             
-            //on demande à l'utilisateur dans quelle direction il veut aller OU si c'est un bot, on récupère une direction aléatoire
-            if(newGame.currentPlayer->isBot) {
-                direction = getRandomDirection(&newGame);
-            } else {
-                direction = waitForDirection(&newGame);
+            //on tire une couleur de robot au hasard
+            //mais on vérifie à chaque fois qu'elle n'ait pas déjà été tirée
+            do {
+                int j;
+                state.robotColorToMove = rand_between(0, ROBOTS_COUNT);
+                
+                for(j = 0; j < i; j++) {
+                    if(state.robotColorToMove == usedColors[j]) {
+                        isInArray = true;
+                    }
+                }
+            } while(isInArray);
+            
+            usedColors[i] = state.robotColorToMove;
+            
+            //on affiche le plateau pour que les joueurs puissent faire leurs prévisions
+            clear();
+            displayGameBoard(&state);
+            
+            //on leur demande leur prévision
+            askForScoreGoals(&state);
+            
+            //on fait disparaitre le curseur
+            curs_set(0);
+            
+            refreshGameDisplay(&state);
+            
+            //on trie les joueurs par ordre croissant du nombre de coups prévus
+            qsort(state.players, state.playersCount, sizeof(Player), (compfn) sortByGoal);
+            
+            for(j = 0; j < playersCount; j++) {
+                do {
+                    //on demande à l'utilisateur dans quelle direction il veut aller
+                    Direction direction = waitForDirection(&state);
+                    
+                    //si on a appuyé sur "echap" ou un truc du genre
+                    if(direction == -1) return 1;
+                    
+                    //on déplace le robot dans cette direction
+                    moveCurrentRobotWhilePossible(&state, direction);
+                    
+                    //on met à jour l'affichage après chaque tour
+                    refreshGameDisplay(&state);
+                    
+                    if(isRobotOnObjective(&state.robots[state.robotColorToMove], state.gameBoard)) {
+                        //yaaay, le joueur a gagné. on incrémente son compteur de victoires
+                        state.players[j].victoryCount++;
+                        break;
+                    }
+                } while(state.players[j].score < state.players[j].goal);
+                
+                //c'est au tour du prochain joueur
+                state.currentPlayer = &players[j + 1];
+                
+                //on remet à zéro le plateau
+                resetMap(&state);
+                
+                //on met à jour l'affichage après chaque tour
+                refreshGameDisplay(&state);
             }
             
-            //si on a appuyé sur "echap" ou un truc du genre
-            if(direction == -1) return 1;
-            
-            //on déplace le robot dans cette direction
-            moveCurrentRobotWhilePossible(&newGame, direction);
-            
-            //on met à jour l'affichage après chaque tour
-            refreshGameDisplay(&newGame);
+            //hop, on fait réapparaitre le curseur
+            curs_set(1);
         }
         
-        //fin du jeu !
-        
-        //hop, on fait réapparaitre le curseur
-        curs_set(1);
-        
         //un joueur est arrivé sur l'objectif, fin du jeu
-        displayGameEnding(&newGame);
+        displayGameEnding(&state);
     } else {
         refresh();
         return 1;
     }
     
     return 0;
+}
+
+int sortByGoal(Player *a, Player *b) {
+    return (a->goal > b->goal);
 }

@@ -21,6 +21,7 @@ GameBoard getBuiltInBoardAtIndex(int index);
 
 bool areCoordsInList(Coords coords_t[], Coords coords);
 GameBoard getEmptyGameBoard();
+void resetMap(GameState *state);
 
 int askForGameBoard(GameBoard *board);
 
