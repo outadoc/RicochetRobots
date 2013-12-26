@@ -8,9 +8,6 @@
 // Fonctions et structures relatives à la boucle globale
 //
 
-#include <stdio.h>
-#include <unistd.h>
-
 #include "game.h"
 
 //

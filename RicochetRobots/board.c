@@ -8,8 +8,6 @@
 // Fonctions et structures relatives au plateau de jeu
 //
 
-#include <stdio.h>
-
 #include "board.h"
 
 //
