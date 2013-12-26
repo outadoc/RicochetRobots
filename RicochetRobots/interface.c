@@ -419,7 +419,7 @@ void displayScores(GameState *currentGame) {
     
     if(currentGame->playersCount > 1) {
         for(i = 0; i < currentGame->playersCount; i++) {
-            mvwprintw(scoresWin, i + 1, 27, "Score de %s \t: %d", currentGame->players[i].username, currentGame->players[i].score);
+            mvwprintw(scoresWin, i + 1, 27, "Score de %s \t: %d", currentGame->players[i].username, currentGame->players[i].victoryCount);
         }
     }
     

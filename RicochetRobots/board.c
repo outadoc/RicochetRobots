@@ -463,4 +463,8 @@ void resetMap(GameState *state) {
         
         state->robots[i].score = 0;
     }
+    
+    for(i = 0; i < state->playersCount; i++) {
+        state->players[i].score = 0;
+    }
 }

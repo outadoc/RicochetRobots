@@ -172,11 +172,14 @@ int startMultiPlayer() {
             //on tire une couleur de robot au hasard
             //mais on vérifie à chaque fois qu'elle n'ait pas déjà été tirée
             do {
-                int j;
+                int k;
+                
+                isInArray = false;
                 state.robotColorToMove = rand_between(0, ROBOTS_COUNT);
                 
-                for(j = 0; j < i; j++) {
-                    if(state.robotColorToMove == usedColors[j]) {
+                for(k = 0; k < i; k++) {
+                    printw("%d vs %d\n", state.robotColorToMove, usedColors[k]);refresh();
+                    if(state.robotColorToMove == usedColors[k]) {
                         isInArray = true;
                     }
                 }
@@ -194,13 +197,20 @@ int startMultiPlayer() {
             //on fait disparaitre le curseur
             curs_set(0);
             
-            refreshGameDisplay(&state);
-            
             //on trie les joueurs par ordre croissant du nombre de coups prévus
             qsort(state.players, state.playersCount, sizeof(Player), (compfn) sortByGoal);
             
             for(j = 0; j < playersCount; j++) {
                 bool playerWon = false;
+                
+                //c'est au tour du prochain joueur
+                state.currentPlayer = &players[j];
+                
+                //on remet à zéro le plateau
+                resetMap(&state);
+                
+                //on met à jour l'affichage après chaque tour
+                refreshGameDisplay(&state);
                 
                 do {
                     //on demande à l'utilisateur dans quelle direction il veut aller
@@ -219,20 +229,12 @@ int startMultiPlayer() {
                         //yaaay, le joueur a gagné. on incrémente son compteur de victoires
                         state.players[j].victoryCount++;
                         playerWon = true;
+                        break;
                     }
                 } while(state.players[j].score < state.players[j].goal);
                 
                 //si le joueur a gagné, pas la peine de faire jouer les joueurs suivants
                 if(playerWon) break;
-                
-                //c'est au tour du prochain joueur
-                state.currentPlayer = &players[j + 1];
-                
-                //on remet à zéro le plateau
-                resetMap(&state);
-                
-                //on met à jour l'affichage après chaque tour
-                refreshGameDisplay(&state);
             }
             
             //on remet à zéro le plateau
