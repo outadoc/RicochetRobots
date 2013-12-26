@@ -17,5 +17,6 @@ int start();
 int handleMainMenu();
 
 int startSinglePlayer();
+int startMultiPlayer();
 
 #endif

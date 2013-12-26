@@ -34,14 +34,16 @@ int start() {
                     //si on veut quitter le jeu
                     return 0;
                 case 0:
-                    if(startSinglePlayer() == 1) {
+                    if(startSinglePlayer() != 0) {
                         choice = displayMainMenu();
                         retry = true;
                     }
                     break;
                 case 1: {
-                    Player players[ROBOTS_COUNT];
-                    askForPlayersInfo(players);
+                    if(startMultiPlayer() != 0) {
+                        choice = displayMainMenu();
+                        retry = true;
+                    }
                     break;
                 }
                 default:
@@ -82,6 +84,82 @@ int startSinglePlayer() {
         GameState newGame = {
             .turnCount = 0,
             .playersCount = 1,
+            .currentPlayer = &players[0],
+            .players = players,
+            .currentRobot = &robots[0],
+            .robots = robots,
+            .gameBoard = &board
+        };
+        
+        //on met à jour l'affichage une première fois
+        refreshGameDisplay(&newGame);
+        
+        //on fait disparaitre le curseur
+        curs_set(0);
+        
+        //tant qu'aucun robot n'est sur l'objectif
+        while(getRobotOnObjective(&newGame) == NULL) {
+            Direction direction;
+            
+            //on demande à l'utilisateur dans quelle direction il veut aller OU si c'est un bot, on récupère une direction aléatoire
+            if(newGame.currentPlayer->isBot) {
+                direction = getRandomDirection(&newGame);
+            } else {
+                direction = waitForDirection(&newGame);
+            }
+            
+            //si on a appuyé sur "echap" ou un truc du genre
+            if(direction == -1) return 1;
+            
+            //on déplace le robot dans cette direction
+            moveCurrentRobotWhilePossible(&newGame, direction);
+            
+            //on met à jour l'affichage après chaque tour
+            refreshGameDisplay(&newGame);
+        }
+        
+        //fin du jeu !
+        
+        //hop, on fait réapparaitre le curseur
+        curs_set(1);
+        
+        //un joueur est arrivé sur l'objectif, fin du jeu
+        displayGameEnding(&newGame);
+    } else {
+        refresh();
+        return 1;
+    }
+    
+    return 0;
+}
+
+int startMultiPlayer() {
+    GameBoard board;
+    
+    //si askForGameBoard renvoie 0, on est prêts à continuer
+    if(askForGameBoard(&board) == 0) {
+        int i;
+        int playersCount = askForPlayersCount();
+        Player players[playersCount];
+        
+        Robot robots[ROBOTS_COUNT] = {
+            {.robotColor = ROBOT_RED,   .score = 0, .position = board.robotsPos[ROBOT_RED]},
+            {.robotColor = ROBOT_GREEN, .score = 0, .position = board.robotsPos[ROBOT_GREEN]},
+            {.robotColor = ROBOT_BLUE,  .score = 0, .position = board.robotsPos[ROBOT_BLUE]},
+            {.robotColor = ROBOT_GREY,  .score = 0, .position = board.robotsPos[ROBOT_GREY]},
+        };
+
+        for(i = 0; i < playersCount; i++) {
+            players[i].score = 0;
+            players[i].isBot = false;
+        }
+        
+        askForPlayersInfo(players, playersCount);
+        
+        //instanciation du jeu
+        GameState newGame = {
+            .turnCount = 0,
+            .playersCount = playersCount,
             .currentPlayer = &players[0],
             .players = players,
             .currentRobot = &robots[0],

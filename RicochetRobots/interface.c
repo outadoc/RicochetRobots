@@ -174,18 +174,21 @@ bool wantsToReplay(WINDOW *win) {
     }
 }
 
+int askForPlayersCount() {
+    return displayNumberPromptMenu("INITIALISATION MULTIJOUEUR", "Nombre de joueurs ?", 2, MAX_PLAYERS_COUNT);
+}
+
 //
 // Demande le pseudo de chaque joueur, un par un.
+// Retourne le nombre de joueurs
 //
-void askForPlayersInfo(Player players[]) {
+void askForPlayersInfo(Player players[], int playersCount) {
     if(players == NULL) return;
     
     int i;
     
-    for (i = 0; i < ROBOTS_COUNT; i++) {
-        printw("Pseudo du joueur %d : ", i+1);
-        refresh();
-        getstr(players[i].username);
+    for (i = 0; i < playersCount; i++) {
+        displayTextPromptMenu("PSEUDOS DES JOUEURS", "Pseudo du joueur", players[i].username, MAX_USERNAME_SIZE);
     }
 }
 

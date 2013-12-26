@@ -43,7 +43,8 @@ void displayGameBoard(GameState *state);
 void displayGameStatus(GameState *currentGame);
 void refreshGameDisplay(GameState *currentGame);
 
-void askForPlayersInfo(Player players[]);
+int askForPlayersCount();
+void askForPlayersInfo(Player players[], int playersCount);
 void askForSinglePlayerUsername(Player robots[]);
 void askForLevelPath(char path[]);
 void displayLevelLoadingError(char message[]);
