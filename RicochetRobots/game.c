@@ -74,7 +74,7 @@ int startSinglePlayer() {
         };
         
         Player players[] = {
-            {.score = 0, .isBot = false}
+            {.score = 0}
         };
         
         //on demande le pseudo du joueur
@@ -147,7 +147,6 @@ int startMultiPlayer() {
 
         for(i = 0; i < playersCount; i++) {
             players[i].score = 0;
-            players[i].isBot = false;
             players[i].victoryCount = 0;
         }
         

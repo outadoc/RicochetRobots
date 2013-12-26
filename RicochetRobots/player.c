@@ -197,13 +197,15 @@ Direction waitForDirection(GameState *state) {
                 break;
         }
         
-    } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP && c != KEY_ESC_ALT);
+    } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP && c != KEY_ESC_ALT && c != 'x' && c != 'X');
     
     switch (c) {
         case KEY_DOWN:      return DIRECTION_DOWN;
         case KEY_LEFT:      return DIRECTION_LEFT;
         case KEY_RIGHT:     return DIRECTION_RIGHT;
         case KEY_UP:        return DIRECTION_UP;
+        case 'x':
+        case 'X':           return getRandomDirection(state);
         case KEY_ESC_ALT:   return -1;
     }
     
