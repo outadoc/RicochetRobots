@@ -44,7 +44,7 @@ int displayMainMenu() {
         "Quitter"
     };
     
-    return displayMenu(choices, ARRAY_SIZE(choices), "MENU PRINCIPAL");
+    return displayMenu(choices, ARRAY_SIZE(choices), "MENU PRINCIPAL", true);
 }
 
 //
@@ -59,7 +59,7 @@ int displayGameBoardSelectionMenu() {
         "Retour au menu principal"
     };
     
-    return displayMenu(choices, ARRAY_SIZE(choices), "CHOIX DU PLATEAU");
+    return displayMenu(choices, ARRAY_SIZE(choices), "CHOIX DU PLATEAU", false);
 }
 
 //
@@ -77,7 +77,7 @@ int displayGameBoardList() {
     }
     
     //on affiche le menu
-    choice = displayMenu(choices, BUILTIN_BOARDS_COUNT, "PLATEAU PREDEFINI...");
+    choice = displayMenu(choices, BUILTIN_BOARDS_COUNT, "PLATEAU PREDEFINI...", false);
     
     for(i = 0; i < BUILTIN_BOARDS_COUNT; i++) {
         //on libère la mémoire
@@ -95,27 +95,7 @@ void displayGameEnding(GameState *state) {
     
     int i;
     
-    int winHeight = 15;
-    int winWidth = 70;
-    
-    //on centre la fenêtre
-    int starty = (LINES - winHeight) / 2;
-	int startx = (COLS - winWidth) / 2;
-    
-    WINDOW *win = newwin(winHeight, winWidth, starty, startx);
-    
-	//on affiche une bordure autour de la fenêtre
-    box(win, 0, 0);
-    
-    wattron(win, A_UNDERLINE);
-    //on affiche un titre
-    displayInCenter(win, 1, 0, winWidth, "PARTIE TERMINEE");
-    wattroff(win, A_UNDERLINE);
-    
-    //bordure du titre
-    mvwaddch(win, 2, 0, ACS_LTEE);
-    mvwhline(win, 2, 1, ACS_HLINE, winWidth - 1);
-    mvwaddch(win, 2, winWidth - 1, ACS_RTEE);
+    WINDOW *win = getMenuWindowNoLogo(11, "PARTIE TERMINEE");
     
     mvwprintw(win, 3, 2, "Gagnant : %s a déplacé le robot ", state->currentPlayer->username);
     
@@ -442,7 +422,7 @@ void displayInCenter(WINDOW *win, int starty, int startx, int width, char *strin
 //
 // Affiche une fenêtre de menu.
 //
-int displayMenu(char **choices, int nbChoices, char title[]) {
+int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
     //variables pour l'affichage du menu
     ITEM **menuItems = NULL;
     MENU *menu = NULL;
@@ -468,7 +448,7 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     
     //on initialise le menu
     menu = new_menu((ITEM **) menuItems);
-    menuWin = getMenuWindow(nbChoices, title);
+    menuWin = (logo) ? getMenuWindow(nbChoices, title) : getMenuWindowNoLogo(nbChoices, title);
     
     //on lui précise bien que le menu fait N lignes et 1 colonne
     set_menu_format(menu, nbChoices, 1);
@@ -476,7 +456,7 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
     //on associe le menu à une fenêtre et une sous-fenêtre
     set_menu_win(menu, menuWin);
     //fenêtre hauteur largeur x y
-    set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, 15, (winWidth - menuWidth) / 2));
+    set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, (logo) ? 15 : 4, (winWidth - menuWidth) / 2));
     
     set_menu_mark(menu, "> ");
     
@@ -531,7 +511,7 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
 //
 void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n) {
     //variables pour l'affichage du menu
-    WINDOW *menuWin = getMenuWindow(1, title);;
+    WINDOW *menuWin = getMenuWindowNoLogo(1, title);
     mvwprintw(menuWin, WIN_TOP_MARGIN + 2, 2, "%s", fieldTitle);
     
     wrefresh(menuWin);
@@ -551,7 +531,7 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max) {
     
     do {
         //variables pour l'affichage du menu
-        WINDOW *menuWin = getMenuWindow(1, title);;
+        WINDOW *menuWin = getMenuWindowNoLogo(1, title);
         mvwprintw(menuWin, WIN_TOP_MARGIN + 2, 2, "%s", fieldTitle);
         
         wrefresh(menuWin);
@@ -600,6 +580,33 @@ WINDOW* getMenuWindow(int contentHeight, char title[]) {
     mvwaddch(win, 13, winWidth - 1, ACS_RTEE);
     
     mvprintw(LINES - 1, COLS - 32, "© 2013-2014 Baptiste Candellier");
+    
+    return win;
+}
+
+WINDOW* getMenuWindowNoLogo(int contentHeight, char title[]) {
+    //hauteur = nombre de choix possibles + 15 (pour le logo)
+    int winHeight = contentHeight + 6;
+    int winWidth = 70;
+    
+    //on centre le menu
+    int starty = (LINES - winHeight) / 2;
+	int startx = (COLS - winWidth) / 2;
+    
+    WINDOW *win = newwin(winHeight, winWidth, starty, startx);
+    
+	//on affiche une bordure autour de la fenêtre
+    box(win, 0, 0);
+    
+    wattron(win, A_UNDERLINE);
+    //on affiche un titre
+    displayInCenter(win, 1, 0, winWidth, title);
+    wattroff(win, A_UNDERLINE);
+    
+    //bordure du titre
+    mvwaddch(win, 2, 0, ACS_LTEE);
+    mvwhline(win, 2, 1, ACS_HLINE, winWidth - 1);
+    mvwaddch(win, 2, winWidth - 1, ACS_RTEE);
     
     return win;
 }

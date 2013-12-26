@@ -50,8 +50,11 @@ void askForLevelPath(char path[]);
 void displayLevelLoadingError(char message[]);
 
 void displayInCenter(WINDOW *win, int starty, int startx, int width, char *string);
-int displayMenu(char **choices, int nbChoices, char title[]);
+int displayMenu(char **choices, int nbChoices, char title[], bool logo);
+
 WINDOW* getMenuWindow(int contentHeight, char title[]);
+WINDOW* getMenuWindowNoLogo(int contentHeight, char title[]);
+
 void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n);
 int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max);
 
