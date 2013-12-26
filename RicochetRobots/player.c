@@ -198,21 +198,11 @@ Direction waitForDirection(GameState *state) {
     } while(c != KEY_DOWN && c != KEY_LEFT && c != KEY_RIGHT && c != KEY_UP && c != KEY_ESC_ALT);
     
     switch (c) {
-        case KEY_DOWN:
-            return DIRECTION_DOWN;
-            break;
-        case KEY_LEFT:
-            return DIRECTION_LEFT;
-            break;
-        case KEY_RIGHT:
-            return DIRECTION_RIGHT;
-            break;
-        case KEY_UP:
-            return DIRECTION_UP;
-            break;
-        case KEY_ESC_ALT:
-            return -1;
-            break;
+        case KEY_DOWN:      return DIRECTION_DOWN;
+        case KEY_LEFT:      return DIRECTION_LEFT;
+        case KEY_RIGHT:     return DIRECTION_RIGHT;
+        case KEY_UP:        return DIRECTION_UP;
+        case KEY_ESC_ALT:   return -1;
     }
     
     return 0;
@@ -223,21 +213,11 @@ Direction waitForDirection(GameState *state) {
 //
 char* getRobotStringColor(int color) {
     switch (color) {
-        case ROBOT_RED:
-            return "ROUGE";
-            break;
-        case ROBOT_GREEN:
-            return "VERT";
-            break;
-        case ROBOT_BLUE:
-            return "BLEU";
-            break;
-        case ROBOT_GREY:
-            return "GRIS";
-            break;
-        default:
-            return "inconnu";
-            break;
+        case ROBOT_RED:     return "ROUGE";
+        case ROBOT_GREEN:   return "VERT";
+        case ROBOT_BLUE:    return "BLEU";
+        case ROBOT_GREY:    return "GRIS";
+        default:            return "inconnu";
     }
 }
 
@@ -246,21 +226,11 @@ char* getRobotStringColor(int color) {
 //
 int getBGColorPairFromRobotColor(int color) {
     switch (color) {
-        case ROBOT_RED:
-            return 1;
-            break;
-        case ROBOT_GREEN:
-            return 2;
-            break;
-        case ROBOT_BLUE:
-            return 3;
-            break;
-        case ROBOT_GREY:
-            return 4;
-            break;
-        default:
-            return -1;
-            break;
+        case ROBOT_RED:     return 1;
+        case ROBOT_GREEN:   return 2;
+        case ROBOT_BLUE:    return 3;
+        case ROBOT_GREY:    return 4;
+        default:            return -1;
     }
 }
 

@@ -82,9 +82,9 @@ typedef struct {
 
 //structure pour décrire les joueurs
 typedef struct {
-    char username[MAX_USERNAME_SIZE];
     int score;
     bool isBot;
+    char username[MAX_USERNAME_SIZE];
 } Player;
 
 typedef struct {
@@ -108,14 +108,9 @@ typedef struct {
     //joueur courant
     Player* currentPlayer;
     Player* players;
-    
     Robot* currentRobot;
     Robot* robots;
-    
     GameBoard* gameBoard;
-    
-    //position actuelle des robots
-    char currRobotsPos[BOARD_SIZE][BOARD_SIZE];
 } GameState;
 
 #endif

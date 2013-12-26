@@ -505,7 +505,6 @@ int displayMenu(char **choices, int nbChoices, char title[]) {
                 curs_set(1);
                 
                 return choice;
-                break;
             }
         }
         

@@ -33,7 +33,6 @@ int start() {
                 case 2:
                     //si on veut quitter le jeu
                     return 0;
-                    break;
                 case 0:
                     if(startSinglePlayer() == 1) {
                         choice = displayMainMenu();

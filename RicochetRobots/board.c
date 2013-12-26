@@ -182,17 +182,14 @@ int askForGameBoard(GameBoard *board) {
             char path[MAX_LVL_PATH_SIZE];
             askForLevelPath(path);
             return loadBoardFromFile(board, path);
-            break;
         }
         case 2: {
             getRandomBoard(board);
             return 0;
-            break;
         }
         case 3:
         default:
             return 1;
-            break;
     }
     
     return 0;
@@ -268,7 +265,6 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
                         displayLevelLoadingError(err);
                         
                         return 1;
-                        break;
                     }
                 }
                 
