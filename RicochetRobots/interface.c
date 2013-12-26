@@ -640,6 +640,8 @@ void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n
         
         mvwgetnstr(menuWin, 4, (int) strlen(fieldTitle) + 3, result, n);
         
+        wclear(menuWin);
+        wrefresh(menuWin);
         delwin(menuWin);
     } while(strlen(result) < 1);
 }
@@ -662,6 +664,7 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, i
         mvwscanw(menuWin, 4, (int) strlen(fieldTitle) + 3, "%d", &n);
         
         wclear(menuWin);
+        wrefresh(menuWin);
         delwin(menuWin);
     } while(n < min || n > max);
     
