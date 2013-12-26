@@ -14,7 +14,7 @@
 #include "interface.h"
 
 //
-// Affiche le logo du jeu sur la sortie standard.
+// Affiche le logo du jeu sur la fenêtre en paramètre.
 //
 void displayLogo(WINDOW *win, int width) {
     //on affiche chaque ligne du logo sur la WINDOW spécifiée
@@ -34,7 +34,7 @@ void displayLogo(WINDOW *win, int width) {
 }
 
 //
-// Affiche le menu principal du jeu sur la sortie standard.
+// Affiche le menu principal du jeu sur l'écran.
 // Si error vaut true, on affiche une erreur à la place du menu.
 //
 int displayMainMenu() {
@@ -48,7 +48,7 @@ int displayMainMenu() {
 }
 
 //
-// Affiche le menu de sélection du plateau de jeu sur la sortie standard.
+// Affiche le menu de sélection du plateau de jeu sur l'écran.
 // Si error vaut true, on affiche une erreur à la place du menu.
 //
 int displayGameBoardSelectionMenu() {
@@ -88,7 +88,7 @@ int displayGameBoardList() {
 }
 
 //
-// Affiche le tableau de scores de fin de jeu sur la sortie standard.
+// Affiche le tableau de scores de fin de jeu sur l'écran.
 //
 void displaySoloGameEnding(GameState *state) {
     if(state == NULL) return;
@@ -129,7 +129,7 @@ void displaySoloGameEnding(GameState *state) {
 }
 
 //
-// Affiche le tableau de scores de fin de jeu sur la sortie standard.
+// Affiche le tableau de scores de fin de jeu sur l'écran.
 //
 void displayMultiGameEnding(GameState *state) {
     if(state == NULL) return;
