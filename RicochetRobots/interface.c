@@ -142,7 +142,7 @@ void displayMultiGameEnding(GameState *state) {
         strcpy(winner, "PERSONNE !");
     } else if(state->players[0].victoryCount == state->players[1].victoryCount) {
         //si le score du premier est celui du deuxième, il y a égalité
-        strcpy(winner, "ÉGALITÉ");
+        strcpy(winner, "ÉGALITÉ !");
     } else {
         strcpy(winner, state->players[0].username);
     }
@@ -530,6 +530,7 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
     //fenêtre hauteur largeur x y
     set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, (logo) ? 15 : 4, (winWidth - menuWidth) / 2));
     
+    menu_opts_off(menu, O_NONCYCLIC);
     set_menu_mark(menu, "> ");
     
     //et hop, on affiche le menu et on rafraîchit.
