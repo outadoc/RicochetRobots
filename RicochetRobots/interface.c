@@ -95,7 +95,7 @@ void displaySoloGameEnding(GameState *state) {
     
     int i;
     
-    WINDOW *win = getMenuWindowNoLogo(11, "PARTIE TERMINEE", -1, -1);
+    WINDOW *win = getMenuWindowNoLogo(ROBOTS_COUNT + 4, "PARTIE TERMINEE", -1, -1);
     
     mvwprintw(win, 3, 2, "Gagnant : %s a déplacé le robot ", state->currentPlayer->username);
     
