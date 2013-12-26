@@ -200,6 +200,8 @@ int startMultiPlayer() {
             qsort(state.players, state.playersCount, sizeof(Player), (compfn) sortByGoal);
             
             for(j = 0; j < playersCount; j++) {
+                bool playerWon = false;
+                
                 do {
                     //on demande à l'utilisateur dans quelle direction il veut aller
                     Direction direction = waitForDirection(&state);
@@ -216,9 +218,12 @@ int startMultiPlayer() {
                     if(isRobotOnObjective(&state.robots[state.robotColorToMove], state.gameBoard)) {
                         //yaaay, le joueur a gagné. on incrémente son compteur de victoires
                         state.players[j].victoryCount++;
-                        break;
+                        playerWon = true;
                     }
                 } while(state.players[j].score < state.players[j].goal);
+                
+                //si le joueur a gagné, pas la peine de faire jouer les joueurs suivants
+                if(playerWon) break;
                 
                 //c'est au tour du prochain joueur
                 state.currentPlayer = &players[j + 1];
@@ -229,6 +234,9 @@ int startMultiPlayer() {
                 //on met à jour l'affichage après chaque tour
                 refreshGameDisplay(&state);
             }
+            
+            //on remet à zéro le plateau
+            resetMap(&state);
             
             //hop, on fait réapparaitre le curseur
             curs_set(1);
