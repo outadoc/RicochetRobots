@@ -107,11 +107,11 @@ bool moveCurrentRobot(GameState *state, Direction direction) {
                 break;
         }
         
-        //on endort le programme pendant 100 millisecondes
-        usleep(100 * 1000);
-        
         //on affiche le plateau de jeu à chaque déplacement d'une case
         displayGameBoard(state);
+        
+        //on endort le programme pendant 100 millisecondes
+        usleep(100 * 1000);
         
         return true;
     }
@@ -142,9 +142,6 @@ void moveCurrentRobotWhilePossible(GameState *state, Direction direction) {
 // Retourne une direction aléatoire.
 //
 Direction getRandomDirection(GameState *state) {
-    //repos de 1 seconde avant le déplacement
-    usleep(1000 * 1000);
-    
     int dir = 0;
     
     //tant qu'il y a un obstacle dans la direction choisie aléatoirement
