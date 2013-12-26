@@ -108,6 +108,7 @@ typedef struct {
     int turnCount;
     //nombre de joueurs
     int playersCount;
+    int robotColorToMove;
     
     Player* currentPlayer;
     Player* players;

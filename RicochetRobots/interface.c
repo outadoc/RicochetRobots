@@ -158,14 +158,17 @@ int askForPlayersCount() {
     return displayNumberPromptMenu("INITIALISATION MULTIJOUEUR", "Nombre de joueurs :", 2, MAX_PLAYERS_COUNT, -1, -1);
 }
 
-void askForScoreGoals(Player players[], int n) {
+void askForScoreGoals(GameState *state) {
     int i;
     
-    for(i = 0; i < n; i++) {
+    for(i = 0; i < state->playersCount; i++) {
         char str[MAX_USERNAME_SIZE + 30];
-        sprintf(str, "Nombre de coups prévus pour %s :", players[i].username);
+        char title[50];
         
-        players[i].goal = displayNumberPromptMenu("PREVISIONS", str, 1, 999, -1, COLS - POPUP_WINDOW_WIDTH - 1);
+        sprintf(str, "Nombre de coups prévus pour %s :", state->players[i].username);
+        sprintf(title, "PREVISIONS POUR DEPLACER LE ROBOT %s", getRobotStringColor(state->robotColorToMove));
+        
+        state->players[i].goal = displayNumberPromptMenu(title, str, 1, 999, -1, COLS - POPUP_WINDOW_WIDTH - 1);
     }
 }
 
@@ -560,6 +563,7 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, i
         
         mvwscanw(menuWin, 4, (int) strlen(fieldTitle) + 3, "%d", &n);
         
+        wclear(menuWin);
         delwin(menuWin);
     } while(n < min || n > max);
     

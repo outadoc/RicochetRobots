@@ -97,8 +97,8 @@ int startSinglePlayer() {
         //on fait disparaitre le curseur
         curs_set(0);
         
-        //tant qu'aucun robot n'est sur l'objectif
-        while(getRobotOnObjective(&newGame) == NULL) {
+        //pour l'instant on va faire une jolie boucle infinie, hein
+        while(true) {
             Direction direction;
             
             //on demande à l'utilisateur dans quelle direction il veut aller OU si c'est un bot, on récupère une direction aléatoire
@@ -165,7 +165,8 @@ int startMultiPlayer() {
             .players = players,
             .currentRobot = &robots[0],
             .robots = robots,
-            .gameBoard = &board
+            .gameBoard = &board,
+            .robotColorToMove = rand_between(0, ROBOTS_COUNT)
         };
         
         //on affiche le plateau pour que les joueurs puissent faire leurs prévisions
@@ -173,13 +174,15 @@ int startMultiPlayer() {
         displayGameBoard(&newGame);
         
         //on leur demande leur prévision
-        askForScoreGoals(players, newGame.playersCount);
+        askForScoreGoals(&newGame);
         
         //on fait disparaitre le curseur
         curs_set(0);
         
-        //tant qu'aucun robot n'est sur l'objectif
-        while(getRobotOnObjective(&newGame) == NULL) {
+        refreshGameDisplay(&newGame);
+        
+        //tant que le robot qu'on veut n'est pas sur un objectif
+        while(!isRobotOnObjective(&robots[newGame.robotColorToMove], newGame.gameBoard)) {
             Direction direction;
             
             //on demande à l'utilisateur dans quelle direction il veut aller OU si c'est un bot, on récupère une direction aléatoire

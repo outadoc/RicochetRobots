@@ -250,28 +250,8 @@ int getColorPairFromRobotColor(int color) {
 bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard) {
     if(robot == NULL || gameBoard == NULL) return false;
     
-    int i;
-    
-    for (i = 0; i < ROBOTS_COUNT; i++) {
-        if(gameBoard->objectivesPos[i].x == robot->position.x
-           && gameBoard->objectivesPos[i].y == robot->position.y) return true;
-    }
+    if(gameBoard->objectivesPos[robot->robotColor].x == robot->position.x
+        && gameBoard->objectivesPos[robot->robotColor].y == robot->position.y) return true;
     
     return false;
-}
-
-//
-// Retourne le joueur qui est sur l'objectif.
-// Retourne NULL si aucun ne l'est.
-//
-Robot* getRobotOnObjective(GameState *state) {
-    if(state == NULL) return NULL;
-    
-    int i;
-    
-    for (i = 0; i < ROBOTS_COUNT; i++) {
-        if(isRobotOnObjective(&state->robots[i], state->gameBoard)) return &state->robots[i];
-    }
-    
-    return NULL;
 }
