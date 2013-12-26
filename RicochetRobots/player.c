@@ -255,3 +255,11 @@ bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard) {
     
     return false;
 }
+
+int sortByGoal(Player *a, Player *b) {
+    return (a->goal > b->goal);
+}
+
+int sortByScore(Player *a, Player *b) {
+    return (a->victoryCount > b->victoryCount);
+}

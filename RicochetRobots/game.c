@@ -118,7 +118,7 @@ int startSinglePlayer() {
         curs_set(1);
         
         //un joueur est arrivé sur l'objectif, fin du jeu
-        displayGameEnding(&state);
+        displaySoloGameEnding(&state);
     } else {
         refresh();
         return 1;
@@ -242,16 +242,14 @@ int startMultiPlayer() {
             curs_set(1);
         }
         
-        //un joueur est arrivé sur l'objectif, fin du jeu
-        displayGameEnding(&state);
+        //fin du jeu
+        //on trie les joueurs par score
+        qsort(state.players, state.playersCount, sizeof(Player), (compfn) sortByScore);
+        displayMultiGameEnding(&state);
     } else {
         refresh();
         return 1;
     }
     
     return 0;
-}
-
-int sortByGoal(Player *a, Player *b) {
-    return (a->goal > b->goal);
 }

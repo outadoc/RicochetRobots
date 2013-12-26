@@ -90,7 +90,7 @@ int displayGameBoardList() {
 //
 // Affiche le tableau de scores de fin de jeu sur la sortie standard.
 //
-void displayGameEnding(GameState *state) {
+void displaySoloGameEnding(GameState *state) {
     if(state == NULL) return;
     
     int i;
@@ -117,6 +117,36 @@ void displayGameEnding(GameState *state) {
     
     //on déplace le curseur pour écrire au bon endroit
     wmove(win, 7 + i + 1, 2);
+    bool replay = wantsToReplay(win);
+    
+    delwin(win);
+    
+    if(!replay) {
+        clear();
+        endwin();
+        exit(EXIT_SUCCESS);
+    }
+}
+
+//
+// Affiche le tableau de scores de fin de jeu sur la sortie standard.
+//
+void displayMultiGameEnding(GameState *state) {
+    if(state == NULL) return;
+    
+    int i;
+    
+    WINDOW *win = getMenuWindowNoLogo(state->playersCount + 6, "PARTIE TERMINEE", -1, -1);
+    
+    //à ce point, les joueurs sont triés par ordre croissant sur victoryCount
+    mvwprintw(win, 3, 2, "Gagnant : %s", state->players[0].username);
+    
+    for(i = 0; i < state->playersCount; i++) {
+        mvwprintw(win, 6 + i, 2, "Score de %s : %d victoires", state->players[i].victoryCount);
+    }
+    
+    //on déplace le curseur pour écrire au bon endroit
+    wmove(win, 6 + i + 1, 2);
     bool replay = wantsToReplay(win);
     
     delwin(win);
@@ -325,7 +355,7 @@ void displayGameBoard(GameState *state) {
 void displayGameStatus(GameState *currentGame) {
     if(currentGame == NULL) return;
     
-    WINDOW *infoWin = newwin(5, SECOND_COL_WIDTH, 12, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *infoWin = newwin((currentGame->playersCount > 1) ? 6 : 5, SECOND_COL_WIDTH, 12, COLS - SECOND_COL_WIDTH - 1);
     box(infoWin, 0, 0);
     
     if(currentGame->playersCount > 1) {
@@ -342,6 +372,15 @@ void displayGameStatus(GameState *currentGame) {
     wprintw(infoWin, "%s", getRobotStringColor(currentGame->currentRobot->robotColor));
     COL_OFF_BOT(infoWin, currentGame->currentRobot->robotColor);
     
+    //si on est en multi, on affiche le robot à déplacer sur l'objectif
+    if(currentGame->playersCount > 1) {
+        mvwprintw(infoWin, 4, 2, "Robot à déplacer \t: ");
+        
+        COL_ON_BOT(infoWin, currentGame->robotColorToMove);
+        wprintw(infoWin, "%s", getRobotStringColor(currentGame->robotColorToMove));
+        COL_OFF_BOT(infoWin, currentGame->robotColorToMove);
+    }
+    
     refresh();
     wrefresh(infoWin);
     delwin(infoWin);
@@ -356,7 +395,7 @@ void displayScores(GameState *currentGame) {
     int i;
     int height = (currentGame->playersCount > ROBOTS_COUNT) ? currentGame->playersCount + 2 : ROBOTS_COUNT + 2;
     
-    WINDOW *scoresWin = newwin(height, SECOND_COL_WIDTH, 17, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *scoresWin = newwin(height, SECOND_COL_WIDTH, (currentGame->playersCount > 1) ? 18 : 17, COLS - SECOND_COL_WIDTH - 1);
     box(scoresWin, 0, 0);
     
     for(i = 0; i < ROBOTS_COUNT; i++) {

@@ -39,7 +39,8 @@ bool wantsToReplay(WINDOW *win);
 void listBuiltInBoards();
 void displayLogo(WINDOW *win, int width);
 void clearScreen();
-void displayGameEnding(GameState *state);
+void displaySoloGameEnding(GameState *state);
+void displayMultiGameEnding(GameState *state);
 
 void displayGameBoard(GameState *state);
 void displayGameStatus(GameState *currentGame);

@@ -28,4 +28,7 @@ char* getRobotStringColor(int color);
 int getColorPairFromRobotColor(int color);
 int getBGColorPairFromRobotColor(int color);
 
+int sortByGoal(Player *a, Player *b);
+int sortByScore(Player *a, Player *b);
+
 #endif

@@ -22,6 +22,4 @@ int handleMainMenu();
 int startSinglePlayer();
 int startMultiPlayer();
 
-int sortByGoal(Player *a, Player *b);
-
 #endif
