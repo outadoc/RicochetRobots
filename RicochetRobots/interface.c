@@ -17,6 +17,8 @@
 // Affiche le logo du jeu sur la fenêtre en paramètre.
 //
 void displayLogo(WINDOW *win, int width) {
+    if(win == NULL || width < 0) return;
+    
     //on affiche chaque ligne du logo sur la WINDOW spécifiée
     //ça rend pas super dans le code, mais il faut jouer avec les espaces blancs et le décalage à gauche pour affiche correctement
     displayInCenter(win, 1, 4, width, "____  ______________  ________  ______________");
@@ -161,6 +163,8 @@ void displayMultiGameEnding(GameState *state) {
 // Demande à l'utilisateur s'il souhaite rejouer.
 //
 bool wantsToReplay(WINDOW *win, int top) {
+    if(win == NULL || top < 0) return false;
+    
     //variables pour l'affichage du menu
     ITEM **menuItems = NULL;
     MENU *menu = NULL;
@@ -253,6 +257,8 @@ int askForPlayersCount() {
 // Demande à chaque joueur son objectif de coups et les stocke dans l'état du jeu.
 //
 void askForScoreGoals(GameState *state) {
+    if(state == NULL) return;
+    
     int i;
     
     for(i = 0; i < state->playersCount; i++) {
@@ -271,7 +277,7 @@ void askForScoreGoals(GameState *state) {
 // Retourne le nombre de joueurs
 //
 void askForPlayersInfo(Player players[], int playersCount) {
-    if(players == NULL) return;
+    if(players == NULL || playersCount < 0 || playersCount > MAX_PLAYERS_COUNT) return;
     
     int i;
     
@@ -306,6 +312,8 @@ void askForLevelPath(char path[]) {
 // Attend que l'utilisateur appuie sur une touche.
 //
 void displayLevelLoadingError(char message[]) {
+    if(message == NULL) return;
+    
     clear();
     printw("Erreur de chargement: %s\n", message);
     refresh();
@@ -420,33 +428,33 @@ void displayGameBoard(GameState *state) {
 //
 // Affiche des infos sur le jeu en cours.
 //
-void displayGameStatus(GameState *currentGame) {
-    if(currentGame == NULL) return;
+void displayGameStatus(GameState *state) {
+    if(state == NULL) return;
     
-    WINDOW *infoWin = newwin((currentGame->playersCount > 1) ? 6 : 5, SECOND_COL_WIDTH, 13, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *infoWin = newwin((state->playersCount > 1) ? 6 : 5, SECOND_COL_WIDTH, 13, COLS - SECOND_COL_WIDTH - 1);
     box(infoWin, 0, 0);
     
-    if(currentGame->playersCount > 1) {
+    if(state->playersCount > 1) {
         //si on est en multijoueur
-        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d / %d\n", currentGame->currentPlayer->score, currentGame->currentPlayer->goal);
+        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d / %d\n", state->currentPlayer->score, state->currentPlayer->goal);
     } else {
-        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d\n", currentGame->currentPlayer->score);
+        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d\n", state->currentPlayer->score);
     }
     
-    mvwprintw(infoWin, 2, 2, "Joueur actuel \t: %s", currentGame->currentPlayer->username);
+    mvwprintw(infoWin, 2, 2, "Joueur actuel \t: %s", state->currentPlayer->username);
     mvwprintw(infoWin, 3, 2, "Robot actuel \t\t: ");
     
-    COL_ON_BOT(infoWin, currentGame->currentRobot->robotColor);
-    wprintw(infoWin, "%s", getRobotStringColor(currentGame->currentRobot->robotColor));
-    COL_OFF_BOT(infoWin, currentGame->currentRobot->robotColor);
+    COL_ON_BOT(infoWin, state->currentRobot->robotColor);
+    wprintw(infoWin, "%s", getRobotStringColor(state->currentRobot->robotColor));
+    COL_OFF_BOT(infoWin, state->currentRobot->robotColor);
     
     //si on est en multi, on affiche le robot à déplacer sur l'objectif
-    if(currentGame->playersCount > 1) {
+    if(state->playersCount > 1) {
         mvwprintw(infoWin, 4, 2, "Robot à déplacer \t: ");
         
-        COL_ON_BOT(infoWin, currentGame->robotColorToMove);
-        wprintw(infoWin, "%s", getRobotStringColor(currentGame->robotColorToMove));
-        COL_OFF_BOT(infoWin, currentGame->robotColorToMove);
+        COL_ON_BOT(infoWin, state->robotColorToMove);
+        wprintw(infoWin, "%s", getRobotStringColor(state->robotColorToMove));
+        COL_OFF_BOT(infoWin, state->robotColorToMove);
     }
     
     refresh();
@@ -457,26 +465,26 @@ void displayGameStatus(GameState *currentGame) {
 //
 // Affiche les scores du jeu en cours.
 //
-void displayScores(GameState *currentGame) {
-    if(currentGame == NULL) return;
+void displayScores(GameState *state) {
+    if(state == NULL) return;
     
     int i;
-    int height = (currentGame->playersCount > ROBOTS_COUNT) ? currentGame->playersCount + 2 : ROBOTS_COUNT + 2;
+    int height = (state->playersCount > ROBOTS_COUNT) ? state->playersCount + 2 : ROBOTS_COUNT + 2;
     
-    WINDOW *scoresWin = newwin(height, SECOND_COL_WIDTH, (currentGame->playersCount > 1) ? 19 : 18, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *scoresWin = newwin(height, SECOND_COL_WIDTH, (state->playersCount > 1) ? 19 : 18, COLS - SECOND_COL_WIDTH - 1);
     box(scoresWin, 0, 0);
     
     for(i = 0; i < ROBOTS_COUNT; i++) {
         mvwprintw(scoresWin, i + 1, 2, "Score de ");
-        COL_ON_BOT(scoresWin, currentGame->robots[i].robotColor);
-        wprintw(scoresWin, "%s", getRobotStringColor(currentGame->robots[i].robotColor));
-        COL_OFF_BOT(scoresWin, currentGame->robots[i].robotColor);
-        wprintw(scoresWin, " \t: %d", currentGame->robots[i].score);
+        COL_ON_BOT(scoresWin, state->robots[i].robotColor);
+        wprintw(scoresWin, "%s", getRobotStringColor(state->robots[i].robotColor));
+        COL_OFF_BOT(scoresWin, state->robots[i].robotColor);
+        wprintw(scoresWin, " \t: %d", state->robots[i].score);
     }
     
-    if(currentGame->playersCount > 1) {
-        for(i = 0; i < currentGame->playersCount; i++) {
-            mvwprintw(scoresWin, i + 1, 27, "Score de %s \t: %d", currentGame->players[i].username, currentGame->players[i].victoryCount);
+    if(state->playersCount > 1) {
+        for(i = 0; i < state->playersCount; i++) {
+            mvwprintw(scoresWin, i + 1, 27, "Score de %s \t: %d", state->players[i].username, state->players[i].victoryCount);
         }
     }
     
@@ -518,14 +526,14 @@ void displayCommands() {
 // Rafraîchit l'affichage pendant une partie.
 // Affiche le plateau de jeu, ainsi qu'un résumé des informations sur la partie en cours.
 //
-void refreshGameDisplay(GameState *currentGame) {
-    if(currentGame == NULL) return;
+void refreshGameDisplay(GameState *state) {
+    if(state == NULL) return;
     
     clear();
     
-    displayGameBoard(currentGame);
-    displayGameStatus(currentGame);
-    displayScores(currentGame);
+    displayGameBoard(state);
+    displayGameStatus(state);
+    displayScores(state);
     displayCommands();
 }
 
@@ -553,6 +561,8 @@ void displayInCenter(WINDOW *win, int starty, int startx, int width, char *strin
 // Affiche une fenêtre de menu.
 //
 int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
+    if(choices == NULL || nbChoices < 1) return -1;
+    
     //variables pour l'affichage du menu
     ITEM **menuItems = NULL;
     MENU *menu = NULL;
@@ -641,6 +651,8 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
 // Ex: demande du pseudo.
 //
 void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n, int yPos, int xPos) {
+    if(result == NULL || n < 0) return;
+    
     do {
         //variables pour l'affichage du menu
         WINDOW *menuWin = getMenuWindowNoLogo(1, title, yPos, xPos);
@@ -686,6 +698,8 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, i
 // Retourne une fenêtre générique avec le logo du jeu.
 //
 WINDOW* getMenuWindow(int contentHeight, char title[]) {
+    if(contentHeight < 0) return NULL;
+    
     //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = contentHeight + WIN_LOGO_TOP_MARGIN + 4;
     int winWidth = POPUP_WINDOW_WIDTH + 10;
@@ -725,6 +739,8 @@ WINDOW* getMenuWindow(int contentHeight, char title[]) {
 // Retourne une fenêtre popup générique, sans le logo du jeu.
 //
 WINDOW* getMenuWindowNoLogo(int contentHeight, char title[], int yPos, int xPos) {
+    if(contentHeight < 0) return NULL;
+    
     //hauteur = nombre de choix possibles + 15 (pour le logo)
     int winHeight = contentHeight + 6;
     int winWidth = POPUP_WINDOW_WIDTH;

@@ -46,8 +46,8 @@ void displaySoloGameEnding(GameState *state);
 void displayMultiGameEnding(GameState *state);
 
 void displayGameBoard(GameState *state);
-void displayGameStatus(GameState *currentGame);
-void refreshGameDisplay(GameState *currentGame);
+void displayGameStatus(GameState *state);
+void refreshGameDisplay(GameState *state);
 
 int askForPlayersCount();
 void askForPlayersInfo(Player players[], int playersCount);
