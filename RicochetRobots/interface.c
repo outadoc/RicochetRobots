@@ -158,6 +158,14 @@ int askForPlayersCount() {
     return displayNumberPromptMenu("INITIALISATION MULTIJOUEUR", "Nombre de joueurs ?", 2, MAX_PLAYERS_COUNT);
 }
 
+void askForScoreGoals(Player players[], int n) {
+    int i;
+    
+    for(i = 0; i < n; i++) {
+        players[i].goal = displayNumberPromptMenu("PREVISIONS", "Nombre de coups prévus :", 1, 999);
+    }
+}
+
 //
 // Demande le pseudo de chaque joueur, un par un.
 // Retourne le nombre de joueurs

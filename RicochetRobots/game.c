@@ -170,13 +170,10 @@ int startMultiPlayer() {
         
         //on met à jour l'affichage une première fois
         refreshGameDisplay(&newGame);
+        askForScoreGoals(players, newGame.playersCount);
         
         //on fait disparaitre le curseur
         curs_set(0);
-        
-        for(i = 0; i < playersCount; i++) {
-            displayNumberPromptMenu("PREVISIONS", "Nombre de coups prévus :", 1, 999);
-        }
         
         //tant qu'aucun robot n'est sur l'objectif
         while(getRobotOnObjective(&newGame) == NULL) {

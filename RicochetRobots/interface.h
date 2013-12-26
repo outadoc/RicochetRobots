@@ -45,6 +45,8 @@ void refreshGameDisplay(GameState *currentGame);
 
 int askForPlayersCount();
 void askForPlayersInfo(Player players[], int playersCount);
+void askForScoreGoals(Player players[], int n);
+
 void askForSinglePlayerUsername(Player robots[]);
 void askForLevelPath(char path[]);
 void displayLevelLoadingError(char message[]);
