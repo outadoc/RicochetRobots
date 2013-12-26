@@ -264,13 +264,13 @@ bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard) {
 // Retourne le joueur qui est sur l'objectif.
 // Retourne NULL si aucun ne l'est.
 //
-Player* getRobotOnObjective(GameState *state) {
+Robot* getRobotOnObjective(GameState *state) {
     if(state == NULL) return NULL;
     
     int i;
     
     for (i = 0; i < ROBOTS_COUNT; i++) {
-        if(isRobotOnObjective(&state->robots[i], state->gameBoard)) return &state->players[i];
+        if(isRobotOnObjective(&state->robots[i], state->gameBoard)) return &state->robots[i];
     }
     
     return NULL;
