@@ -34,7 +34,7 @@ int displayMainMenu();
 int displayGameBoardSelectionMenu();
 int displayGameBoardList();
 
-bool wantsToReplay(WINDOW *win);
+bool wantsToReplay(WINDOW *win, int top);
 
 void listBuiltInBoards();
 void displayLogo(WINDOW *win, int width);

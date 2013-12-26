@@ -96,28 +96,18 @@ void displaySoloGameEnding(GameState *state) {
     int i;
     
     WINDOW *win = getMenuWindowNoLogo(ROBOTS_COUNT + 4, "PARTIE TERMINEE", -1, -1);
-    
-    mvwprintw(win, 3, 2, "Gagnant : %s a déplacé le robot ", state->currentPlayer->username);
-    
-    COL_ON_BOT(win, state->currentRobot->robotColor);
-    wprintw(win, "%s", getRobotStringColor(state->currentRobot->robotColor));
-    COL_OFF_BOT(win, state->currentRobot->robotColor);
-    
-    wprintw(win, " sur l'objectif");
-    
-    mvwprintw(win, 5, 2, "Score total : %d coups", state->turnCount);
+
+    mvwprintw(win, 4, 2, "Score total : %d coups", state->turnCount);
     
     for(i = 0; i < ROBOTS_COUNT; i++) {
-        mvwprintw(win, 7 + i, 2, "Score de ");
+        mvwprintw(win, 6 + i, 2, "Score de ");
         COL_ON_BOT(win, state->robots[i].robotColor);
         wprintw(win, "%s", getRobotStringColor(state->robots[i].robotColor));
         COL_OFF_BOT(win, state->robots[i].robotColor);
         wprintw(win, " : %d coups", state->robots[i].score);
     }
     
-    //on déplace le curseur pour écrire au bon endroit
-    wmove(win, 7 + i + 1, 2);
-    bool replay = wantsToReplay(win);
+    bool replay = wantsToReplay(win, 7 + ROBOTS_COUNT);
     
     delwin(win);
     
@@ -156,9 +146,7 @@ void displayMultiGameEnding(GameState *state) {
         mvwprintw(win, 6 + i, 2, "Score de %s \t: %d victoires", state->players[i].username, state->players[i].victoryCount);
     }
     
-    //on déplace le curseur pour écrire au bon endroit
-    wmove(win, 6 + i + 1, 2);
-    bool replay = wantsToReplay(win);
+    bool replay = wantsToReplay(win, i + 7);
     
     delwin(win);
     
@@ -172,27 +160,80 @@ void displayMultiGameEnding(GameState *state) {
 //
 // Demande à l'utilisateur s'il souhaite rejouer.
 //
-bool wantsToReplay(WINDOW *win) {
-    char answer = '\0';
-        
-    wprintw(win, "Voulez-vous rejouer ? (O/n) ");
+bool wantsToReplay(WINDOW *win, int top) {
+    //variables pour l'affichage du menu
+    ITEM **menuItems = NULL;
+    MENU *menu = NULL;
     
+    int i = 0, c;
+    int nbChoices = 2;
+    
+    char *choices[] = {
+        "Menu Principal",
+        "Quitter"
+    };
+    
+    int winWidth = POPUP_WINDOW_WIDTH;
+    //largeur du menu = longueur du plus grand des choix possibles
+    int menuWidth = 25;
+    
+    clear();
+    
+    //on alloue de la mémoire pour initialiser les éléments du menu
+    menuItems = (ITEM **) calloc(nbChoices + 1, sizeof(ITEM *));
+    
+    //on créé de nouveaux éléments à partir des choix fournis
+    for(i = 0; i < nbChoices; i++) {
+        menuItems[i] = new_item(choices[i], NULL);
+    }
+    
+    //on met un élément nul à la fin du tableau
+    menuItems[nbChoices] = (ITEM *) NULL;
+    
+    //on initialise le menu
+    menu = new_menu((ITEM **) menuItems);
+    
+    //on lui précise bien que le menu fait 1 ligne et 2 colonnes
+    set_menu_format(menu, 1, 2);
+    
+    //on associe le menu à une fenêtre et une sous-fenêtre
+    set_menu_win(menu, win);
+    //fenêtre hauteur largeur x y
+    set_menu_sub(menu, derwin(win, nbChoices, menuWidth, top, (winWidth - menuWidth) / 2));
+    
+    menu_opts_off(menu, O_NONCYCLIC);
+    set_menu_mark(menu, ">");
+    
+    //et hop, on affiche le menu et on rafraîchit.
+	post_menu(menu);
+	
     refresh();
     wrefresh(win);
     
-    nocbreak();
-    answer = wgetch(win);
-    cbreak();
+    curs_set(0);
+    noecho();
     
-    //vidage du buffer
-    wgetch(win);
-    
-    //si on veut rejouer, retourner 1, sinon 0
-    if(answer == 'o' || answer == 'O') {
-        return true;
-    } else {
-        return false;
+    //boucle pour le menu
+    while((c = getch())) {
+        switch(c) {
+            case KEY_LEFT:
+            case KEY_UP:
+                menu_driver(menu, REQ_LEFT_ITEM);
+                break;
+            case KEY_RIGHT:
+            case KEY_DOWN:
+                menu_driver(menu, REQ_RIGHT_ITEM);
+                break;
+            case 10: { //entrée
+                //si l'indice est 1 on renvoie 0 et vice-versa
+                return !item_index(current_item(menu));
+            }
+        }
+        
+        wrefresh(win);
     }
+    
+    return false;
 }
 
 int askForPlayersCount() {
