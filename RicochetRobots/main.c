@@ -47,5 +47,5 @@ int main(int argc, const char * argv[]) {
     clear();
     endwin();
     
-    return 0;
+    return EXIT_SUCCESS;
 }
