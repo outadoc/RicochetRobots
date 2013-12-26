@@ -325,7 +325,13 @@ void displayGameStatus(GameState *currentGame) {
     WINDOW *infoWin = newwin(5, SECOND_COL_WIDTH, 12, COLS - SECOND_COL_WIDTH - 1);
     box(infoWin, 0, 0);
     
-    mvwprintw(infoWin, 1, 2, "Score total \t\t: %d\n", currentGame->turnCount);
+    if(currentGame->playersCount > 1) {
+        //si on est en multijoueur
+        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d / %d\n", currentGame->turnCount, currentGame->currentPlayer->goal);
+    } else {
+        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d\n", currentGame->turnCount);
+    }
+    
     mvwprintw(infoWin, 2, 2, "Joueur actuel \t: %s", currentGame->currentPlayer->username);
     mvwprintw(infoWin, 3, 2, "Robot actuel \t\t: ");
     
@@ -358,8 +364,10 @@ void displayScores(GameState *currentGame) {
         wprintw(scoresWin, " \t: %d", currentGame->robots[i].score);
     }
     
-    for(i = 0; i < currentGame->playersCount; i++) {
-        mvwprintw(scoresWin, i + 1, 27, "Score de %s \t: %d", currentGame->players[i].username, currentGame->players[i].score);
+    if(currentGame->playersCount > 1) {
+        for(i = 0; i < currentGame->playersCount; i++) {
+            mvwprintw(scoresWin, i + 1, 27, "Score de %s \t: %d", currentGame->players[i].username, currentGame->players[i].score);
+        }
     }
     
     refresh();
