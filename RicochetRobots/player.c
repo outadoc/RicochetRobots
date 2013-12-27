@@ -3,7 +3,7 @@
 //  RicochetRobots
 //
 //  Created by Baptiste on 28/10/13.
-//  Copyright (c) 2013 outadev. All rights reserved.
+//  Copyright (c) 2013 Baptiste Candellier. All rights reserved.
 //
 //  Fonctions relatives au joueur 
 //

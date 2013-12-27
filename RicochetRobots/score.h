@@ -3,7 +3,7 @@
 //  RicochetRobots
 //
 //  Created by Baptiste on 27/12/13.
-//  Copyright (c) 2013 outadev. All rights reserved.
+//  Copyright (c) 2013 Baptiste Candellier. All rights reserved.
 //
 
 #ifndef RicochetRobots_score_h

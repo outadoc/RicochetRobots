@@ -3,7 +3,7 @@
 //  RicochetRobots
 //
 //  Created by Baptiste on 23/11/13.
-//  Copyright (c) 2013 outadev. All rights reserved.
+//  Copyright (c) 2013 Baptiste Candellier. All rights reserved.
 //
 //  Définition des structures et constantes utiles pour tout le programme
 //

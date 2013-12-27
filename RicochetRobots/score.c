@@ -3,7 +3,7 @@
 //  RicochetRobots
 //
 //  Created by Baptiste on 27/12/13.
-//  Copyright (c) 2013 outadev. All rights reserved.
+//  Copyright (c) 2013 Baptiste Candellier. All rights reserved.
 //
 //  Fonctions relatives au système de high-scores
 //
@@ -20,7 +20,7 @@ int loadScoreBoard(Score scores[]) {
     char path[MAX_LVL_PATH_SIZE];
     FILE* scoreFile = NULL;
     
-    //on ouvre le fichier ~/.outadev/ricochet-robots/scores.csv
+    //on ouvre le fichier ~/.Baptiste Candellier/ricochet-robots/scores.csv
     getPrefsPath(path, "scores.csv");
     scoreFile = fopen(path, "r");
     
@@ -51,7 +51,7 @@ void saveScoreBoard(Score scores[], int n) {
     char path[MAX_LVL_PATH_SIZE];
     FILE* scoreFile = NULL;
     
-    //on cherche le fichier ~/.outadev/ricochet-robots/scores.csv
+    //on cherche le fichier ~/.Baptiste Candellier/ricochet-robots/scores.csv
     getPrefsPath(path, "scores.csv");
     
     //on créé le chemin du fichier, puisque fopen ne le fait pas pour nous
