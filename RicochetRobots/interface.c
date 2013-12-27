@@ -428,18 +428,20 @@ void displayGameBoard(GameState *state) {
 void displayGameStatus(GameState *state) {
     if(state == NULL) return;
     
-    WINDOW *infoWin = newwin((state->playersCount > 1) ? 6 : 5, SECOND_COL_WIDTH, 13, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *infoWin = newwin((state->playersCount > 1) ? 7 : 6, SECOND_COL_WIDTH, 13, COLS - SECOND_COL_WIDTH - 1);
     box(infoWin, 0, 0);
+    
+    mvwprintw(infoWin, 1, 2, "Plateau \t\t\t: %s", state->gameBoard->name);
     
     if(state->playersCount > 1) {
         //si on est en multijoueur
-        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d / %d\n", state->currentPlayer->score, state->currentPlayer->goal);
+        mvwprintw(infoWin, 2, 2, "Score total \t\t: %d / %d", state->currentPlayer->score, state->currentPlayer->goal);
     } else {
-        mvwprintw(infoWin, 1, 2, "Score total \t\t: %d\n", state->currentPlayer->score);
+        mvwprintw(infoWin, 2, 2, "Score total \t\t: %d", state->currentPlayer->score);
     }
     
-    mvwprintw(infoWin, 2, 2, "Joueur actuel \t: %s", state->currentPlayer->username);
-    mvwprintw(infoWin, 3, 2, "Robot actuel \t\t: ");
+    mvwprintw(infoWin, 3, 2, "Joueur actuel \t: %s", state->currentPlayer->username);
+    mvwprintw(infoWin, 4, 2, "Robot actuel \t\t: ");
     
     COL_ON_BOT(infoWin, state->currentRobot->robotColor);
     wprintw(infoWin, "%s", getRobotStringColor(state->currentRobot->robotColor));
@@ -447,7 +449,7 @@ void displayGameStatus(GameState *state) {
     
     //si on est en multi, on affiche le robot à déplacer sur l'objectif
     if(state->playersCount > 1) {
-        mvwprintw(infoWin, 4, 2, "Robot à déplacer \t: ");
+        mvwprintw(infoWin, 5, 2, "Robot à déplacer \t: ");
         
         COL_ON_BOT(infoWin, state->robotColorToMove);
         wprintw(infoWin, "%s", getRobotStringColor(state->robotColorToMove));
@@ -468,7 +470,7 @@ void displayScores(GameState *state) {
     int i;
     int height = (state->playersCount > ROBOTS_COUNT) ? state->playersCount + 2 : ROBOTS_COUNT + 2;
     
-    WINDOW *scoresWin = newwin(height, SECOND_COL_WIDTH, (state->playersCount > 1) ? 19 : 18, COLS - SECOND_COL_WIDTH - 1);
+    WINDOW *scoresWin = newwin(height, SECOND_COL_WIDTH, (state->playersCount > 1) ? 20 : 19, COLS - SECOND_COL_WIDTH - 1);
     box(scoresWin, 0, 0);
     
     for(i = 0; i < ROBOTS_COUNT; i++) {
