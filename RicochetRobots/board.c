@@ -19,6 +19,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
     GameBoard builtinBoards[] = {
     {
             //premier plateau
+            .name = "Prédéfini 1",
             .obstacles = {
                 //placement des murs du premier plateau
                 {'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E'},
@@ -53,6 +54,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
         },
         {
             //deuxième plateau
+            .name = "Prédéfini 2",
             .obstacles = {
                 //placement des murs du deuxième plateau
                 {'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'L', 'E', 'E', 'E', 'E'},
@@ -86,7 +88,8 @@ GameBoard getBuiltInBoardAtIndex(int index) {
             }
         },
         {
-            //deuxième plateau
+            //troisième plateau
+            .name = "Prédéfini 3",
             .obstacles = {
                 //placement des murs du deuxième plateau
                 {'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E'},
@@ -130,6 +133,7 @@ GameBoard getBuiltInBoardAtIndex(int index) {
 GameBoard getEmptyGameBoard() {
     return (GameBoard) {
         //deuxième plateau
+        .name = "Vide",
         .obstacles = {
             //placement des murs du deuxième plateau
             {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
@@ -195,7 +199,7 @@ int askForGameBoard(GameBoard *board) {
 // Charge un plateau de jeu depuis le chemin fourni.
 // En cas d'erreur, on l'affiche sur la sortie standard et on retourne un code 1. Sinon, on retourne 0.
 //
-int loadBoardFromFile(GameBoard *board, const char path[]) {
+int loadBoardFromFile(GameBoard *board, char path[]) {
     if(board == NULL) return 1;
     
     //on initialise le plateau avec des valeurs par défaut
@@ -330,6 +334,9 @@ int loadBoardFromFile(GameBoard *board, const char path[]) {
             }
         }
         
+        //on copie le nom du fichier
+        strcpy(board->name, basename(path));
+        
         //on ferme le fichier
         fclose(level);
         printw("Chargement OK\n");
@@ -429,6 +436,8 @@ void getRandomBoard(GameBoard *board) {
         board->objectivesPos[i].x = coords.x;
         board->objectivesPos[i].y = coords.y;
     }
+    
+    sprintf(board->name, "Aléatoire %d", rand_between(0, 999));
 }
 
 //

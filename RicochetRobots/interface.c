@@ -663,7 +663,8 @@ void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n
         wclear(menuWin);
         wrefresh(menuWin);
         delwin(menuWin);
-    } while(strlen(result) < 1);
+    } while(strlen(result) < 1 || strpbrk(result, ","));
+    //on ne veut pas de virgule, ça peut interférer avec le stockage des meilleurs scores
 }
 
 //
