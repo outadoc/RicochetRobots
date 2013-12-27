@@ -118,9 +118,9 @@ int startSinglePlayer() {
         //on enregistre le meilleur score
         Score bestScore;
         
-        bestScore.score = state.currentPlayer->victoryCount;
-        strcpy(state.currentPlayer->username, bestScore.username);
-        strcpy(state.gameBoard->name, bestScore.boardName);
+        bestScore.score = state.currentPlayer->score;
+        strcpy(bestScore.username, state.currentPlayer->username);
+        strcpy(bestScore.boardName, state.gameBoard->name);
         
         registerScore(bestScore);
         
@@ -262,8 +262,8 @@ int startMultiPlayer() {
         Score bestScore;
         
         bestScore.score = state.players[0].victoryCount;
-        strcpy(state.players[0].username, bestScore.username);
-        strcpy(state.gameBoard->name, bestScore.boardName);
+        strcpy(bestScore.username, state.players[0].username);
+        strcpy(bestScore.boardName, state.gameBoard->name);
         
         registerScore(bestScore);
         

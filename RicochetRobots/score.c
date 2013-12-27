@@ -15,7 +15,7 @@ int loadScoreBoard(Score scores[]) {
     FILE* scoreFile = NULL;
     
     //on ouvre le fichier ~/.outadev/ricochet-robots/scores.csv
-    sprintf(path, "%s/.outadev/ricochet-robots/scores.csv", getenv("HOME"));
+    getPrefsPath(path, "scores.csv");
     scoreFile = fopen(path, "r");
     
     if(scoreFile == NULL) {
@@ -24,12 +24,12 @@ int loadScoreBoard(Score scores[]) {
     }
     
     for(i = 0; i < MAX_SAVED_SCORES; i++) {
-        if(fscanf(scoreFile, "%s,%s,%d\n", scores[i].username, scores[i].boardName, &scores[i].score) == EOF) {
-            return i;
-        }
+        //on lit chaque ligne du fichier sous la forme pseudo,score,plateau
+        int err = fscanf(scoreFile, "%[^,],%[^,],%d\n", scores[i].username, scores[i].boardName, &scores[i].score);
+        if(err == EOF) return i;
     }
     
-    return MAX_SAVED_SCORES;
+    return MAX_SAVED_SCORES - 1;
 }
 
 void saveScoreBoard(Score scores[], int n) {
@@ -38,8 +38,13 @@ void saveScoreBoard(Score scores[], int n) {
     char path[MAX_LVL_PATH_SIZE];
     FILE* scoreFile = NULL;
     
-    //on ouvre le fichier ~/.outadev/ricochet-robots/scores.csv
-    sprintf(path, "%s/.outadev/ricochet-robots/scores.csv", getenv("HOME"));
+    //on cherche le fichier ~/.outadev/ricochet-robots/scores.csv
+    getPrefsPath(path, "scores.csv");
+    
+    //on créé le chemin du fichier, puisque fopen ne le fait pas pour nous
+    mkpath(path, 0755);
+    
+    //on l'ouvre en écriture
     scoreFile = fopen(path, "w");
     
     if(scoreFile == NULL) {
@@ -48,6 +53,7 @@ void saveScoreBoard(Score scores[], int n) {
     }
     
     for(i = 0; i < n && i < MAX_SAVED_SCORES; i++) {
+        //on écrit chaque score dans le fichier au format CSV
         fprintf(scoreFile, "%s,%s,%d\n", scores[i].username, scores[i].boardName, scores[i].score);
     }
 }
@@ -61,13 +67,15 @@ int registerScore(Score score) {
     
     if(scores == NULL) return 0;
     
-    n++;
     //on ajoute le score au tableau
     scores[n] = score;
+    
+    n++;
+    
     //on trie le tout
     qsort(scores, n, sizeof(Score), (compfn) sortByScore);
-    
     saveScoreBoard(scores, n);
+    
     return n;
 }
 

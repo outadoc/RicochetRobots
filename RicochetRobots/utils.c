@@ -31,3 +31,20 @@ int max_strlen(char **str, int n) {
     
     return maxlen;
 }
+
+int mkpath(char* file_path, mode_t mode) {
+    assert(file_path && *file_path);
+    char* p;
+    for (p=strchr(file_path+1, '/'); p; p=strchr(p+1, '/')) {
+        *p='\0';
+        if (mkdir(file_path, mode)==-1) {
+            if (errno!=EEXIST) { *p='/'; return -1; }
+        }
+        *p='/';
+    }
+    return 0;
+}
+
+void getPrefsPath(char path[], char fileName[]) {
+    sprintf(path, "%s/.outadev/ricochet-robots/%s", getenv("HOME"), fileName);
+}

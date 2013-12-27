@@ -10,10 +10,16 @@
 #define RicochetRobots_utils_h
 
 #include <string.h>
+#include <stdio.h>
+#include <assert.h>
+#include <errno.h>
+#include <sys/stat.h>
 #include <stdlib.h>
 #include <time.h>
 
 int rand_between(int min, int max);
 int max_strlen(char **str, int n);
+int mkpath(char* file_path, mode_t mode);
+void getPrefsPath(char path[], char fileName[]);
 
 #endif
