@@ -28,7 +28,7 @@ int start() {
             retry = false;
 
             switch (choice) {
-                case 2:
+                case 3:
                     //si on veut quitter le jeu
                     return 0;
                 case 0:
@@ -44,6 +44,9 @@ int start() {
                     }
                     break;
                 }
+                case 2:
+                    displayLeaderboard();
+                    break;
                 default:
                     //si le choix est incorrect, on réessaye
                     choice = displayMainMenu();

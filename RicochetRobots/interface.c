@@ -40,10 +40,11 @@ int displayMainMenu() {
     char *choices[] = {
         "Partie solo",
         "Partie multijoueurs",
+        "Classement",
         "Quitter"
     };
     
-    return displayMenu(choices, 3, "MENU PRINCIPAL", true);
+    return displayMenu(choices, 4, "MENU PRINCIPAL", true);
 }
 
 //
@@ -692,6 +693,102 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, i
     } while(n < min || n > max);
     
     return n;
+}
+
+void displayLeaderboard() {
+    int i, n;
+    char c;
+    
+    const int menuWidth = 10;
+    
+    const int winHeight = MAX_SAVED_SCORES + 6;
+    const int winWidth = POPUP_WINDOW_WIDTH + 20;
+    
+    //on centre le menu
+    const int starty = (LINES - winHeight) / 2;
+	const int startx = (COLS - winWidth) / 2;
+    
+    const int colScore = 2;
+    const int colName = 15;
+    const int colBoard = 50;
+    
+    ITEM* menuItems[2];
+    MENU* menu;
+    
+    Score scores[MAX_SAVED_SCORES];
+    
+    WINDOW* win = newwin(winHeight, winWidth, starty, startx);
+    box(win, 0, 0);
+    
+    n = loadScoreBoard(scores);
+    
+    mvwaddch(win, 2, 0, ACS_LTEE);
+    mvwhline(win, 2, 1, ACS_HLINE, winWidth - 1);
+    mvwaddch(win, 2, winWidth - 1, ACS_RTEE);
+    
+    mvwprintw(win, 1, colScore, "SCORE");
+    mvwprintw(win, 1, colName, "PSEUDO");
+    mvwprintw(win, 1, colBoard, "PLATEAU");
+    
+    mvwaddch(win, 0, colName - 2, ACS_TTEE);
+    mvwvline(win, 1, colName - 2, ACS_VLINE, winHeight - 2);
+    mvwaddch(win, winHeight - 1, colName - 2, ACS_BTEE);
+    
+    mvwaddch(win, 0, colBoard - 2, ACS_TTEE);
+    mvwvline(win, 1, colBoard - 2, ACS_VLINE, winHeight - 2);
+    mvwaddch(win, winHeight - 1, colBoard - 2, ACS_BTEE);
+    
+    for(i = 0; i < n; i++) {
+        mvwprintw(win, i + 3, colScore, "%d", scores[0].score);
+        mvwprintw(win, i + 3, colName, "%s", scores[0].username);
+        mvwprintw(win, i + 3, colBoard, "%s", scores[0].boardName);
+    }
+
+    menuItems[0] = new_item("<Retour>", NULL);
+    menuItems[1] = (ITEM *) NULL;
+    
+    //on initialise le menu
+    menu = new_menu((ITEM **) menuItems);
+    
+    //on lui précise bien que le menu fait 1 ligne et 1 colonne
+    set_menu_format(menu, 1, 1);
+    
+    //on associe le menu à une fenêtre et une sous-fenêtre
+    set_menu_win(menu, win);
+    //fenêtre hauteur largeur x y
+    set_menu_sub(menu, derwin(win, 1, menuWidth, winHeight - 2, (winWidth - menuWidth) / 2));
+    set_menu_mark(menu, "");
+    
+    noecho();
+    curs_set(0);
+    
+    //et hop, on affiche le menu et on rafraîchit.
+	post_menu(menu);
+    
+    wrefresh(win);
+    refresh();
+    
+    //boucle pour le menu
+    while((c = getch())) {
+        switch(c) {
+            case 10: { //entrée
+                unpost_menu(menu);
+                free_menu(menu);
+                
+                for(i = 0; i < 2; ++i)
+                    free_item(menuItems[i]);
+                
+                clear();
+                refresh();
+                
+                delwin(win);
+                
+                curs_set(1);
+                echo();
+                return;
+            }
+        }
+    }
 }
 
 //
