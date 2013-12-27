@@ -26,9 +26,13 @@ int loadScoreBoard(Score scores[]) {
     for(i = 0; i < MAX_SAVED_SCORES; i++) {
         //on lit chaque ligne du fichier sous la forme pseudo,score,plateau
         int err = fscanf(scoreFile, "%[^,],%[^,],%d\n", scores[i].username, scores[i].boardName, &scores[i].score);
-        if(err == EOF) return i;
+        if(err == EOF) {
+            fclose(scoreFile);
+            return i;
+        }
     }
     
+    fclose(scoreFile);
     return MAX_SAVED_SCORES - 1;
 }
 
@@ -56,6 +60,8 @@ void saveScoreBoard(Score scores[], int n) {
         //on écrit chaque score dans le fichier au format CSV
         fprintf(scoreFile, "%s,%s,%d\n", scores[i].username, scores[i].boardName, scores[i].score);
     }
+    
+    fclose(scoreFile);
 }
 
 int registerScore(Score score) {

@@ -708,9 +708,10 @@ void displayLeaderboard() {
     const int starty = (LINES - winHeight) / 2;
 	const int startx = (COLS - winWidth) / 2;
     
-    const int colScore = 2;
-    const int colName = 15;
-    const int colBoard = 50;
+    const int colRank = 2;
+    const int colScore = 20;
+    const int colName = 35;
+    const int colBoard = 55;
     
     ITEM* menuItems[2];
     MENU* menu;
@@ -726,9 +727,14 @@ void displayLeaderboard() {
     mvwhline(win, 2, 1, ACS_HLINE, winWidth - 1);
     mvwaddch(win, 2, winWidth - 1, ACS_RTEE);
     
+    mvwprintw(win, 1, colRank, "CLASSEMENT");
     mvwprintw(win, 1, colScore, "SCORE");
     mvwprintw(win, 1, colName, "PSEUDO");
     mvwprintw(win, 1, colBoard, "PLATEAU");
+    
+    mvwaddch(win, 0, colScore - 2, ACS_TTEE);
+    mvwvline(win, 1, colScore - 2, ACS_VLINE, winHeight - 2);
+    mvwaddch(win, winHeight - 1, colScore - 2, ACS_BTEE);
     
     mvwaddch(win, 0, colName - 2, ACS_TTEE);
     mvwvline(win, 1, colName - 2, ACS_VLINE, winHeight - 2);
@@ -739,9 +745,10 @@ void displayLeaderboard() {
     mvwaddch(win, winHeight - 1, colBoard - 2, ACS_BTEE);
     
     for(i = 0; i < n; i++) {
-        mvwprintw(win, i + 3, colScore, "%d", scores[0].score);
-        mvwprintw(win, i + 3, colName, "%s", scores[0].username);
-        mvwprintw(win, i + 3, colBoard, "%s", scores[0].boardName);
+        mvwprintw(win, i + 3, colRank, "#%d", i+1);
+        mvwprintw(win, i + 3, colScore, "%d", scores[i].score);
+        mvwprintw(win, i + 3, colName, "%s", scores[i].username);
+        mvwprintw(win, i + 3, colBoard, "%s", scores[i].boardName);
     }
 
     menuItems[0] = new_item("<Retour>", NULL);
