@@ -5,6 +5,8 @@
 //  Created by Baptiste on 27/12/13.
 //  Copyright (c) 2013 outadev. All rights reserved.
 //
+//  Fonctions relatives au système de high-scores
+//
 
 #include "score.h"
 

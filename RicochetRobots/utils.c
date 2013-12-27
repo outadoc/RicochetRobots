@@ -5,6 +5,8 @@
 //  Created by Baptiste on 29/11/13.
 //  Copyright (c) 2013 outadev. All rights reserved.
 //
+//  Fonctions diverses et utiles
+//
 
 #include "utils.h"
 
@@ -32,6 +34,13 @@ int max_strlen(char **str, int n) {
     return maxlen;
 }
 
+//
+// Créé tous les dossiers intermédiaires nécessaires à la création d'un fichier.
+// Utile lorsqu'elle est exécutée avant fopen, vu que l'ouverture échouera si le dossier
+// parent n'existe pas.
+//
+// Source : StackOverflow
+//
 int mkpath(char* file_path, mode_t mode) {
     assert(file_path && *file_path);
     char* p;
@@ -45,6 +54,9 @@ int mkpath(char* file_path, mode_t mode) {
     return 0;
 }
 
+//
+// Retourne le chemin complet pour un fichier de préférences utilisateur.
+//
 void getPrefsPath(char path[], char fileName[]) {
     sprintf(path, "%s/.outadev/ricochet-robots/%s", getenv("HOME"), fileName);
 }
