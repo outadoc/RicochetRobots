@@ -134,6 +134,11 @@ void moveCurrentRobotWhilePossible(GameState *state, Direction direction) {
         state->currentPlayer->score++;
         state->currentRobot->score++;
         state->turnCount++;
+        
+        //si le robot est sur son objectif, on s'en rappelle
+        if(!state->currentRobot->hasCapturedObjective && isRobotOnObjective(state->currentRobot, state->gameBoard)) {
+            state->currentRobot->hasCapturedObjective = true;
+        }
     }
 }
 
@@ -261,16 +266,17 @@ bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard) {
 //
 // Retourne vrai si tous les robots sont sur leurs objectifs respectifs.
 //
-bool areAllRobotsOnTheirObjectives(Robot robots[], GameBoard *gameBoard) {
+bool wereAllRobotsOnTheirObjectives(Robot robots[], GameBoard *gameBoard) {
     if(robots == NULL || gameBoard == NULL) return false;
     
     int i;
+    bool valid = true;
     
     for(i = 0; i < ROBOTS_COUNT; i++) {
-        if(!isRobotOnObjective(&robots[i], gameBoard)) return false;
+        if(!robots[i].hasCapturedObjective) valid = false;
     }
     
-    return true;
+    return valid;
 }
 
 //

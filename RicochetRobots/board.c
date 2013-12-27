@@ -478,6 +478,7 @@ void resetMap(GameState *state) {
         state->robots[i].position.y = state->gameBoard->robotsPos[i].y;
         
         state->robots[i].score = 0;
+        state->robots[i].hasCapturedObjective = false;
     }
     
     for(i = 0; i < state->playersCount; i++) {

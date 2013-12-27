@@ -318,6 +318,23 @@ void displayLevelLoadingError(char message[]) {
     getch();
 }
 
+void displayRobotCaptureMessage(Robot robots[]) {
+    if(robots == NULL) return;
+    
+    int i;
+    
+    for(i = 0; i < ROBOTS_COUNT; i++) {
+        if(robots[i].hasCapturedObjective) {
+            char str[30];
+            sprintf(str, "%s a capturé son objectif", getRobotStringColor(robots[i].robotColor));
+            
+            COL_ON_BOT(stdscr, robots[i].robotColor);
+            mvprintw(LINES - robots[i].robotColor - 2, COLS - (int) strlen(str), str);
+            COL_OFF_BOT(stdscr, robots[i].robotColor);
+        }
+    }
+}
+
 //
 // Affiche le plateau de jeu.
 //
@@ -531,10 +548,13 @@ void refreshGameDisplay(GameState *state) {
     
     clear();
     
-    displayGameBoard(state);
-    displayGameStatus(state);
-    displayScores(state);
-    displayCommands();
+    displayGameBoard(state);    //affichage du plateau de jeu
+    displayGameStatus(state);   //affichage d'infos sur le déroulement du jeu
+    displayScores(state);       //affichage des scores
+    displayCommands();          //affichage d'une aide sur les commandes disponibles
+    
+    //si on est en solo : affichage des messages de capture
+    if(state->playersCount == 1) displayRobotCaptureMessage(state->robots);
 }
 
 //

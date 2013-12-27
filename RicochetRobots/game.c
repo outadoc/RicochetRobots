@@ -68,10 +68,10 @@ int startSinglePlayer() {
     if(askForGameBoard(&board) == 0) {
         
         Robot robots[ROBOTS_COUNT] = {
-            {.robotColor = ROBOT_RED,   .score = 0, .position = board.robotsPos[ROBOT_RED]},
-            {.robotColor = ROBOT_GREEN, .score = 0, .position = board.robotsPos[ROBOT_GREEN]},
-            {.robotColor = ROBOT_BLUE,  .score = 0, .position = board.robotsPos[ROBOT_BLUE]},
-            {.robotColor = ROBOT_GREY,  .score = 0, .position = board.robotsPos[ROBOT_GREY]},
+            {.robotColor = ROBOT_RED,   .score = 0, .position = board.robotsPos[ROBOT_RED],     .hasCapturedObjective = false},
+            {.robotColor = ROBOT_GREEN, .score = 0, .position = board.robotsPos[ROBOT_GREEN],   .hasCapturedObjective = false},
+            {.robotColor = ROBOT_BLUE,  .score = 0, .position = board.robotsPos[ROBOT_BLUE],    .hasCapturedObjective = false},
+            {.robotColor = ROBOT_GREY,  .score = 0, .position = board.robotsPos[ROBOT_GREY],    .hasCapturedObjective = false},
         };
         
         Player players[] = {
@@ -98,8 +98,8 @@ int startSinglePlayer() {
         //on fait disparaitre le curseur
         curs_set(0);
         
-        //tant que tous les robots ne sont pas sur leurs objectifs respectifs
-        while(!areAllRobotsOnTheirObjectives(state.robots, state.gameBoard)) {
+        //tant que tous les robots n'ont pas été sur leurs objectifs respectifs
+        while(!wereAllRobotsOnTheirObjectives(state.robots, state.gameBoard)) {
             //on demande à l'utilisateur dans quelle direction il veut aller
             Direction direction = waitForDirection(&state);
             
@@ -114,7 +114,6 @@ int startSinglePlayer() {
         }
         
         //fin du jeu !
-        
         //hop, on fait réapparaitre le curseur
         curs_set(1);
         
@@ -153,10 +152,10 @@ int startMultiPlayer() {
         Player players[MAX_PLAYERS_COUNT];
         
         Robot robots[ROBOTS_COUNT] = {
-            {.robotColor = ROBOT_RED,   .score = 0, .position = board.robotsPos[ROBOT_RED]},
-            {.robotColor = ROBOT_GREEN, .score = 0, .position = board.robotsPos[ROBOT_GREEN]},
-            {.robotColor = ROBOT_BLUE,  .score = 0, .position = board.robotsPos[ROBOT_BLUE]},
-            {.robotColor = ROBOT_GREY,  .score = 0, .position = board.robotsPos[ROBOT_GREY]},
+            {.robotColor = ROBOT_RED,   .score = 0, .position = board.robotsPos[ROBOT_RED],     .hasCapturedObjective = false},
+            {.robotColor = ROBOT_GREEN, .score = 0, .position = board.robotsPos[ROBOT_GREEN],   .hasCapturedObjective = false},
+            {.robotColor = ROBOT_BLUE,  .score = 0, .position = board.robotsPos[ROBOT_BLUE],    .hasCapturedObjective = false},
+            {.robotColor = ROBOT_GREY,  .score = 0, .position = board.robotsPos[ROBOT_GREY],    .hasCapturedObjective = false},
         };
 
         for(i = 0; i < playersCount; i++) {

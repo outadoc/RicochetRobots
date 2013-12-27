@@ -36,6 +36,7 @@
 int displayMainMenu();
 int displayGameBoardSelectionMenu();
 int displayGameBoardList();
+void displayRobotCaptureMessage(Robot robots[]);
 
 bool wantsToReplay(WINDOW *win, int top);
 
