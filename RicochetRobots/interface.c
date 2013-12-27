@@ -132,7 +132,7 @@ void displayMultiGameEnding(GameState *state) {
         strcpy(winner, "PERSONNE !");
     } else if(state->players[0].victoryCount == state->players[1].victoryCount) {
         //si le score du premier est celui du deuxième, il y a égalité
-        strcpy(winner, "ÉGALITÉ !");
+        strcpy(winner, "EGALITE !");
     } else {
         strcpy(winner, state->players[0].username);
     }
@@ -177,7 +177,7 @@ bool wantsToReplay(WINDOW *win, int top) {
     
     int winWidth = POPUP_WINDOW_WIDTH;
     //largeur du menu = longueur du plus grand des choix possibles
-    int menuWidth = 25;
+    int menuWidth = 22;
     
     //on alloue de la mémoire pour initialiser les éléments du menu
     menuItems = (ITEM **) calloc(nbChoices + 1, sizeof(ITEM *));
@@ -202,7 +202,7 @@ bool wantsToReplay(WINDOW *win, int top) {
     set_menu_sub(menu, derwin(win, nbChoices, menuWidth, top, (winWidth - menuWidth) / 2));
     
     menu_opts_off(menu, O_NONCYCLIC);
-    set_menu_mark(menu, ">");
+    set_menu_mark(menu, "");
     
     //et hop, on affiche le menu et on rafraîchit.
 	post_menu(menu);
