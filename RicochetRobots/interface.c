@@ -318,6 +318,9 @@ void displayLevelLoadingError(char message[]) {
     getch();
 }
 
+//
+// Affiche la liste des robots qui ont capturé leurs objectifs.
+//
 void displayRobotCaptureMessage(Robot robots[]) {
     if(robots == NULL) return;
     
