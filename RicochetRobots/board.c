@@ -47,9 +47,9 @@ GameBoard getBuiltInBoardAtIndex(int index) {
             },
             .objectivesPos = {
                 {.x = 10, .y = 15},
-                {.x = -1, .y = -1},
-                {.x = -1, .y = -1},
-                {.x = -1, .y = -1}
+                {.x = 2, .y = 12},
+                {.x = 6, .y = 1},
+                {.x = 12, .y = 7}
             }
         },
         {
@@ -82,9 +82,9 @@ GameBoard getBuiltInBoardAtIndex(int index) {
             },
             .objectivesPos = {
                 {.x = 6, .y = 5},
-                {.x = -1, .y = -1},
-                {.x = -1, .y = -1},
-                {.x = -1, .y = -1}
+                {.x = 4, .y = 15},
+                {.x = 9, .y = 2},
+                {.x = 3, .y = 1}
             }
         },
         {
@@ -117,9 +117,9 @@ GameBoard getBuiltInBoardAtIndex(int index) {
             },
             .objectivesPos = {
                 {.x = 5, .y = 13},
-                {.x = -1, .y = -1},
-                {.x = -1, .y = -1},
-                {.x = -1, .y = -1}
+                {.x = 4, .y = 5},
+                {.x = 12, .y = 0},
+                {.x = 1, .y = 14}
             }
         }
     };
