@@ -40,16 +40,16 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'L', 'E'}
             },
             .robotsPos = {
-                {.x = 0, .y = 3},
-                {.x = 12, .y = 10},
-                {.x = 11, .y = 11},
-                {.x = 8, .y = 4}
+                {.y = 0, .x = 3},
+                {.y = 12, .x = 10},
+                {.y = 11, .x = 11},
+                {.y = 8, .x = 4}
             },
             .objectivesPos = {
-                {.x = 10, .y = 15},
-                {.x = 2, .y = 12},
-                {.x = 6, .y = 1},
-                {.x = 12, .y = 7}
+                {.y = 10, .x = 15},
+                {.y = 2, .x = 12},
+                {.y = 6, .x = 1},
+                {.y = 12, .x = 7}
             }
         },
         {
@@ -75,16 +75,16 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E'}
             },
             .robotsPos = {
-                {.x = 0, .y = 11},
-                {.x = 0, .y = 9},
-                {.x = 12, .y = 8},
-                {.x = 12, .y = 15}
+                {.y = 0, .x = 11},
+                {.y = 0, .x = 9},
+                {.y = 12, .x = 8},
+                {.y = 12, .x = 15}
             },
             .objectivesPos = {
-                {.x = 6, .y = 5},
-                {.x = 4, .y = 15},
-                {.x = 9, .y = 2},
-                {.x = 3, .y = 1}
+                {.y = 6, .x = 5},
+                {.y = 4, .x = 15},
+                {.y = 9, .x = 2},
+                {.y = 3, .x = 1}
             }
         },
         {
@@ -110,16 +110,16 @@ GameBoard getBuiltInBoardAtIndex(int index) {
                 {'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E', 'E', 'R', 'E', 'E', 'E', 'E', 'E'}
             },
             .robotsPos = {
-                {.x = 10, .y = 11},
-                {.x = 10, .y = 13},
-                {.x = 6, .y = 3},
-                {.x = 4, .y = 9}
+                {.y = 10, .x = 11},
+                {.y = 10, .x = 13},
+                {.y = 6, .x = 3},
+                {.y = 4, .x = 9}
             },
             .objectivesPos = {
-                {.x = 5, .y = 13},
-                {.x = 4, .y = 5},
-                {.x = 12, .y = 0},
-                {.x = 1, .y = 14}
+                {.y = 5, .x = 13},
+                {.y = 4, .x = 5},
+                {.y = 12, .x = 0},
+                {.y = 1, .x = 14}
             }
         }
     };
@@ -237,7 +237,7 @@ int loadBoardFromFile(GameBoard *board, char path[]) {
                 int tabIndex = 0;
                 
                 //on récupère l'id du robot et ses coordonnées
-                fscanf(level, "%c %d %d, %d %d\n", &id, &rbtX, &rbtY, &objX, &objY);
+                fscanf(level, "%c %d %d, %d %d\n", &id, &rbtY, &rbtX, &objY, &objX);
                 
                 switch (id) {
                     case 'R':
@@ -456,8 +456,8 @@ Coords getRandomCoords(GameBoard *board) {
     do {
         coords.x = rand_between(0, BOARD_SIZE - 1);
         coords.y = rand_between(0, BOARD_SIZE - 1);
-    } while(coords.x == BOARD_SIZE/2-1 || coords.x == BOARD_SIZE/2
-            || coords.y == BOARD_SIZE/2-1 || coords.y == BOARD_SIZE/2
+    } while(coords.y == BOARD_SIZE/2-1 || coords.y == BOARD_SIZE/2
+            || coords.x == BOARD_SIZE/2-1 || coords.x == BOARD_SIZE/2
             || areCoordsInList(board->robotsPos, coords)
             || areCoordsInList(board->objectivesPos, coords));
     

@@ -344,7 +344,7 @@ void displayGameBoard(GameState *state) {
             
             for (k = 0; k < ROBOTS_COUNT; k++) {
                 //on vérifie, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
-                if(state->robots[k].position.x == i && state->robots[k].position.y == j) {
+                if(state->robots[k].position.y == i && state->robots[k].position.x == j) {
                     int l;
                     bool hasObjective = false;
                     
@@ -354,7 +354,7 @@ void displayGameBoard(GameState *state) {
                     
                     for (l = 0; l < ROBOTS_COUNT; l++) {
                         //si on a un objectif ici
-                        if(state->gameBoard->objectivesPos[l].x == i && state->gameBoard->objectivesPos[l].y == j) {
+                        if(state->gameBoard->objectivesPos[l].y == i && state->gameBoard->objectivesPos[l].x == j) {
                             hasObjective = true;
                             break;
                         }
@@ -372,7 +372,7 @@ void displayGameBoard(GameState *state) {
             
             //si la case n'a pas encore de contenu (et donc pas de robot) et que c'est une case objectif
             for (k = 0; k < ROBOTS_COUNT; k++) {
-                if(!hasContent && state->gameBoard->objectivesPos[k].x == i && state->gameBoard->objectivesPos[k].y == j) {
+                if(!hasContent && state->gameBoard->objectivesPos[k].y == i && state->gameBoard->objectivesPos[k].x == j) {
                     hasContent = true;
                     
                     COL_ON_BOT(boardWin, k);

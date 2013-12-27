@@ -26,48 +26,48 @@ bool checkForObstacle(GameState *state, Direction direction) {
     //pour chaque direction, on vérifie si il y a un mur qui nous bloque et on renvoie true le cas échéant
     switch (direction) {
         case DIRECTION_DOWN:
-            target.x++;
-            
-            if(target.x > BOARD_SIZE - 1
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM_LEFT
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM_RIGHT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP_LEFT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP_RIGHT) return true;
-            break;
-        case DIRECTION_LEFT:
-            target.y--;
-            
-            if(target.y < 0
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_LEFT
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM_LEFT
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP_LEFT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_RIGHT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM_RIGHT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP_RIGHT) return true;
-            break;
-        case DIRECTION_RIGHT:
             target.y++;
             
             if(target.y > BOARD_SIZE - 1
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_RIGHT
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_BOTTOM_RIGHT
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP_RIGHT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_LEFT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_TOP_LEFT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM_LEFT) return true;
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_BOTTOM
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_BOTTOM_LEFT
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_BOTTOM_RIGHT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_TOP
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_TOP_LEFT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_TOP_RIGHT) return true;
             break;
-        case DIRECTION_UP:
+        case DIRECTION_LEFT:
             target.x--;
             
             if(target.x < 0
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP_LEFT
-                    || state->gameBoard->obstacles[currPos.x][currPos.y] == CELL_WALL_TOP_RIGHT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM_LEFT
-                    || state->gameBoard->obstacles[target.x][target.y] == CELL_WALL_BOTTOM_RIGHT) return true;
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_LEFT
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_BOTTOM_LEFT
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_TOP_LEFT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_RIGHT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_BOTTOM_RIGHT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_TOP_RIGHT) return true;
+            break;
+        case DIRECTION_RIGHT:
+            target.x++;
+            
+            if(target.x > BOARD_SIZE - 1
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_RIGHT
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_BOTTOM_RIGHT
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_TOP_RIGHT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_LEFT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_TOP_LEFT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_BOTTOM_LEFT) return true;
+            break;
+        case DIRECTION_UP:
+            target.y--;
+            
+            if(target.y < 0
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_TOP
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_TOP_LEFT
+                    || state->gameBoard->obstacles[currPos.y][currPos.x] == CELL_WALL_TOP_RIGHT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_BOTTOM
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_BOTTOM_LEFT
+                    || state->gameBoard->obstacles[target.y][target.x] == CELL_WALL_BOTTOM_RIGHT) return true;
             break;
     }
     
@@ -93,16 +93,16 @@ bool moveCurrentRobot(GameState *state, Direction direction) {
     if(!checkForObstacle(state, direction)) {
         switch (direction) {
             case DIRECTION_DOWN:
-                state->currentRobot->position.x++;
-                break;
-            case DIRECTION_LEFT:
-                state->currentRobot->position.y--;
-                break;
-            case DIRECTION_RIGHT:
                 state->currentRobot->position.y++;
                 break;
-            case DIRECTION_UP:
+            case DIRECTION_LEFT:
                 state->currentRobot->position.x--;
+                break;
+            case DIRECTION_RIGHT:
+                state->currentRobot->position.x++;
+                break;
+            case DIRECTION_UP:
+                state->currentRobot->position.y--;
                 break;
         }
         
