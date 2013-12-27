@@ -8,6 +8,10 @@
 
 #include "score.h"
 
+//
+// Charge le fichier de scores.
+// Insère les scores dans l'array passé en paramètre.
+//
 int loadScoreBoard(Score scores[]) {
     int i;
     
@@ -23,7 +27,7 @@ int loadScoreBoard(Score scores[]) {
         return 0;
     }
     
-    for(i = 0; i < MAX_SAVED_SCORES; i++) {
+    for(i = 0; i < MAX_SAVED_SCORES_COUNT; i++) {
         //on lit chaque ligne du fichier sous la forme pseudo,score,plateau
         int err = fscanf(scoreFile, "%[^,],%[^,],%d\n", scores[i].username, scores[i].boardName, &scores[i].score);
         if(err == EOF) {
@@ -33,9 +37,12 @@ int loadScoreBoard(Score scores[]) {
     }
     
     fclose(scoreFile);
-    return MAX_SAVED_SCORES - 1;
+    return MAX_SAVED_SCORES_COUNT - 1;
 }
 
+//
+// Écrit les scores passés en paramètres sur le disque.
+//
 void saveScoreBoard(Score scores[], int n) {
     int i;
     
@@ -56,7 +63,7 @@ void saveScoreBoard(Score scores[], int n) {
         return;
     }
     
-    for(i = 0; i < n && i < MAX_SAVED_SCORES; i++) {
+    for(i = 0; i < n && i < MAX_SAVED_SCORES_COUNT; i++) {
         //on écrit chaque score dans le fichier au format CSV
         fprintf(scoreFile, "%s,%s,%d\n", scores[i].username, scores[i].boardName, scores[i].score);
     }
@@ -64,9 +71,12 @@ void saveScoreBoard(Score scores[], int n) {
     fclose(scoreFile);
 }
 
+//
+// Enregistre un score dans la base de données.
+//
 int registerScore(Score score) {
     int n;
-    Score scores[MAX_SAVED_SCORES + 1];
+    Score scores[MAX_SAVED_SCORES_COUNT + 1];
     
     //on charge les scores existants
     n = loadScoreBoard(scores);

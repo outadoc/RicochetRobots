@@ -32,7 +32,7 @@ typedef int Direction;  //la direction est un entier
 #define MAX_LVL_PATH_SIZE       300 //taille maximale du chemin d'un fichier niveau
 #define MAX_LVL_NAME_SIZE       15  //taille maximale du nom d'un niveau
 #define MAX_PLAYERS_COUNT       15  //nombre maximal de joueurs
-#define MAX_SAVED_SCORES        20  //nombre maximal de scores sauvegardés
+#define MAX_SAVED_SCORES_COUNT        20  //nombre maximal de scores sauvegardés
 
 // IDENTIFIANTS DES COULEURS DES ROBOTS //
 /****************************************/

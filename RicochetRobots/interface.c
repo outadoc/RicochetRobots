@@ -695,13 +695,16 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, i
     return n;
 }
 
+//
+// Affiche le tableau des high-scores dans une fenêtre modale.
+//
 void displayLeaderboard() {
     int i, n;
     char c;
     
     const int menuWidth = 10;
     
-    const int winHeight = MAX_SAVED_SCORES + 6;
+    const int winHeight = MAX_SAVED_SCORES_COUNT + 6;
     const int winWidth = POPUP_WINDOW_WIDTH + 20;
     
     //on centre le menu
@@ -716,7 +719,7 @@ void displayLeaderboard() {
     ITEM* menuItems[2];
     MENU* menu;
     
-    Score scores[MAX_SAVED_SCORES];
+    Score scores[MAX_SAVED_SCORES_COUNT];
     
     WINDOW* win = newwin(winHeight, winWidth, starty, startx);
     box(win, 0, 0);
