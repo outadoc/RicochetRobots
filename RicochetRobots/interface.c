@@ -846,12 +846,12 @@ WINDOW* getMenuWindowNoLogo(int contentHeight, char title[], int yPos, int xPos)
     if(contentHeight < 0) return NULL;
     
     //hauteur = nombre de choix possibles + 15 (pour le logo)
-    int winHeight = contentHeight + 6;
-    int winWidth = POPUP_WINDOW_WIDTH;
+    const int winHeight = contentHeight + 6;
+    const int winWidth = POPUP_WINDOW_WIDTH;
     
     //on centre le menu
-    int starty = (yPos > 0) ? yPos : (LINES - winHeight) / 2;
-	int startx = (xPos > 0) ? xPos : (COLS - winWidth) / 2;
+    const int starty = (yPos > 0) ? yPos : (LINES - winHeight) / 2;
+	const int startx = (xPos > 0) ? xPos : (COLS - winWidth) / 2;
     
     WINDOW *win = newwin(winHeight, winWidth, starty, startx);
     
