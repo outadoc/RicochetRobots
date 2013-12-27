@@ -102,5 +102,12 @@ int registerScore(Score score) {
 // Trie les joueurs par score croissant.
 //
 int sortByScore(Score *a, Score *b) {
-    return (a->score > b->score);
+    //on trie en fonction du score
+    if(a->score > b->score) return true;
+    else if(a->score < b->score) return false;
+    
+    //puis en fonction du nom du plateau
+    if(strcmp(a->boardName, b->boardName) > 0) return true;
+    
+    return false;
 }
