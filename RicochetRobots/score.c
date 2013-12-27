@@ -42,6 +42,11 @@ void saveScoreBoard(Score scores[], int n) {
     sprintf(path, "%s/.outadev/ricochet-robots/scores.csv", getenv("HOME"));
     scoreFile = fopen(path, "w");
     
+    if(scoreFile == NULL) {
+        scores = NULL;
+        return;
+    }
+    
     for(i = 0; i < n && i < MAX_SAVED_SCORES; i++) {
         fprintf(scoreFile, "%s,%s,%d\n", scores[i].username, scores[i].boardName, scores[i].score);
     }
@@ -54,11 +59,11 @@ int registerScore(Score score) {
     //on charge les scores existants
     n = loadScoreBoard(scores);
     
-    n++;
+    if(scores == NULL) return 0;
     
+    n++;
     //on ajoute le score au tableau
     scores[n] = score;
-    
     //on trie le tout
     qsort(scores, n, sizeof(Score), (compfn) sortByScore);
     

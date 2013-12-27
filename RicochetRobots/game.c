@@ -115,6 +115,15 @@ int startSinglePlayer() {
         //hop, on fait réapparaitre le curseur
         curs_set(1);
         
+        //on enregistre le meilleur score
+        Score bestScore;
+        
+        bestScore.score = state.currentPlayer->victoryCount;
+        strcpy(state.currentPlayer->username, bestScore.username);
+        strcpy(state.gameBoard->name, bestScore.boardName);
+        
+        registerScore(bestScore);
+        
         //un joueur est arrivé sur l'objectif, fin du jeu
         displaySoloGameEnding(&state);
     } else {
@@ -248,6 +257,17 @@ int startMultiPlayer() {
         //fin du jeu
         //on trie les joueurs par score
         qsort(state.players, state.playersCount, sizeof(Player), (compfn) sortPlayersByScore);
+        
+        //on enregistre le meilleur score
+        Score bestScore;
+        
+        bestScore.score = state.players[0].victoryCount;
+        strcpy(state.players[0].username, bestScore.username);
+        strcpy(state.gameBoard->name, bestScore.boardName);
+        
+        registerScore(bestScore);
+        
+        //on affiche l'écran de fin
         displayMultiGameEnding(&state);
     } else {
         refresh();

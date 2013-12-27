@@ -11,6 +11,7 @@
 
 #include "interface.h"
 #include "board.h"
+#include "score.h"
 #include "struct.h"
 
 int start();
