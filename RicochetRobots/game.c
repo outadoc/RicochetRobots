@@ -247,7 +247,7 @@ int startMultiPlayer() {
         
         //fin du jeu
         //on trie les joueurs par score
-        qsort(state.players, state.playersCount, sizeof(Player), (compfn) sortByScore);
+        qsort(state.players, state.playersCount, sizeof(Player), (compfn) sortPlayersByScore);
         displayMultiGameEnding(&state);
     } else {
         refresh();

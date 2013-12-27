@@ -32,6 +32,7 @@ typedef int Direction;  //la direction est un entier
 #define MAX_LVL_PATH_SIZE       300 //taille maximale du chemin d'un fichier niveau
 #define MAX_LVL_NAME_SIZE       30  //taille maximale du nom d'un niveau
 #define MAX_PLAYERS_COUNT       15  //nombre maximal de joueurs
+#define MAX_SAVED_SCORES        20  //nombre maximal de scores sauvegardés
 
 // IDENTIFIANTS DES COULEURS DES ROBOTS //
 /****************************************/
@@ -73,6 +74,9 @@ typedef int Direction;  //la direction est un entier
 #define COL_ON_BOT_BG(win, col)         wattron((win), COLOR_PAIR(getBGColorPairFromRobotColor((col))))
 #define COL_OFF_BOT_BG(win, col)        wattroff((win), COLOR_PAIR(getBGColorPairFromRobotColor((col))))
 
+//un petit typedef pour que le compilateur ne sorte pas un warning au niveau du qsort
+typedef int (*compfn)(const void*, const void*);
+
 // DÉFINITION DES STRUCTURES //
 /****************************************/
 
@@ -89,6 +93,12 @@ typedef struct {
     int goal;
     char username[MAX_USERNAME_SIZE];
 } Player;
+
+typedef struct {
+    int score;
+    char username[MAX_USERNAME_SIZE];
+    char boardName[MAX_LVL_NAME_SIZE];
+} Score;
 
 typedef struct {
     int robotColor;

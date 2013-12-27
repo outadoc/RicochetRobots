@@ -13,9 +13,6 @@
 #include "board.h"
 #include "struct.h"
 
-//un petit typedef pour que le compilateur ne sorte pas un warning au niveau du qsort
-typedef int (*compfn)(const void*, const void*);
-
 int start();
 int handleMainMenu();
 

@@ -283,6 +283,6 @@ int sortByGoal(Player *a, Player *b) {
 // Fonction de tri pour qsort.
 // Trie les joueurs par score croissant.
 //
-int sortByScore(Player *a, Player *b) {
+int sortPlayersByScore(Player *a, Player *b) {
     return (a->victoryCount > b->victoryCount);
 }
