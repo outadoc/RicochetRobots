@@ -1,0 +1,20 @@
+COMPILATION
+===========
+
+Pour compiler Ricochet Robots, vous devez avoir installé :
+
+* gcc, avec support du C99
+* Le paquet libncurses5-dev
+
+Déplacez-vous ensuite dans le répertoire de Ricochet Robots contenant le fichier Makefile, et tapez :
+
+	make clean && make
+
+
+UTILISATION
+===========
+
+Après la compilation, l'exécutable RicochetRobots se trouve dans un dossier build/ à la racine du projet.
+Si vous obtenez une erreur au lancement, vérifiez que votre terminal supporte bien ncurses.
+
+Pour plus d'informations sur l'utilisation de Ricochet Robots, référez-vous au fichier README.
