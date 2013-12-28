@@ -66,17 +66,11 @@ int startSinglePlayer() {
     
     //si askForGameBoard renvoie 0, on est prêts à continuer
     if(askForGameBoard(&board) == 0) {
+        Player players[] = {{.score = 0}};
+        Robot robots[ROBOTS_COUNT];
         
-        Robot robots[ROBOTS_COUNT] = {
-            {.robotColor = ROBOT_RED,   .score = 0, .position = board.robotsPos[ROBOT_RED],     .hasCapturedObjective = false},
-            {.robotColor = ROBOT_GREEN, .score = 0, .position = board.robotsPos[ROBOT_GREEN],   .hasCapturedObjective = false},
-            {.robotColor = ROBOT_BLUE,  .score = 0, .position = board.robotsPos[ROBOT_BLUE],    .hasCapturedObjective = false},
-            {.robotColor = ROBOT_GREY,  .score = 0, .position = board.robotsPos[ROBOT_GREY],    .hasCapturedObjective = false},
-        };
-        
-        Player players[] = {
-            {.score = 0}
-        };
+        //initialisation des robots
+        initRobots(robots, &board);
         
         //on demande le pseudo du joueur
         askForSinglePlayerUsername(players);
@@ -146,17 +140,15 @@ int startMultiPlayer() {
     //si askForGameBoard renvoie 0, on est prêts à continuer
     if(askForGameBoard(&board) == 0) {
         int i;
+        
         int playersCount = askForPlayersCount();
         int usedColors[ROBOTS_COUNT]; //cet array va contenir les couleurs de robots pour lesquelles on a déjà joué
         
         Player players[MAX_PLAYERS_COUNT];
+        Robot robots[ROBOTS_COUNT];
         
-        Robot robots[ROBOTS_COUNT] = {
-            {.robotColor = ROBOT_RED,   .score = 0, .position = board.robotsPos[ROBOT_RED],     .hasCapturedObjective = false},
-            {.robotColor = ROBOT_GREEN, .score = 0, .position = board.robotsPos[ROBOT_GREEN],   .hasCapturedObjective = false},
-            {.robotColor = ROBOT_BLUE,  .score = 0, .position = board.robotsPos[ROBOT_BLUE],    .hasCapturedObjective = false},
-            {.robotColor = ROBOT_GREY,  .score = 0, .position = board.robotsPos[ROBOT_GREY],    .hasCapturedObjective = false},
-        };
+        //initialisation des robots
+        initRobots(robots, &board);
 
         for(i = 0; i < playersCount; i++) {
             players[i].score = 0;

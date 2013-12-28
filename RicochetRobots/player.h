@@ -15,6 +15,8 @@
 #include "struct.h"
 #include "interface.h"
 
+void initRobots(Robot robots[], GameBoard *board);
+
 bool checkForObstacle(GameState *state, Direction direction);
 bool moveCurrentRobot(GameState *state, Direction direction);
 void moveCurrentRobotWhilePossible(GameState *state, Direction direction);

@@ -11,6 +11,27 @@
 #include "player.h"
 
 //
+// Initialise les robots avec leur couleur, leur position, et donne des valeurs par
+// défaut au reste.
+//
+void initRobots(Robot robots[], GameBoard *board) {
+    if(robots == NULL) return;
+    
+    int i;
+    
+    robots[0].robotColor = ROBOT_RED;   //FORCE ROUGE !
+    robots[1].robotColor = ROBOT_GREEN; //FORCE VERTE !
+    robots[2].robotColor = ROBOT_BLUE;  //FORCE BLEUE !
+    robots[3].robotColor = ROBOT_GREY;  //FORCE... bah, grise.
+    
+    for(i = 0; i < ROBOTS_COUNT; i++) {
+        robots[i].score = 0;
+        robots[i].position = board->robotsPos[robots[i].robotColor];
+        robots[i].hasCapturedObjective = false;
+    }
+}
+
+//
 // Vérifie si on peut déplacer le joueur courant dans la direction fournie.
 // Retourne true s'il y a un obstacle, false sinon.
 //
