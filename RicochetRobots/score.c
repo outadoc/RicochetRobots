@@ -15,6 +15,8 @@
 // Insère les scores dans l'array passé en paramètre.
 //
 int loadScoreBoard(Score scores[]) {
+    if(scores == NULL) return 0;
+    
     int i;
     
     char path[MAX_LVL_PATH_SIZE];
@@ -46,6 +48,8 @@ int loadScoreBoard(Score scores[]) {
 // Écrit les scores passés en paramètres sur le disque.
 //
 void saveScoreBoard(Score scores[], int n) {
+    if(scores == NULL || n < 0) scores = NULL; return;
+    
     int i;
     
     char path[MAX_LVL_PATH_SIZE];
