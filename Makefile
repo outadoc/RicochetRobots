@@ -1,5 +1,5 @@
 CC = gcc
-FLAGS = -std=c99 -Wall -c
+FLAGS = -std=c99 -c
 LIB = -lmenu -lncurses
 
 SOURCEDIR = RicochetRobots
