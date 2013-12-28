@@ -3,7 +3,7 @@
 # - IUT Caen Campus 3
 
 # Emplacement des robots et de leur objectif
-# Format : IDENTIFIANT Y X, OBJECTIF Y X
+# Format : ID_ROBOT RobotY RobotX, ObjectifY ObjectifX
 
 # ROBOT ROUGE
 R 0 3, 10 15
