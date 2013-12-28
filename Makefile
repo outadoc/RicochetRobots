@@ -1,5 +1,6 @@
 CC = gcc
 FLAGS = -std=c99 -Wall -c
+LIB = -lmenu -lncurses
 
 SOURCEDIR = RicochetRobots
 BUILDDIR = build
@@ -14,7 +15,7 @@ dir:
 	mkdir -p $(BUILDDIR)
 
 $(BUILDDIR)/$(EXECUTABLE): $(OBJECTS)
-	$(CC) $^ -lncurses -lmenu -o $@
+	$(CC) $^ -o $@ $(LIB)
 
 $(OBJECTS): $(BUILDDIR)/%.o : $(SOURCEDIR)/%.c
 	$(CC) $(FLAGS) $< -o $@
