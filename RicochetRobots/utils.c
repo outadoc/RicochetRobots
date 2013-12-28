@@ -41,7 +41,7 @@ int max_strlen(char **str, int n) {
 //
 // Source : StackOverflow
 //
-int mkpath(char* file_path, mode_t mode) {
+int mkpath(char* file_path, unsigned int mode) {
     assert(file_path && *file_path);
     char* p;
     for (p=strchr(file_path+1, '/'); p; p=strchr(p+1, '/')) {

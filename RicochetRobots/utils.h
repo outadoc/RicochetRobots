@@ -19,7 +19,7 @@
 
 int rand_between(int min, int max);
 int max_strlen(char **str, int n);
-int mkpath(char* file_path, mode_t mode);
+int mkpath(char* file_path, unsigned int mode);
 void getPrefsPath(char path[], char fileName[]);
 
 #endif
