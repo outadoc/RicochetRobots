@@ -22,10 +22,11 @@ G 8 4, 12 7
 
 # Codage :
 # E : vide
-# R : mur à droite
-# L : mur à gauche
-# U : mur en haut
-# B : mur en bas
+# R : mur à droite		V : mur en L en bas et à gauche
+# L : mur à gauche		W : mur en L en haut et à gauche
+# U : mur en haut		X : mur en L en haut et à droite
+# B : mur en bas		Y : mur en L en bas et à droite
+
 
 EEEREEEEEEEREEEE
 EEEEEEEEEEEERUEE
