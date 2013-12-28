@@ -362,8 +362,9 @@ void displayGameBoard(GameState *state) {
             int k;
             bool hasContent = false;
             
+            //cases contenant des robots
             for (k = 0; k < ROBOTS_COUNT; k++) {
-                //on vérifie, pour chaque robot, si ses coordonnées correspondent à celles de la case actuelle
+                //si la case courante contient un robot
                 if(state->robots[k].position.y == i && state->robots[k].position.x == j) {
                     int l;
                     bool hasObjective = false;
@@ -373,13 +374,14 @@ void displayGameBoard(GameState *state) {
                     COL_ON_BOT_BG(boardWin, state->robots[k].robotColor);
                     
                     for (l = 0; l < ROBOTS_COUNT; l++) {
-                        //si on a un objectif ici
+                        //si on a un objectif dans la même case que le robot
                         if(state->gameBoard->objectivesPos[l].y == i && state->gameBoard->objectivesPos[l].x == j) {
                             hasObjective = true;
                             break;
                         }
                     }
                     
+                    //on affiche [X] s'il y a un objectif, et simplement trois espaces s'il y a juste un robot
                     if(hasObjective) {
                         mvwprintw(boardWin, charLine, charCol + 1, "[X]");
                     } else {
@@ -414,26 +416,54 @@ void displayGameBoard(GameState *state) {
                || j == BOARD_SIZE - 1) {
                 mvwaddch(boardWin, charLine, charCol + 4, ACS_VLINE);
             }
-        }
-        
-        for (j = 0; j < BOARD_SIZE; j++) {
-            int charLine = i * 2 + 2;
-            int charCol = j * 4;
+            
+            //affichage des T spéciaux pour relier les traits verticaux aux traits horizontaux
+            if(j < BOARD_SIZE - 1 && (i == 0 || state->gameBoard->obstacles[i-1][j] == CELL_WALL_BOTTOM)
+                && (state->gameBoard->obstacles[i][j+1] == CELL_WALL_LEFT || state->gameBoard->obstacles[i][j] == CELL_WALL_RIGHT)) {
+                mvwaddch(boardWin, charLine - 1, charCol + 4, ACS_TTEE);
+            } else if(j < BOARD_SIZE - 1 && (i == BOARD_SIZE - 1 || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP)
+                && (state->gameBoard->obstacles[i][j+1] == CELL_WALL_LEFT || state->gameBoard->obstacles[i][j] == CELL_WALL_RIGHT)) {
+                mvwaddch(boardWin, charLine + 1, charCol + 4, ACS_BTEE);
+            }
+            
+            charLine = i * 2 + 2;
             
             //on affiche les murs horizontaux, d'une façon analogue aux murs verticaux
             if(i < BOARD_SIZE - 1 &&
                (state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM
-               || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_LEFT
-               || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_RIGHT
-               || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP
-               || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_LEFT
-               || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_RIGHT)) {
-                mvwaddch(boardWin, charLine, charCol + 1, ACS_HLINE);
-                mvwaddch(boardWin, charLine, charCol + 2, ACS_HLINE);
-                mvwaddch(boardWin, charLine, charCol + 3, ACS_HLINE);
-                mvwaddch(boardWin, charLine, charCol + 4, ACS_PLUS);
-            } else if(i < BOARD_SIZE - 1 && j < BOARD_SIZE - 1 && (i != BOARD_SIZE/2-1 || j != BOARD_SIZE/2-1)) {
-                mvwaddch(boardWin, charLine, charCol + 4, ACS_PLUS);
+                || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_LEFT
+                || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_RIGHT
+                || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP
+                || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_LEFT
+                || state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP_RIGHT)) {
+                   mvwaddch(boardWin, charLine, charCol + 1, ACS_HLINE);
+                   mvwaddch(boardWin, charLine, charCol + 2, ACS_HLINE);
+                   mvwaddch(boardWin, charLine, charCol + 3, ACS_HLINE);
+            }
+            
+            //affichage d'un point à chaque intersection de cases
+            if(i < BOARD_SIZE - 1 && j < BOARD_SIZE - 1 && (i != BOARD_SIZE/2-1 || j != BOARD_SIZE/2-1)) {
+                mvwaddch(boardWin, charLine, charCol + 4, ACS_BULLET);
+            }
+            
+            //affichage des coins en L spéciaux entre les traits
+            if(state->gameBoard->obstacles[i][j] == CELL_WALL_TOP_LEFT) {
+                mvwaddch(boardWin, charLine - 2, charCol, ACS_ULCORNER);
+            } else if(state->gameBoard->obstacles[i][j] == CELL_WALL_TOP_RIGHT) {
+                mvwaddch(boardWin, charLine - 2, charCol + 4, ACS_URCORNER);
+            } else if(state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_RIGHT) {
+                mvwaddch(boardWin, charLine, charCol + 4, ACS_LRCORNER);
+            } else if(state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM_LEFT) {
+                mvwaddch(boardWin, charLine, charCol, ACS_LLCORNER);
+            }
+            
+            //affichage des T spéciaux pour relier les traits verticaux aux traits horizontaux
+            if(i < BOARD_SIZE - 1 && (j == 0 || state->gameBoard->obstacles[i][j-1] == CELL_WALL_RIGHT)
+               && (state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM)) {
+                mvwaddch(boardWin, charLine, charCol, ACS_LTEE);
+            } else if(i < BOARD_SIZE - 1 && (j == BOARD_SIZE - 1 || state->gameBoard->obstacles[i][j+1] == CELL_WALL_LEFT)
+                      && (state->gameBoard->obstacles[i+1][j] == CELL_WALL_TOP || state->gameBoard->obstacles[i][j] == CELL_WALL_BOTTOM)) {
+                mvwaddch(boardWin, charLine, charCol + 4, ACS_RTEE);
             }
         }
     }
