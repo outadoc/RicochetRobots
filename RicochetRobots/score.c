@@ -21,13 +21,16 @@ int loadScoreBoard(Score scores[]) {
     
     char path[MAX_LVL_PATH_SIZE];
     FILE* scoreFile = NULL;
-    
-    //on ouvre le fichier ~/.Baptiste Candellier/ricochet-robots/scores.csv
+
     getPrefsPath(path, "scores.csv");
+    
+    //on créé le chemin du fichier, puisque fopen ne le fait pas pour nous
+    mkpath(path, 0755);
+
+    //on ouvre le fichier ~/.outadev/ricochet-robots/scores.csv
     scoreFile = fopen(path, "r");
     
     if(scoreFile == NULL) {
-        scores = NULL;
         return 0;
     }
     
@@ -48,14 +51,14 @@ int loadScoreBoard(Score scores[]) {
 // Écrit les scores passés en paramètres sur le disque.
 //
 void saveScoreBoard(Score scores[], int n) {
-    if(scores == NULL || n < 0) scores = NULL; return;
+    if(scores == NULL || n < 0) return;
     
     int i;
     
     char path[MAX_LVL_PATH_SIZE];
     FILE* scoreFile = NULL;
     
-    //on cherche le fichier ~/.Baptiste Candellier/ricochet-robots/scores.csv
+    //on cherche le fichier ~/.outadev/ricochet-robots/scores.csv
     getPrefsPath(path, "scores.csv");
     
     //on créé le chemin du fichier, puisque fopen ne le fait pas pour nous
@@ -63,7 +66,7 @@ void saveScoreBoard(Score scores[], int n) {
     
     //on l'ouvre en écriture
     scoreFile = fopen(path, "w");
-    
+
     if(scoreFile == NULL) {
         scores = NULL;
         return;
