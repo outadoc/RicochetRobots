@@ -1,5 +1,5 @@
 CC = gcc
-FLAGS = -std=c99 -c
+FLAGS = -std=c99 -D _BSD_SOURCE -c
 LIB = -lmenu -lncurses
 
 SOURCEDIR = RicochetRobots
