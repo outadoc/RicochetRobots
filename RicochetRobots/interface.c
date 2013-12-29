@@ -890,7 +890,7 @@ WINDOW* getMenuWindow(int contentHeight, char title[]) {
     mvwhline(win, 13, 1, ACS_HLINE, winWidth - 1);
     mvwaddch(win, 13, winWidth - 1, ACS_RTEE);
     
-    mvprintw(LINES - 1, COLS - 32, "© 2013-2014 Baptiste Candellier");
+    mvprintw(LINES - 1, COLS - 34, "(c) 2013-2014 Baptiste Candellier");
     
     return win;
 }
