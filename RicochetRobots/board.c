@@ -210,9 +210,6 @@ int loadBoardFromFile(GameBoard *board, char path[]) {
     if(level == NULL) {
         //si le fichier n'a pas pu être chargé
         displayLevelLoadingError(strerror(errno));
-        
-        //on ferme le fichier
-        fclose(level);
         return 1;
     }
     
