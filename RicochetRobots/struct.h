@@ -16,7 +16,8 @@
 // TYPEDEFS PRATIQUES
 /****************************************/
 
-typedef int Direction;  //la direction est un entier
+typedef short int Direction;  //la direction est un entier
+typedef short int Color;
 
 // PROPRIÉTÉS GLOBALES //
 /****************************************/
@@ -110,7 +111,7 @@ typedef struct {
 
 //structure pour décrire un robot
 typedef struct {
-    int robotColor;             //couleur du robot
+    Color robotColor;             //couleur du robot
     Coords position;            //position du robot
     int score;                  //score du robot
     bool hasCapturedObjective;  //indique si le robot a été sur l'objectif
@@ -128,7 +129,7 @@ typedef struct {
 typedef struct {
     int turnCount;          //nombre de tours
     int playersCount;       //nombre de joueurs
-    int robotColorToMove;   //couleur du robot à déplacer (multi)
+    Color robotColorToMove;   //couleur du robot à déplacer (multi)
     
     Player* currentPlayer;  //joueur courant
     Player* players;        //liste des joueurs

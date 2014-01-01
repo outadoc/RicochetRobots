@@ -241,7 +241,7 @@ Direction waitForDirection(GameState *state) {
 //
 // Retourne la chaîne de caractère correspondant à la couleur du robot fournie.
 //
-char* getRobotStringColor(int color) {
+char* getRobotStringColor(Color color) {
     switch (color) {
         case ROBOT_RED:     return "ROUGE";
         case ROBOT_GREEN:   return "VERT";
@@ -254,7 +254,7 @@ char* getRobotStringColor(int color) {
 //
 // Retourne la paire de couleurs ncurses correspondant au robot.
 //
-int getBGColorPairFromRobotColor(int color) {
+int getBGColorPairFromRobotColor(Color color) {
     switch (color) {
         case ROBOT_RED:     return 1;
         case ROBOT_GREEN:   return 2;
@@ -267,7 +267,7 @@ int getBGColorPairFromRobotColor(int color) {
 //
 // Retourne la paire de couleurs ncurses correspondant au robot.
 //
-int getColorPairFromRobotColor(int color) {
+int getColorPairFromRobotColor(Color color) {
     return 10 + getBGColorPairFromRobotColor(color);
 }
 

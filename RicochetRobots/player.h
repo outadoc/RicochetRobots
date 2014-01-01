@@ -27,9 +27,9 @@ Direction waitForDirection(GameState *state);
 bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard);
 bool wereAllRobotsOnTheirObjectives(Robot robots[], GameBoard *gameBoard);
 
-char* getRobotStringColor(int color);
-int getColorPairFromRobotColor(int color);
-int getBGColorPairFromRobotColor(int color);
+char* getRobotStringColor(Color color);
+int getColorPairFromRobotColor(Color color);
+int getBGColorPairFromRobotColor(Color color);
 
 int sortByGoal(Player *a, Player *b);
 int sortPlayersByScore(Player *a, Player *b);

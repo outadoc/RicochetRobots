@@ -140,10 +140,9 @@ int startMultiPlayer() {
     //si askForGameBoard renvoie 0, on est prêts à continuer
     if(askForGameBoard(&board) == 0) {
         int i;
-        
         int playersCount = askForPlayersCount();
-        int usedColors[ROBOTS_COUNT]; //cet array va contenir les couleurs de robots pour lesquelles on a déjà joué
         
+        Color usedColors[ROBOTS_COUNT]; //cet array va contenir les couleurs de robots pour lesquelles on a déjà joué
         Player players[MAX_PLAYERS_COUNT];
         Robot robots[ROBOTS_COUNT];
         
