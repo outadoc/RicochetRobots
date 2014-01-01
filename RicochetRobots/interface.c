@@ -16,19 +16,24 @@
 void displayLogo(WINDOW *win, int width) {
     if(win == NULL || width < 0) return;
     
+    int logoWidth = 52;
+    int startx = (width / 2) - (logoWidth / 2) + 1;
+    
     //on affiche chaque ligne du logo sur la WINDOW spécifiée
     //ça rend pas super dans le code, mais il faut jouer avec les espaces blancs et le décalage à gauche pour affiche correctement
-    displayInCenter(win, 1, 4, width, "____  ______________  ________  ______________");
-    displayInCenter(win, 2, 4, width, "/ __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/");
-    displayInCenter(win, 3, 2, width, "/ /_/ // // /   / / / / /   / /_/ / __/   / /");
-    displayInCenter(win, 4, 1, width, "/ _, _// // /___/ /_/ / /___/ __  / /___  / /");
-    displayInCenter(win, 5, 0, width, "/_/ ||||__||||__||||__||||__|||_|||||||_/ /_/");
-    displayInCenter(win, 6, 3, width, "/ __ \\/ __ \\/ __ )/ __ \\/_  __/ ___/         ");
-    displayInCenter(win, 7, 2, width, "/ /_/ / / / / __  / / / / / /  \\____         ");
-    displayInCenter(win, 8, 1, width, "/ _, _/ /_/ / /_/ / /_/ / / /  ___/ /         ");
-    displayInCenter(win, 9, 0, width, "/_/ |_|\\____/_____/\\____/ /_/  /____/         ");
+    mvwprintw(win, 1, startx, "    ____  ______________  ________  ______________");
+    mvwprintw(win, 2, startx, "   / __ \\/  _/ ____/ __ \\/ ____/ / / / ____/_  __/");
+    mvwprintw(win, 3, startx, "  / /_/ // // /   / / / / /   / /_/ / __/   / /");
+    mvwprintw(win, 4, startx, " / _, _// // /___/ /_/ / /___/ __  / /___  / /");
+    mvwprintw(win, 5, startx, "/_/ ||||__||||__||||__||||__|||_|||||||_/ /_/");
+    mvwprintw(win, 6, startx, "   / __ \\/ __ \\/ __ )/ __ \\/_  __/ ___/");
+    mvwprintw(win, 7, startx, "  / /_/ / / / / __  / / / / / /  \\___");
+    mvwprintw(win, 8, startx, " / _, _/ /_/ / /_/ / /_/ / / /  ___/ /");
+    mvwprintw(win, 9, startx, "/_/ |_|\\____/_____/\\____/ /_/  /____/");
+    
     mvwprintw(win, 9, 55, "v%s", VERSION);
     
+    refresh();
     wrefresh(win);
 }
 
