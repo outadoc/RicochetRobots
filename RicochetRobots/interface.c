@@ -16,8 +16,7 @@
 void displayLogo(WINDOW *win, int width) {
     if(win == NULL || width < 0) return;
     
-    int logoWidth = 52;
-    int startx = (width / 2) - (logoWidth / 2) + 1;
+    int startx = (width / 2) - (LOGO_WIDTH / 2) + 1;
     
     //on affiche chaque ligne du logo sur la WINDOW spécifiée
     //ça rend pas super dans le code, mais il faut jouer avec les espaces blancs et le décalage à gauche pour affiche correctement
@@ -31,7 +30,7 @@ void displayLogo(WINDOW *win, int width) {
     mvwprintw(win, 8, startx, " / _, _/ /_/ / /_/ / /_/ / / /  ___/ /");
     mvwprintw(win, 9, startx, "/_/ |_|\\____/_____/\\____/ /_/  /____/");
     
-    mvwprintw(win, 9, logoWidth, "v%s", VERSION);
+    mvwprintw(win, 9, LOGO_WIDTH, "v%s", VERSION);
     
     refresh();
     wrefresh(win);
@@ -895,7 +894,7 @@ WINDOW* getMenuWindow(int contentHeight, char title[]) {
     mvwhline(win, 13, 1, ACS_HLINE, winWidth - 1);
     mvwaddch(win, 13, winWidth - 1, ACS_RTEE);
     
-    mvprintw(LINES - 1, COLS - 34, "(c) 2013-2014 Baptiste Candellier");
+    mvprintw(LINES - 1, COLS - COPYRIGHT_SIZE, COPYRIGHT);
     
     return win;
 }

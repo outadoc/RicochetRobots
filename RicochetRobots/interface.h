@@ -22,6 +22,9 @@
 //taille de la première colonne
 #define FIRST_COL_WIDTH     (COLS - SECOND_COL_WIDTH)
 
+//largeur du logo
+#define LOGO_WIDTH  52
+
 #include <ctype.h>
 #include <string.h>
 

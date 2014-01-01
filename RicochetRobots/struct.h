@@ -22,7 +22,9 @@ typedef int Direction;  //la direction est un entier
 /****************************************/
 
 //version du jeu
-#define VERSION "0.1b"
+#define VERSION         "0.1b"
+#define COPYRIGHT       "(c) 2013-2014 Baptiste Candellier"
+#define COPYRIGHT_SIZE  34
 
 // TAILLE CONSTANTES //
 /****************************************/
