@@ -31,7 +31,7 @@ void displayLogo(WINDOW *win, int width) {
     mvwprintw(win, 8, startx, " / _, _/ /_/ / /_/ / /_/ / / /  ___/ /");
     mvwprintw(win, 9, startx, "/_/ |_|\\____/_____/\\____/ /_/  /____/");
     
-    mvwprintw(win, 9, 55, "v%s", VERSION);
+    mvwprintw(win, 9, logoWidth, "v%s", VERSION);
     
     refresh();
     wrefresh(win);
