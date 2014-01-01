@@ -111,7 +111,7 @@ typedef struct {
 
 //structure pour décrire un robot
 typedef struct {
-    Color robotColor;             //couleur du robot
+    Color robotColor;           //couleur du robot
     Coords position;            //position du robot
     int score;                  //score du robot
     bool hasCapturedObjective;  //indique si le robot a été sur l'objectif
