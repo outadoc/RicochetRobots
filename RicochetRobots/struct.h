@@ -16,8 +16,11 @@
 // TYPEDEFS PRATIQUES
 /****************************************/
 
-typedef short int Direction;  //la direction est un entier
-typedef short int Color;
+//un petit typedef pour que le compilateur ne sorte pas un warning au niveau du qsort
+typedef int (*compfn)(const void*, const void*);
+
+typedef short int Direction;    //directions de déplacement
+typedef short int Color;        //couleurs des robots
 
 // PROPRIÉTÉS GLOBALES //
 /****************************************/
@@ -25,7 +28,7 @@ typedef short int Color;
 //version du jeu
 #define VERSION         "0.1b"
 #define COPYRIGHT       "(c) 2013-2014 Baptiste Candellier"
-#define COPYRIGHT_SIZE  34
+#define COPYRIGHT_SIZE  34  //taille du string du copyright
 
 // TAILLE CONSTANTES //
 /****************************************/
@@ -42,10 +45,10 @@ typedef short int Color;
 // IDENTIFIANTS DES COULEURS DES ROBOTS //
 /****************************************/
 
-#define ROBOT_RED   0
-#define ROBOT_GREEN 1
-#define ROBOT_BLUE  2
-#define ROBOT_GREY  3
+#define ROBOT_RED   0   //robot rouge
+#define ROBOT_GREEN 1   //robot vert
+#define ROBOT_BLUE  2   //robot bleu
+#define ROBOT_GREY  3   //robot gris
 
 // IDENTIFIANTS DES DIRECTIONS //
 /****************************************/
@@ -81,9 +84,6 @@ typedef short int Color;
 //couleur de fond
 #define COL_ON_BOT_BG(win, col)         wattron((win), COLOR_PAIR(getBGColorPairFromRobotColor((col))))
 #define COL_OFF_BOT_BG(win, col)        wattroff((win), COLOR_PAIR(getBGColorPairFromRobotColor((col))))
-
-//un petit typedef pour que le compilateur ne sorte pas un warning au niveau du qsort
-typedef int (*compfn)(const void*, const void*);
 
 // DÉFINITION DES STRUCTURES //
 /****************************************/
