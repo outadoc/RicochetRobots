@@ -36,6 +36,8 @@
 #include "struct.h"
 #include "utils.h"
 
+void initDisplay();
+
 int displayMainMenu();
 int displayGameBoardSelectionMenu();
 int displayGameBoardList();
