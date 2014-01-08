@@ -17,14 +17,12 @@
 int start() {
     //boucle principale : on en sort avec un return
     while(1) {
-        int choice = 0;
         bool retry = false;
-
-        //on affiche les options du menu principal
-        choice = displayMainMenu();
 
         //tant qu'on n'a pas choisi une option correcte du menu
         do {
+            //on affiche les options du menu principal
+            int choice = displayMainMenu();
             retry = false;
 
             switch (choice) {
@@ -34,13 +32,11 @@ int start() {
                     return 0;
                 case 0:
                     if(startSinglePlayer() != 0) {
-                        choice = displayMainMenu();
                         retry = true;
                     }
                     break;
                 case 1: {
                     if(startMultiPlayer() != 0) {
-                        choice = displayMainMenu();
                         retry = true;
                     }
                     break;
@@ -50,7 +46,6 @@ int start() {
                     break;
                 default:
                     //si le choix est incorrect, on réessaye
-                    choice = displayMainMenu();
                     retry = true;
                     break;
             }
