@@ -592,7 +592,7 @@ void displayCommands() {
     mvwprintw(cmdWin, 1, 2, "Commandes de partie");
     wattroff(cmdWin, A_UNDERLINE);
     
-    mvwprintw(cmdWin, 2, 2, "Q : quitter la partie");
+    mvwprintw(cmdWin, 2, 2, "Echap : quitter la partie");
     mvwprintw(cmdWin, 3, 2, "Flèches : déplacer le robot");
     mvwprintw(cmdWin, 4, 2, "X : déplacer dans une direction aléatoire");
     
