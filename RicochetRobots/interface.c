@@ -707,6 +707,8 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
             case KEY_UP:
                 menu_driver(menu, REQ_UP_ITEM);
                 break;
+            case KEY_ESC_ALT:
+                return -1;
             case 10: { //entrée
                 int choice = item_index(current_item(menu));
                 

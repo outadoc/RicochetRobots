@@ -173,6 +173,9 @@ int askForGameBoard(GameBoard *board) {
             
             do {
                 boardNb = displayGameBoardList();
+                
+                //si on veut revenir
+                if(boardNb == -1) return 1;
             } while(boardNb < 0 || boardNb > BUILTIN_BOARDS_COUNT - 1);
             
             *board = getBuiltInBoardAtIndex(boardNb);
@@ -187,6 +190,7 @@ int askForGameBoard(GameBoard *board) {
             getRandomBoard(board);
             return 0;
         }
+        case -1:
         case 3:
         default:
             return 1;
