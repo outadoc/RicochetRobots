@@ -25,11 +25,10 @@
 //largeur du logo
 #define LOGO_WIDTH  52
 
-#include <ctype.h>
-#include <string.h>
-
 #include <ncurses.h>
 #include <menu.h>
+
+#include <string.h>
 
 #include "game.h"
 #include "player.h"
