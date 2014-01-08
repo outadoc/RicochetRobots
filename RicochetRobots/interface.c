@@ -35,10 +35,13 @@ void initDisplay() {
     init_pair(13, COLOR_BLUE, -1);
     init_pair(14, COLOR_YELLOW, -1);
     
-    //activation des touches fléchées etc.
-    keypad(stdscr, true);
+    keypad(stdscr, true);   //activation des touches fléchées etc.
+    set_tabsize(4);         //taille des tabulations
     
-    set_tabsize(4);
+    if(getenv("ESCDELAY") == NULL) {
+        //délai après l'appui sur echap
+        set_escdelay(25);
+    }
 }
 
 //
