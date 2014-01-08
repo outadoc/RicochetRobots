@@ -9,12 +9,13 @@
 #ifndef RicochetRobots_utils_h
 #define RicochetRobots_utils_h
 
-#include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
 #include <assert.h>
 #include <errno.h>
 #include <sys/stat.h>
-#include <stdlib.h>
 #include <time.h>
 
 int rand_between(int min, int max);
