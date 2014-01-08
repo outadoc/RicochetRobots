@@ -618,6 +618,7 @@ void refreshGameDisplay(GameState *state) {
     if(state == NULL) return;
     
     clear();
+    set_tabsize(4);             //taille des tabulations
     
     displayGameBoard(state);    //affichage du plateau de jeu
     displayGameStatus(state);   //affichage d'infos sur le déroulement du jeu
