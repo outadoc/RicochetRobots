@@ -26,7 +26,7 @@ typedef short int Color;        //couleurs des robots
 /****************************************/
 
 //version du jeu
-#define VERSION         "0.1b"
+#define VERSION         "0.1"
 #define COPYRIGHT       "(c) 2013-2014 Baptiste Candellier"
 #define COPYRIGHT_SIZE  34  //taille du string du copyright
 
