@@ -1,6 +1,9 @@
 # Niveau de test pour Ricochet Robots
-# Baptiste Candellier 2013
+# Baptiste Candellier 2013-2014
 # - IUT Caen Campus 3
+
+# Le niveau est solvable en 4 coups directs et a été conçu pour tester le jeu
+# pendant son développement.
 
 R 0 0, 4 0
 V 0 1, 4 1
