@@ -713,7 +713,6 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
                 //bidouillage pour gérer le redimensionnement du terminal :
                 //on appelle cette fonction de façon récursive pour rafraîchir l'affichage
                 return displayMenu(choices, nbChoices, title, logo);
-                break;
             case KEY_MENU_ENTER: {
                 int choice = item_index(current_item(menu));
                 
@@ -875,6 +874,12 @@ void displayLeaderboard() {
     //boucle pour le menu
     while((c = getch())) {
         switch(c) {
+            case KEY_RESIZE:
+                //bidouillage pour gérer le redimensionnement du terminal :
+                //on appelle cette fonction de façon récursive pour rafraîchir l'affichage
+                wclear(win);
+                clear();
+                return displayLeaderboard();
             case KEY_MENU_ENTER: {
                 unpost_menu(menu);
                 free_menu(menu);
