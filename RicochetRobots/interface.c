@@ -37,11 +37,7 @@ void initDisplay() {
     
     keypad(stdscr, true);   //activation des touches fléchées etc.
     set_tabsize(4);         //taille des tabulations
-    
-    if(getenv("ESCDELAY") == NULL) {
-        //délai après l'appui sur echap
-        set_escdelay(25);
-    }
+    set_escdelay(25);       //délai après l'appui sur echap
 }
 
 //
