@@ -794,8 +794,7 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, i
 // Affiche le tableau des high-scores dans une fenêtre modale.
 //
 void displayLeaderboard() {
-    int i, n;
-    char c;
+    int i, n, c;
     
     const int menuWidth = 10;
     
