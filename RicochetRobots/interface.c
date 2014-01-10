@@ -258,7 +258,7 @@ bool wantsToReplay(WINDOW *win, int top) {
             case KEY_DOWN:
                 menu_driver(menu, REQ_RIGHT_ITEM);
                 break;
-            case 10: { //entrée
+            case KEY_MENU_ENTER: {
                 int choice = item_index(current_item(menu));
                 
                 unpost_menu(menu);
@@ -714,7 +714,7 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
                 //on appelle cette fonction de façon récursive pour rafraîchir l'affichage
                 return displayMenu(choices, nbChoices, title, logo);
                 break;
-            case 10: { //entrée
+            case KEY_MENU_ENTER: {
                 int choice = item_index(current_item(menu));
                 
                 unpost_menu(menu);
@@ -876,7 +876,7 @@ void displayLeaderboard() {
     //boucle pour le menu
     while((c = getch())) {
         switch(c) {
-            case 10: { //entrée
+            case KEY_MENU_ENTER: {
                 unpost_menu(menu);
                 free_menu(menu);
                 

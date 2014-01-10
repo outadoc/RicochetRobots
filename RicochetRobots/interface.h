@@ -9,8 +9,9 @@
 #ifndef RicochetRobots_display_h
 #define RicochetRobots_display_h
 
-//define pour la touche "echap"
-#define KEY_ESC_ALT 27
+//codes des touches qui ne sont pas présentes dans ncurses par défaut
+#define KEY_ESC_ALT     27
+#define KEY_MENU_ENTER  10
 
 //marge haut de la fenêtre avec le logo
 #define WIN_LOGO_TOP_MARGIN 13
