@@ -106,7 +106,7 @@ int registerScore(Score score) {
 
 //
 // Fonction de tri pour qsort.
-// Trie les joueurs par score croissant.
+// Trie les joueurs par score croissant et par plateau croissant.
 //
 int sortByScore(Score *a, Score *b) {
     //on trie en fonction du score

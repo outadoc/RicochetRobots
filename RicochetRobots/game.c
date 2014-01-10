@@ -247,19 +247,7 @@ int startMultiPlayer() {
         //on trie les joueurs par score
         qsort(state.players, state.playersCount, sizeof(Player), (compfn) sortPlayersByScore);
         
-        //faire participer les joueurs du multijoueur au tableau des high-scores est une mauvaise idée:
-        //ils se retrouvent mélangés avec les joueurs solo et les unités ne sont finalement pas les mêmes.
-        //on se passe donc d'eux pour les records.
-        /*
-            //on enregistre le meilleur score
-            Score bestScore;
-            
-            bestScore.score = state.players[0].victoryCount;
-            strcpy(bestScore.username, state.players[0].username);
-            strcpy(bestScore.boardName, state.gameBoard->name);
-            
-            registerScore(bestScore);
-        */
+        //on n'inscrit pas les parties multi dans le fichier des high-scores, il faudrait un système totalement différent.
         
         //on affiche l'écran de fin
         displayMultiGameEnding(&state);

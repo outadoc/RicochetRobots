@@ -172,21 +172,25 @@ int askForGameBoard(GameBoard *board) {
             int boardNb = 0;
             
             do {
+                //on demande le plateau
                 boardNb = displayGameBoardList();
                 
-                //si on veut revenir
+                //si on veut revenir au menu
                 if(boardNb == -1) return 1;
             } while(boardNb < 0 || boardNb > BUILTIN_BOARDS_COUNT - 1);
             
+            //on récupère le plateau à l'indice fourni
             *board = getBuiltInBoardAtIndex(boardNb);
             break;
         }
         case 1: {
+            //on demande le chemin du niveau, et on le charge en mémoire
             char path[MAX_LVL_PATH_SIZE];
             askForLevelPath(path);
             return loadBoardFromFile(board, path);
         }
         case 2: {
+            //on récupère un plateau aléatoire
             getRandomBoard(board);
             return 0;
         }
@@ -220,14 +224,16 @@ int loadBoardFromFile(GameBoard *board, char path[]) {
     char c;
     int i = 0;
     
-    //on vérifie si on n'est pas à la fin du fichier et on recule le curseur comme si de rien n'était
+    //on vérifie si on n'est pas à la fin du fichier
     while((c = getc(level)) != EOF) {
+        //on recule le curseur comme si de rien n'était
         ungetc(c, level);
         
         //on s'attend à trouver 4 lignes pour les coordonnées des 4 robots
         while(i < ROBOTS_COUNT) {
-            //on vérifie si la ligne n'est pas vide ou un commentaire et on recule le curseur comme si de rien n'était
+            //on vérifie si la ligne n'est pas vide ou un commentaire
             if((c = getc(level)) != '#' && c != '\n') {
+                //on recule le curseur comme si de rien n'était
                 ungetc(c, level);
                 
                 char id;
@@ -261,6 +267,7 @@ int loadBoardFromFile(GameBoard *board, char path[]) {
                         //on ferme le fichier
                         fclose(level);
                         
+                        //s'il y a un problème, on affiche un message d'erreur
                         char err[50];
                         sprintf(err, "Caractère coordonnée interdit : %c", id);
                         displayLevelLoadingError(err);
@@ -269,6 +276,7 @@ int loadBoardFromFile(GameBoard *board, char path[]) {
                     }
                 }
                 
+                //on enregistre en mémoire les positions des robots et des objectifs
                 board->robotsPos[tabIndex].x = rbtX;
                 board->robotsPos[tabIndex].y = rbtY;
                 
@@ -475,6 +483,7 @@ void resetMap(GameState *state) {
     int i;
     
     for(i = 0; i < ROBOTS_COUNT; i++) {
+        //remise à zéro des propriétés des robots
         state->robots[i].position.x = state->gameBoard->robotsPos[i].x;
         state->robots[i].position.y = state->gameBoard->robotsPos[i].y;
         
@@ -483,6 +492,7 @@ void resetMap(GameState *state) {
     }
     
     for(i = 0; i < state->playersCount; i++) {
+        //remise à zéro des propriétés des joueurs
         state->players[i].score = 0;
     }
 }

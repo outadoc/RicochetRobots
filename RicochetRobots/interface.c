@@ -14,10 +14,10 @@
 // Initalise ncurses et les paires de couleurs.
 //
 void initDisplay() {
-    //écran
+    //initialisation écran
     initscr();
     
-    //init couleurs
+    //initialisation couleurs
     start_color();
     //utiliser les couleurs par défaut du terminal
     use_default_colors();
@@ -28,8 +28,7 @@ void initDisplay() {
     init_pair(3, COLOR_WHITE, COLOR_BLUE);
     init_pair(4, COLOR_BLACK, COLOR_YELLOW);
     
-    //autres paires de couleurs
-    //case objectif
+    //paires de couleurs pour cases objectif
     init_pair(11, COLOR_RED, -1);
     init_pair(12, COLOR_GREEN, -1);
     init_pair(13, COLOR_BLUE, -1);
@@ -146,8 +145,10 @@ void displaySoloGameEnding(GameState *state) {
     delwin(win);
     
     if(!replay) {
+        //si la personne ne veut pas rejouer, on arrête le jeu et on quitte
         clear();
         endwin();
+        
         exit(EXIT_SUCCESS);
     }
 }
@@ -306,7 +307,7 @@ void askForScoreGoals(GameState *state) {
 
 //
 // Demande le pseudo de chaque joueur, un par un.
-// Retourne le nombre de joueurs
+// Retourne le nombre de joueurs.
 //
 void askForPlayersInfo(Player players[], int playersCount) {
     if(players == NULL || playersCount < 0 || playersCount > MAX_PLAYERS_COUNT) return;
@@ -349,6 +350,8 @@ void displayLevelLoadingError(char message[]) {
     clear();
     printw("Erreur de chargement: %s\n", message);
     refresh();
+    
+    //on fait un getch pour attendre que l'utilisateur appuie sur une touche
     getch();
 }
 
@@ -720,6 +723,7 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
                 case KEY_MENU_ENTER: {
                     int choice = item_index(current_item(menu));
                     
+                    //on libère la mémoire pour le menu, les choix, la fenêtre
                     unpost_menu(menu);
                     free_menu(menu);
                     
@@ -731,6 +735,7 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
                     
                     delwin(menuWin);
                     
+                    //on réactive l'affichage des caractères tapés et du curseur
                     echo();
                     curs_set(1);
                     
@@ -756,17 +761,18 @@ void displayTextPromptMenu(char title[], char fieldTitle[], char result[], int n
     
     do {
         //variables pour l'affichage du menu
-        WINDOW *menuWin = getMenuWindowNoLogo(1, title, yPos, xPos);
-        mvwprintw(menuWin, 4, 2, "%s", fieldTitle);
+        WINDOW *win = getMenuWindowNoLogo(1, title, yPos, xPos);
+        mvwprintw(win, 4, 2, "%s", fieldTitle);
         
-        wrefresh(menuWin);
+        wrefresh(win);
         refresh();
         
-        mvwgetnstr(menuWin, 4, (int) strlen(fieldTitle) + 3, result, n);
+        //on demande un string à l'utilisateur
+        mvwgetnstr(win, 4, (int) strlen(fieldTitle) + 3, result, n);
         
-        wclear(menuWin);
-        wrefresh(menuWin);
-        delwin(menuWin);
+        wclear(win);
+        wrefresh(win);
+        delwin(win);
     } while(strlen(result) < 1 || strpbrk(result, ","));
     //on ne veut pas de virgule, ça peut interférer avec le stockage des meilleurs scores
 }
@@ -780,17 +786,18 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, i
     
     do {
         //variables pour l'affichage du menu
-        WINDOW *menuWin = getMenuWindowNoLogo(1, title, yPos, xPos);
-        mvwprintw(menuWin, 4, 2, "%s", fieldTitle);
+        WINDOW *win = getMenuWindowNoLogo(1, title, yPos, xPos);
+        mvwprintw(win, 4, 2, "%s", fieldTitle);
         
-        wrefresh(menuWin);
+        wrefresh(win);
         refresh();
         
-        mvwscanw(menuWin, 4, (int) strlen(fieldTitle) + 3, "%d", &n);
+        //on affiche un champ pour demander un nombre
+        mvwscanw(win, 4, (int) strlen(fieldTitle) + 3, "%d", &n);
         
-        wclear(menuWin);
-        wrefresh(menuWin);
-        delwin(menuWin);
+        wclear(win);
+        wrefresh(win);
+        delwin(win);
     } while(n < min || n > max);
     
     return n;

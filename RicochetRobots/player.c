@@ -285,7 +285,7 @@ bool isRobotOnObjective(Robot *robot, GameBoard *gameBoard) {
 }
 
 //
-// Retourne vrai si tous les robots sont sur leurs objectifs respectifs.
+// Retourne vrai si tous les robots ont capturé leurs objectifs respectifs.
 //
 bool wereAllRobotsOnTheirObjectives(Robot robots[], GameBoard *gameBoard) {
     if(robots == NULL || gameBoard == NULL) return false;
