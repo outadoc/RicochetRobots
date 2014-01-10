@@ -709,6 +709,11 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
                 break;
             case KEY_ESC_ALT:
                 return -1;
+            case KEY_RESIZE:
+                //bidouillage pour gérer le redimensionnement du terminal :
+                //on appelle cette fonction de façon récursive pour rafraîchir l'affichage
+                return displayMenu(choices, nbChoices, title, logo);
+                break;
             case 10: { //entrée
                 int choice = item_index(current_item(menu));
                 
