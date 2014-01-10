@@ -661,8 +661,6 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
     //largeur du menu = longueur du plus grand des choix possibles
     int menuWidth = max_strlen(choices, nbChoices) + 2;
     
-    clear();
-    
     //on alloue de la mémoire pour initialiser les éléments du menu
     menuItems = (ITEM **) calloc(nbChoices + 1, sizeof(ITEM *));
     
@@ -674,67 +672,76 @@ int displayMenu(char **choices, int nbChoices, char title[], bool logo) {
     //on met un élément nul à la fin du tableau
     menuItems[nbChoices] = (ITEM *) NULL;
     
-    //on initialise le menu
-    menu = new_menu((ITEM **) menuItems);
-    menuWin = (logo) ? getMenuWindow(nbChoices, title) : getMenuWindowNoLogo(nbChoices, title, -1, -1);
-    
-    //on lui précise bien que le menu fait N lignes et 1 colonne
-    set_menu_format(menu, nbChoices, 1);
-    
-    //on associe le menu à une fenêtre et une sous-fenêtre
-    set_menu_win(menu, menuWin);
-    //fenêtre hauteur largeur x y
-    set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, (logo) ? 15 : 4, (winWidth - menuWidth) / 2));
-    
-    menu_opts_off(menu, O_NONCYCLIC);
-    set_menu_mark(menu, "> ");
-    
-    //et hop, on affiche le menu et on rafraîchit.
-	post_menu(menu);
-	
-    refresh();
-    wrefresh(menuWin);
-    
-    curs_set(0);
-    noecho();
-    
-    //boucle pour le menu
-    while((c = getch())) {
-        switch(c) {
-            case KEY_DOWN:
-                menu_driver(menu, REQ_DOWN_ITEM);
-                break;
-            case KEY_UP:
-                menu_driver(menu, REQ_UP_ITEM);
-                break;
-            case KEY_ESC_ALT:
-                return -1;
-            case KEY_RESIZE:
-                //bidouillage pour gérer le redimensionnement du terminal :
-                //on appelle cette fonction de façon récursive pour rafraîchir l'affichage
-                return displayMenu(choices, nbChoices, title, logo);
-            case KEY_MENU_ENTER: {
-                int choice = item_index(current_item(menu));
-                
-                unpost_menu(menu);
-                free_menu(menu);
-                
-                for(i = 0; i < nbChoices; ++i)
-                    free_item(menuItems[i]);
-                
-                clear();
-                refresh();
-                
-                delwin(menuWin);
-                
-                echo();
-                curs_set(1);
-                
-                return choice;
-            }
-        }
+    while(true) {
+        clear();
         
+        menuWin = (logo) ? getMenuWindow(nbChoices, title) : getMenuWindowNoLogo(nbChoices, title, -1, -1);
+        
+        //on initialise le menu
+        menu = new_menu((ITEM **) menuItems);
+        
+        //on lui précise bien que le menu fait N lignes et 1 colonne
+        set_menu_format(menu, nbChoices, 1);
+        
+        menu_opts_off(menu, O_NONCYCLIC);
+        set_menu_mark(menu, "> ");
+        
+        //on associe le menu à une fenêtre et une sous-fenêtre
+        set_menu_win(menu, menuWin);
+        //fenêtre hauteur largeur x y
+        set_menu_sub(menu, derwin(menuWin, nbChoices, menuWidth, (logo) ? 15 : 4, (winWidth - menuWidth) / 2));
+        
+        //et hop, on affiche le menu et on rafraîchit.
+        post_menu(menu);
+        
+        refresh();
         wrefresh(menuWin);
+        
+        curs_set(0);
+        noecho();
+        
+        //boucle pour le menu
+        while((c = getch())) {
+            bool resized = false;
+            
+            switch(c) {
+                case KEY_DOWN:
+                    menu_driver(menu, REQ_DOWN_ITEM);
+                    break;
+                case KEY_UP:
+                    menu_driver(menu, REQ_UP_ITEM);
+                    break;
+                case KEY_ESC_ALT:
+                    return -1;
+                case KEY_RESIZE:
+                    //si on a redimensionné le terminal, on ré-exécute la boucle d'affichage
+                    resized = true;
+                    break;
+                case KEY_MENU_ENTER: {
+                    int choice = item_index(current_item(menu));
+                    
+                    unpost_menu(menu);
+                    free_menu(menu);
+                    
+                    for(i = 0; i < nbChoices; ++i)
+                        free_item(menuItems[i]);
+                    
+                    clear();
+                    refresh();
+                    
+                    delwin(menuWin);
+                    
+                    echo();
+                    curs_set(1);
+                    
+                    return choice;
+                }
+            }
+            
+            if(resized) break;
+            wrefresh(menuWin);
+        }
+
     }
     
     return 0;
@@ -793,16 +800,12 @@ int displayNumberPromptMenu(char title[], char fieldTitle[], int min, int max, i
 // Affiche le tableau des high-scores dans une fenêtre modale.
 //
 void displayLeaderboard() {
-    int i, n, c;
+    int i, c;
     
     const int menuWidth = 10;
     
     const int winHeight = MAX_SAVED_SCORES_COUNT + 6;
     const int winWidth = POPUP_WINDOW_WIDTH + 20;
-    
-    //on centre le menu
-    const int starty = (LINES - winHeight) / 2;
-	const int startx = (COLS - winWidth) / 2;
     
     const int colRank = 2;
     const int colScore = 20;
@@ -814,88 +817,96 @@ void displayLeaderboard() {
     
     Score scores[MAX_SAVED_SCORES_COUNT];
     
-    WINDOW* win = newwin(winHeight, winWidth, starty, startx);
-    box(win, 0, 0);
+    int n = loadScoreBoard(scores);
     
-    n = loadScoreBoard(scores);
-    
-    mvwaddch(win, 2, 0, ACS_LTEE);
-    mvwhline(win, 2, 1, ACS_HLINE, winWidth - 1);
-    mvwaddch(win, 2, winWidth - 1, ACS_RTEE);
-    
-    mvwprintw(win, 1, colRank, "CLASSEMENT");
-    mvwprintw(win, 1, colScore, "SCORE");
-    mvwprintw(win, 1, colName, "PSEUDO");
-    mvwprintw(win, 1, colBoard, "PLATEAU");
-    
-    mvwaddch(win, 0, colScore - 2, ACS_TTEE);
-    mvwvline(win, 1, colScore - 2, ACS_VLINE, winHeight - 2);
-    mvwaddch(win, winHeight - 1, colScore - 2, ACS_BTEE);
-    
-    mvwaddch(win, 0, colName - 2, ACS_TTEE);
-    mvwvline(win, 1, colName - 2, ACS_VLINE, winHeight - 2);
-    mvwaddch(win, winHeight - 1, colName - 2, ACS_BTEE);
-    
-    mvwaddch(win, 0, colBoard - 2, ACS_TTEE);
-    mvwvline(win, 1, colBoard - 2, ACS_VLINE, winHeight - 2);
-    mvwaddch(win, winHeight - 1, colBoard - 2, ACS_BTEE);
-    
-    for(i = 0; i < n; i++) {
-        mvwprintw(win, i + 3, colRank, "#%d", i+1);
-        mvwprintw(win, i + 3, colScore, "%d", scores[i].score);
-        mvwprintw(win, i + 3, colName, "%s", scores[i].username);
-        mvwprintw(win, i + 3, colBoard, "%s", scores[i].boardName);
-    }
-
-    menuItems[0] = new_item("<Retour>", NULL);
-    menuItems[1] = (ITEM *) NULL;
-    
-    //on initialise le menu
-    menu = new_menu((ITEM **) menuItems);
-    
-    //on lui précise bien que le menu fait 1 ligne et 1 colonne
-    set_menu_format(menu, 1, 1);
-    
-    //on associe le menu à une fenêtre et une sous-fenêtre
-    set_menu_win(menu, win);
-    //fenêtre hauteur largeur x y
-    set_menu_sub(menu, derwin(win, 1, menuWidth, winHeight - 2, (winWidth - menuWidth) / 2));
-    set_menu_mark(menu, "");
-    
-    noecho();
-    curs_set(0);
-    
-    //et hop, on affiche le menu et on rafraîchit.
-	post_menu(menu);
-    
-    wrefresh(win);
-    refresh();
-    
-    //boucle pour le menu
-    while((c = getch())) {
-        switch(c) {
-            case KEY_RESIZE:
-                //bidouillage pour gérer le redimensionnement du terminal :
-                //on appelle cette fonction de façon récursive pour rafraîchir l'affichage
-                wclear(win);
-                clear();
-                return displayLeaderboard();
-            case KEY_MENU_ENTER: {
-                unpost_menu(menu);
-                free_menu(menu);
-                
-                for(i = 0; i < 2; ++i)
-                    free_item(menuItems[i]);
-                
-                clear();
-                refresh();
-                
-                delwin(win);
-                
-                curs_set(1);
-                echo();
-                return;
+    while (true) {
+        clear();
+        refresh();
+        
+        WINDOW* win = newwin(winHeight, winWidth, (LINES - winHeight) / 2, (COLS - winWidth) / 2);
+        box(win, 0, 0);
+        
+        mvwaddch(win, 2, 0, ACS_LTEE);
+        mvwhline(win, 2, 1, ACS_HLINE, winWidth - 1);
+        mvwaddch(win, 2, winWidth - 1, ACS_RTEE);
+        
+        mvwprintw(win, 1, colRank, "CLASSEMENT");
+        mvwprintw(win, 1, colScore, "SCORE");
+        mvwprintw(win, 1, colName, "PSEUDO");
+        mvwprintw(win, 1, colBoard, "PLATEAU");
+        
+        mvwaddch(win, 0, colScore - 2, ACS_TTEE);
+        mvwvline(win, 1, colScore - 2, ACS_VLINE, winHeight - 2);
+        mvwaddch(win, winHeight - 1, colScore - 2, ACS_BTEE);
+        
+        mvwaddch(win, 0, colName - 2, ACS_TTEE);
+        mvwvline(win, 1, colName - 2, ACS_VLINE, winHeight - 2);
+        mvwaddch(win, winHeight - 1, colName - 2, ACS_BTEE);
+        
+        mvwaddch(win, 0, colBoard - 2, ACS_TTEE);
+        mvwvline(win, 1, colBoard - 2, ACS_VLINE, winHeight - 2);
+        mvwaddch(win, winHeight - 1, colBoard - 2, ACS_BTEE);
+        
+        for(i = 0; i < n; i++) {
+            mvwprintw(win, i + 3, colRank, "#%d", i+1);
+            mvwprintw(win, i + 3, colScore, "%d", scores[i].score);
+            mvwprintw(win, i + 3, colName, "%s", scores[i].username);
+            mvwprintw(win, i + 3, colBoard, "%s", scores[i].boardName);
+        }
+        
+        menuItems[0] = new_item("<Retour>", NULL);
+        menuItems[1] = (ITEM *) NULL;
+        
+        //on initialise le menu
+        menu = new_menu((ITEM **) menuItems);
+        
+        //on lui précise bien que le menu fait 1 ligne et 1 colonne
+        set_menu_format(menu, 1, 1);
+        
+        //on associe le menu à une fenêtre et une sous-fenêtre
+        set_menu_win(menu, win);
+        //fenêtre hauteur largeur x y
+        set_menu_sub(menu, derwin(win, 1, menuWidth, winHeight - 2, (winWidth - menuWidth) / 2));
+        set_menu_mark(menu, "");
+        
+        noecho();
+        curs_set(0);
+        
+        //et hop, on affiche le menu et on rafraîchit.
+        post_menu(menu);
+        
+        wrefresh(win);
+        refresh();
+        
+        //boucle pour le menu
+        while((c = getch())) {
+            bool resized = false;
+            
+            switch(c) {
+                case KEY_RESIZE:
+                    //si le terminal a été redimensionné, on ré-exécute la boucle d'affichage
+                    resized = true;
+                    break;
+                case KEY_MENU_ENTER: {
+                    unpost_menu(menu);
+                    free_menu(menu);
+                    
+                    for(i = 0; i < 2; ++i)
+                        free_item(menuItems[i]);
+                    
+                    clear();
+                    refresh();
+                    
+                    delwin(win);
+                    
+                    curs_set(1);
+                    echo();
+                    return;
+                }
             }
+            
+            if(resized) break;
+            wrefresh(win);
         }
     }
 }
