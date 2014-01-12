@@ -53,6 +53,8 @@ void displayLeaderboard();
 void displayGameBoard(GameState *state);
 void displayGameStatus(GameState *state);
 void refreshGameDisplay(GameState *state);
+void displayCommands();
+void displayScores(GameState *state);
 
 int askForPlayersCount();
 void askForPlayersInfo(Player players[], int playersCount);
